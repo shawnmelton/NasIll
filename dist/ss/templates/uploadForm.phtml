@@ -1,0 +1,14 @@
+<form name="uploadPhoto" method="post" action="/ss/upload.php" enctype="multipart/form-data">
+    <ol>
+        <li>
+            <label>Browse for your photo:</label>
+            <input type="file" name="photo" required="required">
+        </li>
+        <li>
+            <label>Enter your email:</label>
+            <input type="email" name="email" required="required">
+        </li>
+    </ol>
+    <input type="hidden" name="fns" value="upfm">
+    <button type="submit">Upload</button>
+</form>
