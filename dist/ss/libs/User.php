@@ -20,23 +20,12 @@ class User extends BaseObject {
         return $this->_settings;
     }
 
-    public function getUploadedPhoto() {
-        return $this->uploadedPhoto;
-    }
-
-    public function getUploadedPhotoUrl() {
-        if(preg_match('/\/ss\//', $this->uploadedPhoto)) {
-            return substr($this->uploadedPhoto, strpos($this->uploadedPhoto, '/ss/'));
-        }
-    }
-
     public function load() {
         $result = DB::execute('SELECT * FROM users WHERE user_id = (?)', array('i', $this->id));
         if($obj = $result->fetch_object()) {
-            $this->name = $obj->user_name;
+            $this->firstName = $obj->user_first_name;
+            $this->lastName = $obj->user_last_name;
             $this->email = $obj->user_email;
-            $this->uploadedPhoto = $obj->user_uploaded_photo;
-            $this->albumCover = $obj->user_album_cover;
         }
     }
 
@@ -44,28 +33,25 @@ class User extends BaseObject {
         $this->email = $email;
     }
 
+    public function setFirstName($fName) {
+        $this->firstName = $fName;
+    }
+
     public function setId($id) {
         $this->id = $id;
     }
 
-    public function setName($name) {
-        $this->name = $name;
-    }
-
-    public function setUploadedPhoto($file) {
-        $this->uploadedPhoto = $file;
+    public function setLastName($lName) {
+        $this->lastName = $lName;
     }
 
     public function save() {
         DB::execute('
             UPDATE users SET
-                user_name = (?),
-                user_email = (?),
-                user_uploaded_photo = (?),
-                user_album_cover = (?)
+                user_first_name = (?),
+                user_last_name = (?),
+                user_email = (?)
             WHERE user_id = (?)
-        ', array('ssssi', $this->name, $this->email, 
-            $this->uploadedPhoto, $this->albumCover, $this->id)
-        );
+        ', array('sssi', $this->firstName, $this->lastName, $this->email, $this->id));
     }
 }

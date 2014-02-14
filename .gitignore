@@ -2,7 +2,7 @@ node_modules
 dist/index.html
 dist/css
 dist/js
-dist/img
+dist/ss/uploads/*
 .sass-cache
 tmp
 src/js/templates/jst.js

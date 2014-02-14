@@ -13,8 +13,29 @@ define(['jquery', 'backbone', 'views/home'],
             window.scrollTo(0,0);
         },
 
+        showFacebookPhotos: function() {
+            this.pageLoad('fbPhotos');
+            require(['views/fbPhotos'], function(fbPhotosView) {
+                fbPhotosView.render();
+            });
+        },
+
+        showGallery: function() {
+            this.pageLoad('gallery');
+            require(['views/gallery'], function(galleryView) {
+                galleryView.render();
+            });
+        },
+
         showHome: function() {
             homeView.render();
+        },
+
+        showPhotoEdit: function() {
+            this.pageLoad('photoEdit');
+            require(['views/photoEdit'], function(photoEditView) {
+                photoEditView.render();
+            });
         },
 
         showUploadForm: function() {

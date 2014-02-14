@@ -1,12 +1,20 @@
 <form name="uploadPhoto" method="post" action="/ss/upload.php" enctype="multipart/form-data">
     <ol>
         <li>
-            <label>Browse for your photo:</label>
-            <input type="file" name="photo" required="required">
+            <label>First Name:</label>
+            <input type="text" name="firstName" required="required">
         </li>
         <li>
-            <label>Enter your email:</label>
+            <label>Last Name:</label>
+            <input type="text" name="lastName" required="required">
+        </li>
+        <li>
+            <label>Email Address:</label>
             <input type="email" name="email" required="required">
+        </li>
+        <li>
+            <label>Browse for your photo:</label>
+            <input type="file" name="photo" required="required">
         </li>
     </ol>
     <input type="hidden" name="fns" value="upfm">
