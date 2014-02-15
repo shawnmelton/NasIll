@@ -1,36 +1,52 @@
 define(['jquery', 'backbone', 'templates/jst'], function($, Backbone, tmplts){
     var homeView = Backbone.View.extend({
         el: "#content",
+        rendered: false,
+        section: null,
+
+        events: {
+            'click #hFbLink': 'onFacebookClick',
+            'click #hGalleryLink': 'onGalleryClick',
+            'click #hUploadLink': 'onUploadClick'
+        },
 
         onFacebookClick: function() {
             
         },
 
         onGalleryClick: function() {
-            appRouter.showGallery();
+            var callback = function() {
+                appRouter.showGallery();
+            };
+            this.unload(callback);
         },
 
         onUploadClick: function() {
-            appRouter.showUploadForm();
+            var callback = function() {
+                appRouter.showUploadForm();
+            };
+            this.unload(callback);
         },
 
-        render: function(){
-            this.$el.html(JST['src/js/templates/home.html']());
-            this.setEvents();
+        render: function() {
+            if(!this.rendered) {
+                this.rendered = true;
+                this.$el.append(JST['src/js/templates/home.html']());
+            } else {
+                this.section.fadeIn();
+            }
         },
 
-        setEvents: function() {
-            var _this = this;
-            $(document.getElementById('fbLink')).click(function() {
-                _this.onFacebookClick();
-            });
+        setSection: function() {
+            if(this.section === null) {
+                this.section = $(document.getElementById('home'));
+            }
+        },
 
-            $(document.getElementById('galleryLink')).click(function() {
-                _this.onGalleryClick();
-            });
-
-            $(document.getElementById('uploadLink')).click(function() {
-                _this.onUploadClick();
+        unload: function(callback) {
+            this.setSection();
+            this.section.fadeOut(function() {
+                callback(); 
             });
         }
     });

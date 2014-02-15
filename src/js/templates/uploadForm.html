@@ -1,3 +1,32 @@
-<iframe src="/ss/upload.php" width="800" height="200" id="uploadFrame"></iframe>
-<p><a id="continueLink">Continue</a></p>
-<p><a id="resetLink">Reset</a></p>
+<section id="upload">
+    <form name="uploadPhoto" method="post" action="" id="uploadForm">
+        <div id="errorMsg" class="errors">
+            Please make sure that you have completed all of the required fields below. Typical errors include:
+            <ol>
+                <li>A form field was left blank.</li>
+                <li>The photo you are uploading is too big.</li>
+                <li>The email address you entered is not valid.</li>
+            </ol>
+        </div>
+        <ol>
+            <li>
+                <label for="firstName">First Name:</label>
+                <input type="text" name="firstName" id="firstName" required="required">
+            </li>
+            <li>
+                <label for="lastName">Last Name:</label>
+                <input type="text" name="lastName" id="lastName" required="required">
+            </li>
+            <li>
+                <label for="email">Email Address:</label>
+                <input type="email" name="email" id="email" required="required">
+            </li>
+            <li>
+                <iframe src="/ss/upload.php" width="800" height="100" id="uploadFrame"></iframe>
+            </li>
+        </ol>
+        <input type="hidden" name="fns" value="acct">
+    </form>
+    <p><a id="upResetLink">Reset</a></p>
+    <p><a id="upContinueLink">Continue</a></p>
+</section>

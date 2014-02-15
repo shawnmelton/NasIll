@@ -1,38 +1,32 @@
 define(['jquery', 'backbone', 'templates/jst', 'models/albumCover'], function($, Backbone, tmplts, AlbumCover){
-    var photoEditView = Backbone.View.extend({
+    var reviewView = Backbone.View.extend({
         el: "#content",
         section: null,
         rendered: false,
 
         events: {
-            'click #peContinueLink': 'onContinueClick',
-            'click #peBackLink': 'onBackClick',
+            'click #rContinueLink': 'onContinueClick',
+            'click #rBackLink': 'onBackClick',
         },
 
         onBackClick: function() {
-            var callback;
-            if(/* Logged in with FB */ false) {
-
-            } else {
-                callback = function() {
-                    appRouter.showUploadForm();
-                };
-            }
-
+            var callback = function() {
+                appRouter.showPhotoEdit();
+            };
             this.unload(callback);
         },
 
         onContinueClick: function() {
             var callback = function() {
-                appRouter.showReview();
+                appRouter.showShare();
             };
             this.unload(callback);
         },
 
-         render: function() {
+        render: function() {
             if(!this.rendered) {
                 this.rendered = true;
-                this.$el.append(JST['src/js/templates/photoEdit.html']({
+                this.$el.append(JST['src/js/templates/review.html']({
                     photoUrl: AlbumCover.uploadedPhoto
                 }));
             } else {
@@ -42,7 +36,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover'], function($,
 
         setSection: function() {
             if(this.section === null) {
-                this.section = $(document.getElementById('photoEdit'));
+                this.section = $(document.getElementById('review'));
             }
         },
 
@@ -54,5 +48,5 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover'], function($,
         }
     });
     
-    return new photoEditView();
+    return new reviewView();
 });

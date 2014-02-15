@@ -11,4 +11,9 @@ class API {
     public function request($action) {
         $this->$action();
     }
+
+    public function saveAccountInfo() {
+        $form = new AccountForm();
+        $form->process();
+    }
 }

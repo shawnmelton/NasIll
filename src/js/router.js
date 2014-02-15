@@ -1,5 +1,4 @@
-define(['jquery', 'backbone', 'views/home'], 
-    function($, Backbone, homeView) {
+define(['jquery', 'backbone', 'views/home', 'libs/json2'], function($, Backbone, homeView, jsn2) {
 
     var AppRouter = Backbone.Router.extend({
         initialize: function() {
@@ -9,19 +8,19 @@ define(['jquery', 'backbone', 'views/home'],
         /**
          * Clean up the current page when its requested.
          */
-        pageLoad: function(view) {
+        pageLoad: function() {
             window.scrollTo(0,0);
         },
 
         showFacebookPhotos: function() {
-            this.pageLoad('fbPhotos');
+            this.pageLoad();
             require(['views/fbPhotos'], function(fbPhotosView) {
                 fbPhotosView.render();
             });
         },
 
         showGallery: function() {
-            this.pageLoad('gallery');
+            this.pageLoad();
             require(['views/gallery'], function(galleryView) {
                 galleryView.render();
             });
@@ -32,14 +31,28 @@ define(['jquery', 'backbone', 'views/home'],
         },
 
         showPhotoEdit: function() {
-            this.pageLoad('photoEdit');
+            this.pageLoad();
             require(['views/photoEdit'], function(photoEditView) {
                 photoEditView.render();
             });
         },
 
+        showReview: function() {
+            this.pageLoad();
+            require(['views/review'], function(reviewView) {
+                reviewView.render();
+            });
+        },
+
+        showShare: function() {
+            this.pageLoad();
+            require(['views/share'], function(shareView) {
+                shareView.render();
+            });
+        },
+
         showUploadForm: function() {
-            this.pageLoad('uploadForm');
+            this.pageLoad();
             require(['views/uploadForm'], function(uploadFormView) {
                 uploadFormView.render();
             });

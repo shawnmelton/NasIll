@@ -3,6 +3,10 @@ RewriteBase /
 
 RewriteCond %{SCRIPT_FILENAME} !-f
 RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteRule ^api/(\w+) ss/request.php?action=$1 [L]
+
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteRule . index.html [L]
 
 # Adding default character set.

@@ -1,20 +1,39 @@
 define(['jquery', 'backbone', 'templates/jst'], function($, Backbone, tmplts){
     var galleryView = Backbone.View.extend({
         el: "#content",
+        section: null,
+        rendered: false,
+        
+        events: {
+            'click #gBackLink': 'onBackClick'
+        },
 
         onBackClick: function() {
-            appRouter.showHome();
+            var callback = function() {
+                appRouter.showHome();
+            };
+            this.unload(callback);
         },
 
-        render: function(){
-            this.$el.html(JST['src/js/templates/gallery.html']());
-            this.setEvents();
+        render: function() {
+            if(!this.rendered) {
+                this.rendered = true;
+                this.$el.append(JST['src/js/templates/gallery.html']());
+            } else {
+                this.section.fadeIn();
+            }
         },
 
-        setEvents: function() {
-            var _this = this;
-            $(document.getElementById('backLink')).click(function() {
-                _this.onBackClick();
+        setSection: function() {
+            if(this.section === null) {
+                this.section = $(document.getElementById('gallery'));
+            }
+        },
+
+        unload: function(callback) {
+            this.setSection();
+            this.section.fadeOut(function() {
+                callback(); 
             });
         }
     });
