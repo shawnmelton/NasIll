@@ -47,8 +47,14 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover
             });
         },
 
+        /**
+         * Reset the form so that all the entered values are cleared out.
+         */
         onResetClick: function() {
             document.getElementById('uploadFrame').src = '/ss/upload.php';
+            document.getElementById('firstName').value = '';
+            document.getElementById('lastName').value = '';
+            document.getElementById('email').value = '';
         },
 
         render: function(){
