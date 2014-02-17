@@ -68,7 +68,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover
 
         setErrorEl: function() {
             if(this.errorMsg === null) {
-                this.errorMsg = $(document.getElementById('errorMsg'));
+                this.errorMsg = $(document.getElementById('upErrorMsg'));
             }
         },
 

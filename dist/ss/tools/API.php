@@ -4,8 +4,9 @@ class API {
         /* Do nothing.  Let code fall through. */
     }
 
-    public function getCurrentUser() {
-        JSON::out(CurrentUser::get()->getInfo());
+    public function generateAlbumArt() {
+        $form = new PhotoEditForm();
+        $form->process();
     }
 
     public function request($action) {

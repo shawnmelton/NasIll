@@ -4,9 +4,15 @@
     <div>
         <img src="<%= photoUrl %>" alt="Uploaded Photo">
     </div>
-    <div>
-        <label for=""></label>: &nbsp; <input type="text" name="">
-    </div>
+    <form name="photoEditForm" method="post" action="" id="photoEditForm">
+        <div id="peErrorMsg" class="errors">Please make sure that you have proper complete the form field below.</div>
+        <div>
+            <label for="tagText">Name</label>: &nbsp; <input type="text" name="tagText" id="tagText">
+            <input type="hidden" name="zoom" id="zoom" value="0">
+            <input type="hidden" name="angle" id="angle" value="0">
+            <input type="hidden" name="fns" value="pEdt">
+        </div>
+    </form>
     <p><a id="peBackLink">Back</a></p>
     <p><a id="peContinueLink">Continue</a></p>
 </section>
