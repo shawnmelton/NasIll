@@ -2,7 +2,10 @@
     <h1>Edit Your Photo Below</h1>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec bibendum elit nec turpis faucibus, quis imperdiet quam bibendum.</p>
     <div>
-        <img src="<%= photoUrl %>" alt="Uploaded Photo">
+        <img src="<%= photoUrl %>" alt="Uploaded Photo" style="max-height: 200px;">
+    </div>
+    <div id="peErrorMsg" class="errors">
+        There was an error generating your album art.  Please contact our technical support.
     </div>
     <form name="photoEditForm" method="post" action="" id="photoEditForm">
         <div id="peErrorMsg" class="errors">Please make sure that you have proper complete the form field below.</div>

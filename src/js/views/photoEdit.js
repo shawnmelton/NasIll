@@ -41,6 +41,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover'], function($,
                 var r = JSON.parse(rText);
                 if(r.response && r.response.submission) {
                     if(r.response.submission === 'success') {
+                        AlbumCover.artPhoto = r.response.album;
                         _this.goToReview();
                     } else {
                         _this.setErrorEl();

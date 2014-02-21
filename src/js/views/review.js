@@ -27,7 +27,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover'], function($,
             if(!this.rendered) {
                 this.rendered = true;
                 this.$el.append(JST['src/js/templates/review.html']({
-                    photoUrl: AlbumCover.uploadedPhoto
+                    photoUrl: AlbumCover.artPhoto
                 }));
             } else {
                 this.section.fadeIn();

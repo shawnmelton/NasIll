@@ -27,14 +27,6 @@ class UploadForm extends BaseObject {
 
     protected function save() {
         $fileName = $this->storeFile();
-
-        // Update the user's account.
-        /*$user = CurrentUser::get();
-        $user->setFirstName($_POST['firstName']);
-        $user->setLastName($_POST['lastName']);
-        $user->setEmail($_POST['email']);
-        $user->save();*/
-
         $album = CurrentAlbumCover::get();
         $album->setUploadedPhoto($fileName);
         $album->save();
@@ -63,19 +55,11 @@ class UploadForm extends BaseObject {
     private function showUpload() {
         $tmpl = new Template();
         $tmpl->fileName = CurrentAlbumCover::get()->getUploadedPhotoUrl();
-        /*$tmpl->userName = $_POST['firstName'] .' '. $_POST['lastName'];
-        $tmpl->email = $_POST['email'];*/
         $tmpl->content = $tmpl->render('uploaded');
         $tmpl->title = 'Uploaded';
         echo $tmpl->render('layout');
     }
 
-    /*
-        isset($_POST['email']) && isset($_POST['firstName']) 
-            && isset($_POST['lastName']) && $_POST['firstName'] != '' && $_POST['lastName'] != '' &&
-            preg_match('/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/', $_POST['email']) &&
-            
-     */
     private function submissionIsValid() {
         return (isset($_FILES['photo']) && $this->photoIsValid());
     }

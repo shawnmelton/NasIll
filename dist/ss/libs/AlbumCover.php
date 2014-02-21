@@ -59,6 +59,10 @@ class AlbumCover extends BaseObject {
         ', array('ssi', $this->uploadedPhoto, $this->artPhoto, $this->id));
     }
 
+    public function setArtPhoto($photo) {
+        return $this->artPhoto = $photo;
+    }
+
     public function setId($id) {
         $this->id = $id;
     }
