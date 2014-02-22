@@ -1,0 +1,13 @@
+#uploadContainer {
+    position: relative;
+    height: 300px;
+    width: 400px;
+    margin: 15px auto;
+    border: 5px solid #ccc;
+
+    >img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+    }
+}

@@ -1,8 +1,12 @@
 <section id="photoEdit">
     <h1>Edit Your Photo Below</h1>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec bibendum elit nec turpis faucibus, quis imperdiet quam bibendum.</p>
+    <div id="uploadContainer">
+        <img src="<%= photoUrl %>" alt="Uploaded Photo" id="peUploadedPhoto">
+    </div>
     <div>
-        <img src="<%= photoUrl %>" alt="Uploaded Photo" style="max-height: 200px;">
+        <div id="zoomSlider" style="margin: 15px 75px;"></div>
+        <div id="angleSlider" style="margin: 15px 75px;"></div>
     </div>
     <div id="peErrorMsg" class="errors">
         There was an error generating your album art.  Please contact our technical support.

@@ -1,8 +1,10 @@
-define(['jquery', 'backbone', 'templates/jst', 'models/albumCover'], function($, Backbone, tmplts, AlbumCover){
+define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'libs/jquery-ui-slider', 'libs/imgRotate'], 
+    function($, Backbone, tmplts, AlbumCover, jqui, ir){
     var photoEditView = Backbone.View.extend({
         el: "#content",
         errorMsg: null,
         form: null,
+        image: null,
         section: null,
         rendered: false,
 
@@ -17,6 +19,38 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover'], function($,
                 appRouter.showReview();
             };
             this.unload(callback);
+        },
+
+        initSliders: function() {
+            var _this = this;
+            var zoomEl = document.getElementById('zoom');
+            $(document.getElementById('zoomSlider')).slider({
+                max: 10,
+                min: -10,
+                step: 1,
+                slide: function(event, ui) {
+                    var value = ui.value;
+                    if(ui.value < 0) { 
+                        value = (1 / (ui.value * -1));
+                    } else if(ui.value === 0) {
+                        value = 1;
+                    }
+
+                    zoom.value = value;
+                    _this.setImageZoom(value);
+                }
+            });
+
+            var angleEl = document.getElementById('angle');
+            $(document.getElementById('angleSlider')).slider({
+                max: 180,
+                min: -180,
+                step: 10,
+                slide: function(event, ui) {
+                    angleEl.value = ui.value;
+                    _this.setImageAngle(ui.value);
+                }
+            });
         },
 
         onBackClick: function() {
@@ -57,6 +91,9 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover'], function($,
                 this.$el.append(JST['src/js/templates/photoEdit.html']({
                     photoUrl: AlbumCover.uploadedPhoto
                 }));
+
+                this.initSliders();
+                this.setImageEl();
             } else {
                 this.section.fadeIn();
             }
@@ -72,6 +109,25 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover'], function($,
             if(this.form === null) {
                 this.form = $(document.getElementById('photoEditForm'));
             }
+        },
+
+        setImageAngle: function(angle) {
+            $(this.image).rotate(angle);
+        },
+
+        setImageEl: function() {
+            if(this.image === null) {
+                this.image = document.getElementById('peUploadedPhoto');
+                this.image.style.width = AlbumCover.uploadedPhotoWidth;
+                this.image.style.marginLeft = '-'+ (AlbumCover.uploadedPhotoWidth / 2) +'px';
+                this.image.style.marginTop = '-'+ (this.image.clientHeight / 2) +'px';
+            }
+        },
+
+        setImageZoom: function(zoom) {
+            console.log(this.image.style.width);
+            console.log(this.image.style.width.replace('px', ''));
+            this.image.style.width = (parseInt(this.image.style.width.replace('px', '')) * zoom) +'px';
         },
 
         setSection: function() {

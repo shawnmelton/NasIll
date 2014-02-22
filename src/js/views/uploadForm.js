@@ -38,6 +38,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover
                         User.email = $(document.getElementById('email')).val();
 
                         AlbumCover.uploadedPhoto = r.response.photo;
+                        AlbumCover.uploadedPhotoWidth = r.response.width;
                         _this.goToPhotoEdit();
                     } else {
                         _this.setErrorEl();

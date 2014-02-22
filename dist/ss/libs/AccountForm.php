@@ -11,9 +11,12 @@ class AccountForm extends BaseObject {
 
                 // Make sure that we have a file upload as well before we show success.
                 if(CurrentAlbumCover::get()->getUploadedPhoto() !== '') {
+                    $img = new Image(CurrentAlbumCover::get()->getUploadedPhoto());
+
                     JSON::out(array(
                         'submission' => 'success',
-                        'photo' => CurrentAlbumCover::get()->getUploadedPhotoUrl()
+                        'photo' => CurrentAlbumCover::get()->getUploadedPhotoUrl(),
+                        'width' => $img->getWidth()
                     ));
                 }
             }
