@@ -26,7 +26,7 @@ class PhotoEditForm extends BaseObject {
 
     private function submissionIsValid() {
         return (isset($_POST['tagText']) && $_POST['tagText'] != '' && 
-            isset($_POST['zoom']) && preg_match('/^-?\d+$/', $_POST['zoom']) &&
-            isset($_POST['angle']) && preg_match('/^\d+\.?\d+?$/', $_POST['angle']));
+            isset($_POST['angle']) && preg_match('/^-?\d+$/', $_POST['angle']) &&
+            isset($_POST['zoom']) && preg_match('/^\d+\.?\d+?$/', $_POST['zoom']));
     }
 }
