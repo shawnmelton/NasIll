@@ -7,6 +7,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'libs/jquery
         image: null,
         section: null,
         rendered: false,
+        originalImgWidth: 0,
 
         events: {
             'click #peContinueLink': 'onContinueClick',
@@ -118,16 +119,16 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'libs/jquery
         setImageEl: function() {
             if(this.image === null) {
                 this.image = document.getElementById('peUploadedPhoto');
-                this.image.style.width = AlbumCover.uploadedPhotoWidth;
-                this.image.style.marginLeft = '-'+ (AlbumCover.uploadedPhotoWidth / 2) +'px';
-                this.image.style.marginTop = '-'+ (this.image.clientHeight / 2) +'px';
+                this.originalImgWidth = AlbumCover.uploadedPhotoWidth;
+                this.setImageZoom(1);
             }
         },
 
         setImageZoom: function(zoom) {
-            console.log(this.image.style.width);
-            console.log(this.image.style.width.replace('px', ''));
-            this.image.style.width = (parseInt(this.image.style.width.replace('px', '')) * zoom) +'px';
+            var imgWidth = (parseInt(this.originalImgWidth) * zoom);
+            this.image.style.width = imgWidth +'px';
+            this.image.style.marginLeft = '-'+ (imgWidth / 2) +'px';
+            this.image.style.marginTop = '-'+ (this.image.clientHeight / 2) +'px';
         },
 
         setSection: function() {
