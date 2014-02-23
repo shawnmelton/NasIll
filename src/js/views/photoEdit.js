@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'libs/jquery-ui-slider', 'libs/imgRotate'], 
-    function($, Backbone, tmplts, AlbumCover, jqui, ir){
+define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'libs/jquery-ui-slider', 'libs/imgRotate', 'tools/random'], 
+    function($, Backbone, tmplts, AlbumCover, jqui, ir, Random){
     var photoEditView = Backbone.View.extend({
         el: "#content",
         errorMsg: null,
@@ -72,7 +72,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'libs/jquery
             this.setFormEl();
 
             var _this = this;
-            $.post('/api/generateAlbumArt', this.form.serialize(), function(rText) {
+            $.post('/api/generateAlbumArt?r='+ Random.get(), this.form.serialize(), function(rText) {
                 var r = JSON.parse(rText);
                 if(r.response && r.response.submission) {
                     if(r.response.submission === 'success') {
