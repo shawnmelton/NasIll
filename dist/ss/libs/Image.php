@@ -11,16 +11,20 @@ class Image {
 
         $startingX = 0;
         if(imagesx($this->resource) > $newWidth) {
-            $startingX = ((imagesx($this->resource) - $newWidth) / 2);
+            $startingX = floor((imagesx($this->resource) - $newWidth) / 2.5);
         }
 
         $startingY = 0;
         if(imagesy($this->resource) > $newHeight) {
-            $startingY = ((imagesy($this->resource) - $newHeight) / 2);
+            $startingY = floor((imagesy($this->resource) - $newHeight) / 2.5);
         }
 
-        imagecopyresampled($newImg, $this->resource, 0, 0, $startingX, $startingY, $newWidth, $newHeight, imagesx($this->resource), imagesy($this->resource));
+        imagecopyresampled($newImg, $this->resource, 0, 0, $startingX, $startingY, $newWidth, $newHeight, ($startingX + $newWidth), ($startingY + $newHeight));
         $this->resource = $newImg;
+
+        /*header('Content-Type: image/jpeg');
+        imagejpeg($this->resource);
+        exit;*/
     }
 
     private function getColor($colorArr) {
@@ -50,12 +54,17 @@ class Image {
             imagealphablending($png, false);
             imagesavealpha($png, true);
 
+            $xPos = 0;
+            $yPos = 0;
             if((imagesx($png) < imagesx($this->resource)) || (imagesy($png) < imagesy($this->resource))) {
                 $this->crop(imagesx($png), imagesy($png));
+            } else {
+                $xPos = ((imagesx($png) - imagesx($this->resource)) / 2);
+                $yPos = ((imagesy($png) - imagesy($this->resource)) / 2);
             }
 
             $newImg = imagecreatetruecolor(imagesx($png), imagesy($png));
-            imagecopy($newImg, $this->resource, ((imagesx($png) - imagesx($this->resource)) / 2), ((imagesy($png) - imagesy($this->resource)) / 2), 0, 0, imagesx($png), imagesy($png));
+            imagecopy($newImg, $this->resource, $xPos, $yPos, 0, 0, imagesx($png), imagesy($png));
             $this->resource = $newImg;
 
             imagecopy($this->resource, $png, 0, 0, 0, 0, imagesx($png), imagesy($png));
