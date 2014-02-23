@@ -6,6 +6,23 @@ class Image {
         $this->resource = imagecreatefromjpeg($file);
     }
 
+    private function crop($newWidth, $newHeight) {
+        $newImg = imagecreatetruecolor($newWidth, $newHeight);
+
+        $startingX = 0;
+        if(imagesx($this->resource) > $newWidth) {
+            $startingX = ((imagesx($this->resource) - $newWidth) / 2);
+        }
+
+        $startingY = 0;
+        if(imagesy($this->resource) > $newHeight) {
+            $startingY = ((imagesy($this->resource) - $newHeight) / 2);
+        }
+
+        imagecopyresampled($newImg, $this->resource, 0, 0, $startingX, $startingY, $newWidth, $newHeight, imagesx($this->resource), imagesy($this->resource));
+        $this->resource = $newImg;
+    }
+
     private function getColor($colorArr) {
         return imagecolorallocate($this->resource, $colorArr[0], $colorArr[1], $colorArr[2]);
     }
@@ -30,9 +47,17 @@ class Image {
     public function overlayImage($pngFile) {
         if($this->resource) {
             $png = imagecreatefrompng($pngFile);
-            $this->resize(imagesx($png), imagesy($png));
             imagealphablending($png, false);
             imagesavealpha($png, true);
+
+            if((imagesx($png) < imagesx($this->resource)) || (imagesy($png) < imagesy($this->resource))) {
+                $this->crop(imagesx($png), imagesy($png));
+            }
+
+            $newImg = imagecreatetruecolor(imagesx($png), imagesy($png));
+            imagecopy($newImg, $this->resource, ((imagesx($png) - imagesx($this->resource)) / 2), ((imagesy($png) - imagesy($this->resource)) / 2), 0, 0, imagesx($png), imagesy($png));
+            $this->resource = $newImg;
+
             imagecopy($this->resource, $png, 0, 0, 0, 0, imagesx($png), imagesy($png));
         }
     }
@@ -47,7 +72,9 @@ class Image {
         return false;
     }
 
-    private function resize($newWidth, $newHeight) {
+    public function resize($zoom) {
+        $newWidth = (imagesx($this->resource) * $zoom);
+        $newHeight = (imagesy($this->resource) * $zoom);
         $newImg = imagecreatetruecolor($newWidth, $newHeight);
         imagecopyresampled($newImg, $this->resource, 0, 0, 0, 0, $newWidth, $newHeight, imagesx($this->resource), imagesy($this->resource));
         $this->resource = $newImg;

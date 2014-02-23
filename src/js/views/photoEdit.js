@@ -78,6 +78,9 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'libs/jquery
                     if(r.response.submission === 'success') {
                         AlbumCover.artPhoto = r.response.album;
                         _this.goToReview();
+
+                        _this.setErrorEl();
+                        _this.errorMsg.fadeOut();
                     } else {
                         _this.setErrorEl();
                         _this.errorMsg.fadeIn();
@@ -96,6 +99,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'libs/jquery
                 this.initSliders();
                 this.setImageEl();
             } else {
+                document.getElementById('peUploadedPhoto').src = AlbumCover.uploadedPhoto;
                 this.section.fadeIn();
             }
         },

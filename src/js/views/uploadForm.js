@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover'],
-    function($, Backbone, tmplts, User, AlbumCover){
+define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover', 'tools/random'],
+    function($, Backbone, tmplts, User, AlbumCover, Random){
     var uploadFormView = Backbone.View.extend({
         el: "#content",
         form: null,
@@ -29,7 +29,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover
             this.setFormEl();
 
             var _this = this;
-            $.post('/api/saveAccountInfo', this.form.serialize(), function(rText) {
+            $.post('/api/saveAccountInfo?r='+ Random.get(), this.form.serialize(), function(rText) {
                 var r = JSON.parse(rText);
                 if(r.response && r.response.submission) {
                     if(r.response.submission === 'success') {
@@ -40,6 +40,9 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover
                         AlbumCover.uploadedPhoto = r.response.photo;
                         AlbumCover.uploadedPhotoWidth = r.response.width;
                         _this.goToPhotoEdit();
+
+                        _this.setErrorEl();
+                        _this.errorMsg.fadeOut();
                     } else {
                         _this.setErrorEl();
                         _this.errorMsg.fadeIn();

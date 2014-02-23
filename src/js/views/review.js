@@ -30,6 +30,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover'], function($,
                     photoUrl: AlbumCover.artPhoto
                 }));
             } else {
+                document.getElementById('rUploadedPhoto').src = AlbumCover.artPhoto;
                 this.section.fadeIn();
             }
         },
