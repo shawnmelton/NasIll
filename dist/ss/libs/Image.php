@@ -91,7 +91,7 @@ class Image {
 
     public function rotate($angle) {
         if($angle != 0) {
-            $this->resource = imagerotate($this->resource, $angle, imagecolorat($this->resource, 0, 0));
+            $this->resource = imagerotate($this->resource, $angle, 0);
         }
     }
 

@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'templates/jst'], function($, Backbone, tmplts){
+define(['jquery', 'backbone', 'templates/jst', 'models/user'], function($, Backbone, tmplts, User){
     var homeView = Backbone.View.extend({
         el: "#content",
         rendered: false,
@@ -11,7 +11,18 @@ define(['jquery', 'backbone', 'templates/jst'], function($, Backbone, tmplts){
         },
 
         onFacebookClick: function() {
-            
+            FB.login(function() {
+                FB.api('/me', function(response) {
+                    User.firstName = response.first_name;
+                    User.lastName = response.last_name;
+                    User.email = response.email || '';
+
+                    // Allow the user to select photos from their profile.
+                    appRouter.showFacebookPhotos();
+                });
+            }, {
+                scope: 'email,user_photos'
+            });
         },
 
         onGalleryClick: function() {

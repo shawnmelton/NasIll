@@ -7,8 +7,8 @@ class PhotoEditForm extends BaseObject {
     private function generateAlbumArt() {
         $img = new Image(CurrentAlbumCover::get()->getUploadedPhoto());
         $img->resize($_POST['zoom']);
-        $img->overlayImage(dirname(dirname(dirname(__FILE__))) .'/img/artOverlayLayer.png');
         $img->rotate(($_POST['angle'] * -1));
+        $img->overlayImage(dirname(dirname(dirname(__FILE__))) .'/img/artOverlayLayer.png');
         return $img->overlayText($_POST['tagText'], 40, array(255, 15, 15));
     }
 
