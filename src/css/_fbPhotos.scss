@@ -1,0 +1,42 @@
+#photosContainer {
+    min-height: 350px;
+    padding: 25px;
+    margin: 15px 25px;
+    background: #222;
+
+    >span {
+        display: block;
+        font-style: italic;
+        font-size: 200%;
+        line-height: 400px;
+        text-align: center;
+    }
+
+    &:after {
+        content: " ";
+        display: table;
+        clear: both;
+    }
+
+    >a {
+        display: block;
+        cursor: pointer;
+        outline: none;
+        margin: 0 25px 25px 0;
+        float: left;
+        border: 2px solid #222;
+
+        >img {
+            border: 0;
+            height: 150px;
+        }
+
+        &:hover {
+            border-color: #555;
+        }
+
+        &:active {
+            border-color: #def;
+        }
+    }
+}

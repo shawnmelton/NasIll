@@ -1,0 +1,25 @@
+<section id="eml">
+    <h1>Enter your Email</h1>
+    <p>Please fill out the form below ...</p>
+    <form name="emailForm" method="post" action="" id="emailForm">
+        <div id="emErrorMsg" class="errors">
+            Please make sure that you have completed all of the required fields below. This form requires a valid email address as well.
+        </div>
+        <ol>
+            <li id="firstNameWrapper">
+                <label for="firstName">First Name:</label>
+                <input type="text" name="firstName" id="firstName" required="required">
+            </li>
+            <li id="lastNameWrapper">
+                <label for="lastName">Last Name:</label>
+                <input type="text" name="lastName" id="lastName" required="required">
+            </li>
+            <li id="emailWrapper">
+                <label for="email">Email Address:</label>
+                <input type="email" name="email" id="email" required="required">
+            </li>
+        </ol>
+        <input type="hidden" name="fns" value="acct">
+    </form>
+    <p class="button"><a id="emContinueLink">Continue</a></p>
+</section>

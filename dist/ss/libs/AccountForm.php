@@ -8,17 +8,7 @@ class AccountForm extends BaseObject {
         if($this->isSubmitted()) {
             if($this->submissionIsValid()) {
                 $this->save();
-
-                // Make sure that we have a file upload as well before we show success.
-                if(CurrentAlbumCover::get()->getUploadedPhoto() !== '') {
-                    $img = new Image(CurrentAlbumCover::get()->getUploadedPhoto());
-
-                    JSON::out(array(
-                        'submission' => 'success',
-                        'photo' => CurrentAlbumCover::get()->getUploadedPhotoUrl(),
-                        'width' => $img->getWidth()
-                    ));
-                }
+                JSON::out(array('submission' => 'success'));
             }
 
             JSON::out(array('submission' => 'error'));
@@ -31,6 +21,16 @@ class AccountForm extends BaseObject {
         $user->setLastName($_POST['lastName']);
         $user->setEmail($_POST['email']);
         $user->save();
+
+        // If a photo is uploaded using Facebook, then download it to our server.
+        if(isset($_POST['photo']) && $_POST['photo'] != '') {
+            $this->savePhoto();
+        }
+    }
+
+    private function savePhoto() {
+        CurrentAlbumCover::get()->setUploadedPhoto(ImageDownload::fromUrl($_POST['photo']));
+        CurrentAlbumCover::get()->save();
     }
 
     private function submissionIsValid() {

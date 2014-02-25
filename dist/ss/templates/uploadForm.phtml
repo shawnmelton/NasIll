@@ -1,6 +1,11 @@
 <form name="uploadPhoto" method="post" action="/ss/upload.php" enctype="multipart/form-data">
     <label>Browse for your photo:</label>
-    <input type="file" name="photo" required="required">
+    <input type="file" name="photo" required="required" id="uploadField">
     <input type="hidden" name="fns" value="upfm">
-    <button type="submit">Upload</button>
+    <button type="submit" id="uploadButton" onclick="getPhoto();">Upload Photo</button>
 </form>
+<script type="text/javascript">
+    function getPhoto() {
+        document.getElementById('uploadField').click();
+    }
+</script>

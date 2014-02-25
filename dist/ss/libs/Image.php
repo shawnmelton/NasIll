@@ -82,6 +82,10 @@ class Image {
     }
 
     public function resize($zoom) {
+        if($zoom == 0) {
+            return false;
+        }
+
         $newWidth = (imagesx($this->resource) * $zoom);
         $newHeight = (imagesy($this->resource) * $zoom);
         $newImg = imagecreatetruecolor($newWidth, $newHeight);

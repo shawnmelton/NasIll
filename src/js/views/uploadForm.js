@@ -2,16 +2,12 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover
     function($, Backbone, tmplts, User, AlbumCover, Random){
     var uploadFormView = Backbone.View.extend({
         el: "#content",
-        form: null,
         errorMsg: null,
-        accountId: null,
         section: null,
         rendered: false,
 
         events: {
-            'click #upContinueLink': 'onContinueClick',
-            'click #upResetLink': 'onResetClick',
-            'submit #uploadForm': 'onContinueClick'
+            'click #upContinueLink': 'onContinueClick'
         },
 
         /**
@@ -26,39 +22,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover
 
         onContinueClick: function(ev) {
             ev.preventDefault();
-            this.setFormEl();
-
-            var _this = this;
-            $.post('/api/saveAccountInfo?r='+ Random.get(), this.form.serialize(), function(rText) {
-                var r = JSON.parse(rText);
-                if(r.response && r.response.submission) {
-                    if(r.response.submission === 'success') {
-                        User.firstName = $(document.getElementById('firstName')).val();
-                        User.lastName = $(document.getElementById('lastName')).val();
-                        User.email = $(document.getElementById('email')).val();
-
-                        AlbumCover.uploadedPhoto = r.response.photo;
-                        AlbumCover.uploadedPhotoWidth = r.response.width;
-                        _this.goToPhotoEdit();
-
-                        _this.setErrorEl();
-                        _this.errorMsg.fadeOut();
-                    } else {
-                        _this.setErrorEl();
-                        _this.errorMsg.fadeIn();
-                    }
-                }
-            });
-        },
-
-        /**
-         * Reset the form so that all the entered values are cleared out.
-         */
-        onResetClick: function() {
-            document.getElementById('uploadFrame').src = '/ss/upload.php';
-            document.getElementById('firstName').value = '';
-            document.getElementById('lastName').value = '';
-            document.getElementById('email').value = '';
+            this.validateUpload();
         },
 
         render: function(){
@@ -76,12 +40,6 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover
             }
         },
 
-        setFormEl: function() {
-            if(this.form === null) {
-                this.form = $(document.getElementById('uploadForm'));
-            }
-        },
-
         setSection: function() {
             if(this.section === null) {
                 this.section = $(document.getElementById('upload'));
@@ -93,6 +51,17 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover
             this.section.fadeOut(function() {
                 callback(); 
             });
+        },
+
+        validateUpload: function() {
+            if($('iframe').contents().find('#uploadedimage').length) {
+                this.setErrorEl();
+                this.errorMsg.fadeOut();
+                this.goToPhotoEdit();
+            } else {
+                this.setErrorEl();
+                this.errorMsg.fadeIn();
+            }
         }
     });
     

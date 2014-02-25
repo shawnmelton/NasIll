@@ -10,18 +10,40 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user'], function($, Backb
             'click #hUploadLink': 'onUploadClick'
         },
 
-        onFacebookClick: function() {
-            FB.login(function() {
-                FB.api('/me', function(response) {
-                    User.firstName = response.first_name;
-                    User.lastName = response.last_name;
-                    User.email = response.email || '';
+        goToPhotoGallery: function() {
+            var callback = function() {
+                appRouter.showFacebookPhotos();
+            };
+            this.unload(callback);
+        },
 
-                    // Allow the user to select photos from their profile.
-                    appRouter.showFacebookPhotos();
-                });
-            }, {
-                scope: 'email,user_photos'
+        onFacebookClick: function() {
+            var _this = this;
+            FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+                    /*var uid = response.authResponse.userID;
+                    var accessToken = response.authResponse.accessToken;*/
+                    _this.onFacebookLogin();
+                } else {
+                    FB.login(function() {
+                        _this.onFacebookLogin();
+                    }, { scope: 'email, user_photos' });
+                }
+            });
+        },
+
+        /**
+         * User has properly authenticated.
+         */
+        onFacebookLogin: function() {
+            var _this = this;
+            FB.api('/me', function(response) {
+                User.firstName = response.first_name;
+                User.lastName = response.last_name;
+                User.email = response.email || '';
+
+                // Allow the user to select photos from their profile.
+                _this.goToPhotoGallery();
             });
         },
 
@@ -34,7 +56,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user'], function($, Backb
 
         onUploadClick: function() {
             var callback = function() {
-                appRouter.showUploadForm();
+                appRouter.showEmailForm();
             };
             this.unload(callback);
         },

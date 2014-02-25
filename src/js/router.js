@@ -12,6 +12,13 @@ define(['jquery', 'backbone', 'views/home', 'libs/json2'], function($, Backbone,
             window.scrollTo(0,0);
         },
 
+        showEmailForm: function() {
+            this.pageLoad();
+            require(['views/emailForm'], function(emailFormView) {
+                emailFormView.render();
+            });
+        },
+
         showFacebookPhotos: function() {
             this.pageLoad();
             require(['views/fbPhotos'], function(fbPhotosView) {

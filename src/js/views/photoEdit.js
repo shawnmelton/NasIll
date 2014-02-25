@@ -89,7 +89,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'libs/jquery
             });
         },
 
-         render: function() {
+        render: function() {
             if(!this.rendered) {
                 this.rendered = true;
                 this.$el.append(JST['src/js/templates/photoEdit.html']({
@@ -132,7 +132,11 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'libs/jquery
             var imgWidth = (parseInt(this.originalImgWidth) * zoom);
             this.image.style.width = imgWidth +'px';
             this.image.style.marginLeft = '-'+ (imgWidth / 2) +'px';
-            this.image.style.marginTop = '-'+ (this.image.clientHeight / 2) +'px';
+
+            var _this = this;
+            setTimeout(function() { // Wait for image to download.
+                _this.image.style.marginTop = '-'+ (_this.image.clientHeight / 2) +'px';
+            }, 1000);
         },
 
         setSection: function() {
