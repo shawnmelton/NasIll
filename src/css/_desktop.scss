@@ -1,0 +1,12 @@
+@media screen and (min-width: 800px) {
+    html {
+        background-image: url(../img/desktop-bg.jpg);
+        background-position: top center;
+        background-repeat: no-repeat;
+
+        >body {
+            width: 974px;
+        }
+    }
+
+}

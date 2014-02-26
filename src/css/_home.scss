@@ -1,0 +1,61 @@
+#hUploadText {
+    display: block;
+    float: left;
+    margin-right: 5px;
+    margin-left: 115px;
+}
+#hUploadLink {
+    @include button();
+
+    text-decoration: underline;
+    padding-right: 31px;
+    background: url(../img/mail-icon.png) no-repeat center right;
+
+    &:hover { text-decoration: none; }
+}
+#hFbLink {
+    @include button();
+
+    width: 209px;
+    height: 46px;
+    background: url(../img/fb-login-button.png) no-repeat 0 0;
+    margin: 30px 0 20px 95px;
+}
+#hGalleryLink {
+    @include button();
+
+    width: 222px;
+    height: 65px;
+    background: url(../img/view-the-gallery.png) no-repeat 0 0;
+    margin: 30px 0 10px 85px;
+}
+
+#intro {
+    width: 440px;
+
+    >h1 {
+        width: 236px;
+        height: 75px;
+        background: url(../img/still-ill-heading.png) no-repeat 0 0;
+        margin: 35px 0 15px;
+
+        >span { display: none; }
+    }
+
+    .margin15-0 { margin: 15px 0; }
+}
+
+#flyAway {
+    background: url(../img/nas-fly.png) no-repeat top right;
+    padding-right: 190px;
+
+    >strong {
+        display: block;
+        margin-bottom: 8px;
+    }
+}
+
+#placeholder {
+    height: 300px;
+    width: 490px;
+}

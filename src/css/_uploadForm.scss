@@ -1,0 +1,29 @@
+#upload {
+    width: 375px;
+    margin: 0 auto;
+
+    >h1 {
+        width: 318px;
+        height: 59px;
+        background: url(../img/pick-your-picture-heading.png) no-repeat 0 0;
+        margin: 35px 0 25px 28px;
+
+        >span { display: none; }
+    }
+
+    >img {
+        display: block;
+        margin: 30px auto;
+        width: 72px;
+        height: 54px;
+    }
+}
+
+#upContinueLink {
+    @include button();
+
+    margin-left: 88px;
+    width: 209px;
+    height: 46px;
+    background: url(../img/continue-button-inactive.png) no-repeat 0 0;
+}

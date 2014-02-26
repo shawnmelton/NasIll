@@ -1,0 +1,60 @@
+#eml {
+    width: 414px;
+    margin: 0 auto;
+
+    >h1 {
+        width: 314px;
+        height: 59px;
+        background: url(../img/enter-your-email-heading.png) no-repeat 0 0;
+        margin: 35px 0 25px 100px;
+
+        >span { display: none; }
+    }
+
+    >p, #emErrorMsg {
+        width: 314px;
+        text-align: center;
+        margin-left: 100px;
+    }
+
+    >form {
+        margin: 40px 0 42px;
+
+        li {
+            padding-bottom: 8px;
+
+            &:after {
+                @include clearfix();
+            }
+        }
+
+        input, label {
+            display: block;
+            height: 35px;
+            line-height: 35px;
+            float: left;
+        }
+
+        label {
+            width: 80px;
+            margin-right: 20px;
+            text-align: right;
+        }
+
+        input {
+            border: 1px solid #cbcbcb;
+            width: 314px;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+    }
+}
+
+#emContinueLink {
+    @include button();
+
+    margin-left: 52px;
+    width: 209px;
+    height: 46px;
+    background: url(../img/continue-button.png) no-repeat 0 0;
+}

@@ -127,7 +127,7 @@ module.exports = (function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('default', [
-        'jst', 'jshint', 'requirejs', 'uglify', 'sass', 'imagemin', 'htmlmin'
+        'jst', 'jshint', 'requirejs', 'uglify', 'sass', 'htmlmin'
     ]);
 
     grunt.registerTask('cleanup', ['clean']);

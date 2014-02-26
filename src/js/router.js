@@ -10,6 +10,10 @@ define(['jquery', 'backbone', 'views/home', 'libs/json2'], function($, Backbone,
          */
         pageLoad: function() {
             window.scrollTo(0,0);
+
+            if(document.getElementById('spotify').style.display !== "block") {
+                document.getElementById('spotify').style.display = "block";
+            }
         },
 
         showEmailForm: function() {

@@ -1,0 +1,43 @@
+.errors {
+    display: none;
+    margin: 15px 0;
+    color: #982911;
+    line-height: 19px;
+}
+
+.button {
+    margin: 10px 25px;
+
+    >a {
+        @include button();
+        
+        padding: 10px 25px;
+        background: #333;
+        color: #def;
+
+        &:hover { background: #555; }
+        &:active { background: #111; }
+    }
+
+    &:after {
+        @include clearfix();
+    }
+}
+
+/* Alignment */
+.right { float: right; }
+
+.clearfix:after { @include clearfix(); }
+
+/* text */
+.textWhite { color: #fff; }
+.textLightGrey { color: #ccc; }
+
+.lHeight19 { line-height: 19px; }
+
+/* Borders */
+.sep {
+    height: 1px;
+    overflow: hidden;
+    background: #c18d7f;
+}

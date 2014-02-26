@@ -1,9 +1,30 @@
+@mixin clearfix() {
+    content: " ";
+    display: table;
+    clear: both;
+}
+
+@mixin button() {
+    display: block;
+    cursor: pointer;
+    outline: none;
+    float: left;
+    text-decoration: none;
+
+    >span { display: none; }
+}
+
 /**
  * Pull in all of the partial CSS files and compile them in the appropriate order.
  */
 @import 'reset';
+@import 'fwk';
 @import 'layout';
 @import 'home';
+@import 'emailForm';
+@import 'uploadForm';
 @import 'photoEdit';
 @import 'fbPhotos';
 @import 'jqueryui';
+@import 'desktop';
+@import 'mobile';
