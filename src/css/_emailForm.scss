@@ -31,7 +31,6 @@
         input, label {
             display: block;
             height: 35px;
-            line-height: 35px;
             float: left;
         }
 
@@ -39,6 +38,7 @@
             width: 80px;
             margin-right: 20px;
             text-align: right;
+            line-height: 35px;
         }
 
         input {

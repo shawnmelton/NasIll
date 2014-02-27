@@ -55,7 +55,7 @@ class UploadForm extends BaseObject {
 
     private function showUpload() {
         $tmpl = new Template();
-        $tmpl->fileName = CurrentAlbumCover::get()->getUploadedPhotoUrl();
+        $tmpl->fileName = CurrentAlbumCover::get()->getFileName();
         $tmpl->content = $tmpl->render('uploaded');
         $tmpl->title = 'Uploaded';
         echo $tmpl->render('layout');

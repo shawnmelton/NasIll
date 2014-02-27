@@ -22,8 +22,14 @@
 #upContinueLink {
     @include button();
 
+    cursor: default;
     margin-left: 88px;
     width: 209px;
     height: 46px;
     background: url(../img/continue-button-inactive.png) no-repeat 0 0;
+
+    &.active {
+        cursor: pointer;
+        background-image: url(../img/continue-button.png);
+    }
 }

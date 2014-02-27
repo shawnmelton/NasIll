@@ -22,7 +22,10 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover
 
         onContinueClick: function(ev) {
             ev.preventDefault();
-            this.validateUpload();
+
+            if($(document.getElementById('upContinueLink')).hasClass('active')) {
+                this.validateUpload();
+            }
         },
 
         render: function(){
