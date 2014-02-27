@@ -3,6 +3,7 @@ define([], function() {
     AlbumCover.prototype = {
         uploadedPhoto: '',
         artPhoto: '',
+        fileName: '',
         uploadedPhotoWidth: 0
     };
 

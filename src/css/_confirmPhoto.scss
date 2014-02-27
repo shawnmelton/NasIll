@@ -1,0 +1,36 @@
+#confirmPhoto {
+    width: 437px;
+    margin: 0 auto;
+
+    >h1 {
+        width: 388px;
+        height: 57px;
+        background: url(../img/confirm-your-picture-heading.png) no-repeat 0 0;
+        margin: 35px 0 25px 100px;
+
+        >span { display: none; }
+    }
+
+    >img {
+        display: block;
+        width: 75px;
+        margin: 25px auto 10px;
+    }
+}
+
+#cpUploadLink {
+    @include button();
+
+    width: 209px;
+    height: 46px;
+    background: url(../img/upload-picture-button.png) no-repeat 0 0;
+}
+
+#cpContinueLink {
+    @include button();
+
+    margin-left: 19px;
+    width: 209px;
+    height: 46px;
+    background: url(../img/continue-button.png) no-repeat 0 0;
+}

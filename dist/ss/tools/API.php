@@ -9,6 +9,14 @@ class API {
         $form->process();
     }
 
+    public function getUploadedPhoto() {
+        JSON::out(array(
+            'submission' => 'success',
+            'photo' => CurrentAlbumCover::get()->getUploadedPhotoUrl(),
+            'fileName' => CurrentAlbumCover::get()->getFileName()
+        ));
+    }
+
     public function request($action) {
         $this->$action();
     }

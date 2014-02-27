@@ -1,6 +1,6 @@
 <form name="uploadPhoto" method="post" action="/ss/upload.php" enctype="multipart/form-data">
     <input type="file" name="photo" required="required" id="uploadField">
-    <input type="hidden" name="fns" value="upfm">
+    <input type="hidden" name="fns" value="upfm" onchange="this.form.submit();">
     <img src="/img/upload-picture-button.png" alt="Upload picture" onclick="getPhoto();" style="margin-left: 88px;">
 </form>
 <script type="text/javascript">

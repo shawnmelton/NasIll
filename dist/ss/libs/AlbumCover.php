@@ -23,6 +23,10 @@ class AlbumCover extends BaseObject {
         }
     }
 
+    public function getFileName() {
+        return $this->fileName;
+    }
+
     public function getId() {
         return $this->id;
     }
@@ -54,13 +58,18 @@ class AlbumCover extends BaseObject {
         DB::execute('
             UPDATE album_covers SET
                 cover_uploaded_photo = (?),
-                cover_art_photo = (?)
+                cover_art_photo = (?),
+                cover_uploaded_file_name = (?)
             WHERE cover_id = (?)
-        ', array('ssi', $this->uploadedPhoto, $this->artPhoto, $this->id));
+        ', array('sssi', $this->uploadedPhoto, $this->artPhoto, $this->fileName, $this->id));
     }
 
     public function setArtPhoto($photo) {
         return $this->artPhoto = $photo;
+    }
+
+    public function setFileName($name) {
+        $this->fileName = $name;
     }
 
     public function setId($id) {

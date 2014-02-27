@@ -15,7 +15,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover
          */
         goToPhotoEdit: function() {
             var callback = function() {
-                appRouter.showPhotoEdit();
+                appRouter.showConfirmPhoto();
             };
             this.unload(callback);
         },
@@ -54,14 +54,22 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover
         },
 
         validateUpload: function() {
-            if($('iframe').contents().find('#uploadedimage').length) {
-                this.setErrorEl();
-                this.errorMsg.fadeOut();
-                this.goToPhotoEdit();
-            } else {
-                this.setErrorEl();
-                this.errorMsg.fadeIn();
-            }
+            var _this = this;
+            this.setErrorEl();
+
+            $.getJSON('/api/getUploadedPhoto?r='+ Random.get(), function(r) {
+                if(r.response && r.response.submission && r.response.submission === 'success') {
+                    if(r.response.photo === null || r.response.photo === '') {
+                        _this.errorMsg.fadeIn();
+                    } else {
+                        AlbumCover.uploadedPhoto = r.response.photo;
+                        AlbumCover.fileName = r.response.fileName;
+
+                        _this.errorMsg.fadeOut();
+                        _this.goToPhotoEdit();
+                    }
+                }
+            });
         }
     });
     

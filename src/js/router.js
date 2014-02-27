@@ -16,6 +16,13 @@ define(['jquery', 'backbone', 'views/home', 'libs/json2'], function($, Backbone,
             }
         },
 
+        showConfirmPhoto: function() {
+            this.pageLoad();
+            require(['views/confirmPhoto'], function(confirmPhotoView) {
+                confirmPhotoView.render();
+            });
+        },
+
         showEmailForm: function() {
             this.pageLoad();
             require(['views/emailForm'], function(emailFormView) {

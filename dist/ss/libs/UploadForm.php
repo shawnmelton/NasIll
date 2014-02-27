@@ -29,6 +29,7 @@ class UploadForm extends BaseObject {
         $fileName = $this->storeFile();
         $album = CurrentAlbumCover::get();
         $album->setUploadedPhoto($fileName);
+        $album->setFileName($_FILES['photo']['name']);
         $album->save();
     }
 
