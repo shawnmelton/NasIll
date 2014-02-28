@@ -1,0 +1,36 @@
+#review {
+    width: 795px;
+    margin: 0 auto;
+
+    >h1 {
+        width: 157px;
+        height: 51px;
+        background: url(../img/look-ill-heading.png) no-repeat 0 0;
+        margin: 35px auto;
+
+        >span { display: none; }
+    }
+
+    img {
+        display: block;
+        width: 321px;
+        margin-left: 28px;
+        float: left;
+    }
+}
+
+#cpPhotoName { color: #992a11; }
+
+#rBackLink, #rContinueLink {
+    @include button();
+
+    margin-top: 140px;
+    width: 209px;
+    height: 46px;
+}
+
+#rBackLink { background: url(../img/go-back-button.png) no-repeat 0 0; }
+#rContinueLink {
+    margin-left: 28px;
+    background: url(../img/continue-button.png) no-repeat 0 0;
+}

@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'libs/jquery-ui-slider', 'libs/imgRotate', 'tools/random'], 
-    function($, Backbone, tmplts, AlbumCover, jqui, ir, Random){
+define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user', 'libs/jquery-ui-slider', 'libs/imgRotate', 'tools/random'], 
+    function($, Backbone, tmplts, AlbumCover, User, jqui, ir, Random){
     var photoEditView = Backbone.View.extend({
         el: "#content",
         errorMsg: null,
@@ -93,7 +93,8 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'libs/jquery
             if(!this.rendered) {
                 this.rendered = true;
                 this.$el.append(JST['src/js/templates/photoEdit.html']({
-                    photoUrl: AlbumCover.uploadedPhoto
+                    photoUrl: AlbumCover.uploadedPhoto,
+                    firstName: User.firstName.substring(0, 16)
                 }));
 
                 this.initSliders();

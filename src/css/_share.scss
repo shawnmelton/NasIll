@@ -1,0 +1,41 @@
+#share {
+    width: 570px;
+    margin: 0 auto;
+
+    >h1 {
+        width: 304px;
+        height: 59px;
+        background: url(../img/congratulations-heading.png) no-repeat 0 0;
+        margin: 35px auto 20px;
+
+        >span { display: none; }
+    }
+
+    >img {
+        display: block;
+        width: 321px;
+        margin-right: 40px;
+        float: left;
+    }
+
+    >#sButtons {
+        float: left;
+
+    }
+}
+
+#cpPhotoName { color: #992a11; }
+
+#rBackLink, #rContinueLink {
+    @include button();
+
+    margin-top: 140px;
+    width: 209px;
+    height: 46px;
+}
+
+#rBackLink { background: url(../img/go-back-button.png) no-repeat 0 0; }
+#rContinueLink {
+    margin-left: 28px;
+    background: url(../img/continue-button.png) no-repeat 0 0;
+}
