@@ -1,14 +1,78 @@
-#uploadContainer {
-    position: relative;
-    height: 400px;
-    width: 400px;
-    margin: 15px auto;
-    border: 5px solid #ccc;
-    overflow: hidden;
+#photoEdit {
+    width: 782px;
+    margin: 0 auto;
+
+    >h1 {
+        width: 325px;
+        height: 57px;
+        background: url(../img/create-your-cober-heading.png) no-repeat 0 0;
+        margin: 35px auto 25px;
+
+        >span { display: none; }
+    }
 
     >img {
-        position: absolute;
-        left: 50%;
-        top: 50%;
+        display: block;
+        width: 75px;
+        margin: 25px auto 10px;
+    }
+
+    >div.right {
+        width: 446px;
+        margin: 35px 0 0 28px;
+
+        >form {
+            input {
+                border: 1px solid #cbcbcb;
+                width: 200px;
+                height: 35px;
+                padding: 0 10px;
+                box-sizing: border-box;
+            }
+
+            small { font-style: italic; }
+        }
+
+        >.sliders {
+            margin-bottom: 50px;
+
+            >div {
+                margin: 35px 25px;
+            }
+        }
+    }
+}
+
+#cpPhotoName { color: #992a11; }
+
+#peBackLink, #peContinueLink {
+    @include button();
+
+    width: 209px;
+    height: 46px;
+}
+
+#peBackLink { background: url(../img/go-back-button.png) no-repeat 0 0; }
+#peContinueLink {
+    margin-left: 28px;
+    background: url(../img/continue-button.png) no-repeat 0 0;
+}
+
+
+#uploadContainer {
+    width: 308px;
+
+    >div {
+        position: relative;
+        margin: 15px auto;
+        height: 308px;
+        border: 5px solid #ccc;
+        overflow: hidden;
+
+        >img {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+        }
     }
 }

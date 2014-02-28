@@ -60,7 +60,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'libs/jquery
 
             } else {
                 callback = function() {
-                    appRouter.showUploadForm();
+                    appRouter.showConfirmPhoto();
                 };
             }
 

@@ -50,6 +50,7 @@ class AlbumCover extends BaseObject {
         if($obj = $result->fetch_object()) {
             $this->uploadedPhoto = $obj->cover_uploaded_photo;
             $this->artPhoto = $obj->cover_art_photo;
+            $this->fileName = $obj->cover_uploaded_file_name;
             $this->userId = $obj->user_id;
         }
     }
