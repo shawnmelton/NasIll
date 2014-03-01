@@ -3,7 +3,8 @@ html {
     font-size: 14px;
     background-color: #000;
     color: #333;
-    background-attachment: fixed;
+    background-position: top center;
+    background-repeat: no-repeat;
 
     >body {
         padding: 15px 25px;
@@ -14,6 +15,41 @@ html {
             margin: 15px 75px;
             background: #030;
             height: 35px;
+        }
+
+        >#terms {
+            margin: 25px auto 0;
+            font-size: 9px;
+            color: #878787;
+
+            a {
+                color: #878787;
+                text-decoration: none;
+                font-weight: bold;
+
+                &:hover { text-decoration: underline; }
+            }
+
+            >a {
+                @include button();
+
+                width: 7px;
+                height: 17px;
+                float: left;
+                margin: 5px 13px 0 0;
+                background: url(../img/twitter-t-icon.png) no-repeat 0 0;
+
+                &:first-child { background-image: url(../img/facebook-f-icon.png); }
+                &:hover { background-position: 0 -17px; }
+            }
+
+            >div {
+                >p {
+                    line-height: 14px;
+
+                    &:first-child { font-weight: bold; }
+                }
+            }
         }
     }
 }

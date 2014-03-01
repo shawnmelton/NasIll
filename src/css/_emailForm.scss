@@ -53,7 +53,7 @@
 #emContinueLink {
     @include button();
 
-    margin-left: 52px;
+    margin: 0 auto;
     width: 209px;
     height: 46px;
     background: url(../img/continue-button.png) no-repeat 0 0;

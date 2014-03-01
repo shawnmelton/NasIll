@@ -43,11 +43,10 @@
     }
 }
 
-#cpPhotoName { color: #992a11; }
-
 #peBackLink, #peContinueLink {
     @include button();
 
+    float: left;
     width: 209px;
     height: 46px;
 }

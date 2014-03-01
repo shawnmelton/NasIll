@@ -19,11 +19,10 @@
     }
 }
 
-#cpPhotoName { color: #992a11; }
-
 #rBackLink, #rContinueLink {
     @include button();
 
+    float: left;
     margin-top: 140px;
     width: 209px;
     height: 46px;

@@ -8,7 +8,6 @@
     display: block;
     cursor: pointer;
     outline: none;
-    float: left;
     text-decoration: none;
 
     >span { display: none; }
@@ -21,6 +20,7 @@
 @import 'fwk';
 @import 'layout';
 @import 'home';
+@import 'gallery';
 @import 'emailForm';
 @import 'uploadForm';
 @import 'confirmPhoto';

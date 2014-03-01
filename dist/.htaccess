@@ -3,7 +3,7 @@ RewriteBase /
 
 RewriteCond %{SCRIPT_FILENAME} !-f
 RewriteCond %{SCRIPT_FILENAME} !-d
-RewriteRule ^api/(\w+) ss/request.php?action=$1 [L]
+RewriteRule ^api/(\w+) ss/request.php?action=$1 [L,QSA]
 
 RewriteCond %{SCRIPT_FILENAME} !-f
 RewriteCond %{SCRIPT_FILENAME} !-d

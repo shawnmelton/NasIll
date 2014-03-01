@@ -5,28 +5,22 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover'], function($,
         rendered: false,
 
         events: {
-            'click #sFbLink': 'onFacebookClick',
-            'click #sTwLink': 'onTwitterClick',
-            'click #sBuyLink': 'onBuyClick',
-            'click #sGalleryLink': 'onGalleryClick',
-            'click #sInstLink': 'onInstagramClick'
+            'click #sGalleryLink': 'onGalleryClick'
         },
 
-        onBuyClick: function() {},
-
-        onFacebookClick: function() {},
-
-        onGalleryClick: function() {},
-
-        onInstagramClick: function() {},
-
-        onTwitterClick: function() {},
+        onGalleryClick: function() {
+            var callback = function() {
+                appRouter.showGallery();
+            };
+            this.unload(callback);
+        },
 
         render: function() {
             if(!this.rendered) {
                 this.rendered = true;
                 this.$el.append(JST['src/js/templates/share.html']({
-                    photoUrl: AlbumCover.artPhoto    
+                    photoUrl: AlbumCover.artPhoto,
+                    shareMsg: encodeURIComponent("Testing this message")
                 }));
             } else {
                 this.section.fadeIn();

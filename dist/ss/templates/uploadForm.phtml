@@ -1,4 +1,4 @@
-<form name="uploadPhoto" id="upForm" method="post" action="/ss/upload.php" enctype="multipart/form-data">
+<form name="uploadPhoto" id="upForm" method="post" action="/api/upload" enctype="multipart/form-data">
     <input type="file" name="photo" required="required" id="uploadField" onchange="this.form.submit();">
     <input type="hidden" name="fns" value="upfm">
     <img src="/img/upload-picture-button.png" alt="Upload picture" onclick="getPhoto();" style="margin-left: 88px; cursor: pointer; border: 0; outline: none;">

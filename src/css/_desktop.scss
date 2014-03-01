@@ -1,12 +1,59 @@
 @media screen and (min-width: 800px) {
     html {
         background-image: url(../img/desktop-bg.jpg);
-        background-position: top center;
-        background-repeat: no-repeat;
 
         >body {
             width: 974px;
+
+            >#terms {
+                width: 930px;
+                height: 28px;
+
+                >div {
+                    float: left;
+                }
+            }
         }
     }
 
+
+    #home {
+        >#intro {
+            width: 440px;
+            float: right;
+
+            >h1 {
+                width: 236px;
+                height: 75px;
+                background-image: url(../img/still-ill-heading.png);
+            }
+        }
+
+        >#placeholder {
+            height: 300px;
+            width: 490px;
+        }
+
+        #celebrate { margin-bottom: 30px; }
+
+        #flyAway {
+            background: url(../img/nas-fly.png) no-repeat top right;
+            padding-right: 190px;
+
+            >strong {
+                display: block;
+                margin-bottom: 8px;
+            }
+        }
+
+        #connectWithEmail { margin-left: 115px; }
+
+        #hGalleryLink {
+            width: 222px;
+            height: 65px;
+            background-image: url(../img/view-the-gallery.png);
+        }
+
+        #celebrate-mobile { display: none; }
+    }
 }

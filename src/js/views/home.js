@@ -49,7 +49,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user'], function($, Backb
 
         onGalleryClick: function() {
             var callback = function() {
-                appRouter.showGallery();
+                appRouter.showGallery(true);
             };
             this.unload(callback);
         },

@@ -11,31 +11,64 @@
         >span { display: none; }
     }
 
-    >img {
-        display: block;
-        width: 321px;
-        margin-right: 40px;
+    >#sArt {
+        margin-right: 27px;
         float: left;
+        width: 321px;
+
+        >img {
+            display: block;
+            width: 321px;
+        }
+
+        >p {
+            font-size: 12px;
+        }
     }
 
     >#sButtons {
         float: left;
+        width: 222px;
 
+        >p { margin-bottom: 15px; }
     }
 }
 
-#cpPhotoName { color: #992a11; }
-
-#rBackLink, #rContinueLink {
+#sFbLink, #sTwLink, #sBuyLink, #sDownloadLink {
     @include button();
 
-    margin-top: 140px;
     width: 209px;
     height: 46px;
+    margin-left: 13px;
+    margin-bottom: 15px;
 }
 
-#rBackLink { background: url(../img/go-back-button.png) no-repeat 0 0; }
-#rContinueLink {
-    margin-left: 28px;
-    background: url(../img/continue-button.png) no-repeat 0 0;
+#sGalleryLink {
+    @include button();
+
+    width: 222px;
+    height: 65px;
+    margin-bottom: 15px;
 }
+
+#SInstLink {
+    @include button();
+
+    float: left;
+    color: #fff;
+    padding-right: 20px;
+    background: url(../img/instagram-white-icon-small.png) no-repeat center right;
+    margin-left: 60px;
+    min-height: 16px;
+    line-height: 16px;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+#sFbLink { background: url(../img/facebook-share-button.png) no-repeat 0 0; }
+#sTwLink { background: url(../img/twitter-share-button.png) no-repeat 0 0; }
+#sDownloadLink { background: url(../img/download-your-image-button.png) no-repeat 0 0; }
+#sBuyLink { background: url(../img/buy-on-itunes-button.png) no-repeat 0 0; }
+#sGalleryLink {background: url(../img/view-the-gallery.png) no-repeat 0 0; }

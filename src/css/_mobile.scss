@@ -1,0 +1,60 @@
+@media screen and (max-width: 799px) {
+    html {
+        background-image: url(../img/mobile-bg.jpg);
+        text-align: center;
+    }
+
+
+    #terms {
+        >div { clear: left; }
+    }
+
+
+    #home {
+        >#placeholder {
+            display: none;
+        }
+
+        >#intro {
+            >h1 {
+                width: 258px;
+                height: 81px;
+                background-image: url(../img/still-ill-mobile-heading.png);
+                margin: 35px auto 30px;
+            }
+        }
+
+        #celebrate-mobile {
+            font-size: 20px;
+            line-height: 29px;
+        }
+
+        #flyAwayMobile {
+            width: 447px;
+            height: 292px;
+            background: url(../img/nas-fly-mobile.png) no-repeat 0 0;
+            margin: 30px auto 0;
+        }
+
+        #enterToWin {
+            width: 294px;
+            height: 40px;
+            background: url(../img/enter-to-win-heading.png) no-repeat 0 0;
+            margin: 0 auto 40px;
+        }
+
+        #connectWithEmail {
+            margin: 0 auto;
+            width: 190px;
+            font-size: 16px;
+        }
+
+        #hGalleryLink {
+            width: 308px;
+            height: 48px;
+            background-image: url(../img/view-the-gallery-mobile.png);
+        }
+
+        .sep, #celebrate, #flyAway { display: none; }
+    }
+}
