@@ -3,14 +3,32 @@
         background-image: url(../img/desktop-bg.jpg);
 
         >body {
+            padding: 15px 25px;
             width: 974px;
 
             >#terms {
                 width: 930px;
                 height: 28px;
+                font-size: 9px;
 
                 >div {
                     float: left;
+
+                    >p { line-height: 14px; }
+                }
+
+                >p { 
+                    float: left;
+
+                    >a {
+                        width: 7px;
+                        height: 17px;
+                        margin: 5px 13px 0 0;
+                        background: url(../img/twitter-t-icon.png) no-repeat 0 0;
+
+                        &:first-child { background-image: url(../img/facebook-f-icon.png); }
+                        &:hover { background-position: 0 -17px; }
+                    }
                 }
             }
         }
@@ -18,6 +36,7 @@
 
 
     #home {
+
         >#intro {
             width: 440px;
             float: right;
@@ -51,9 +70,19 @@
         #hGalleryLink {
             width: 222px;
             height: 65px;
+            margin: 30px auto 10px;
             background-image: url(../img/view-the-gallery.png);
         }
 
-        #celebrate-mobile { display: none; }
+        #hDesktopLink, #hBuyLink, #celebrate-mobile { display: none; }
+
+        #hFbLink {
+            width: 209px;
+            height: 46px;
+            margin: 30px auto 20px;
+            background-image: url(../img/fb-login-button.png);
+        }
     }
+
+
 }

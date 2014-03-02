@@ -2,18 +2,46 @@
     html {
         background-image: url(../img/mobile-bg.jpg);
         text-align: center;
+
+        >body { padding: 15px 0; }
     }
 
 
     #terms {
-        >div { clear: left; }
+        font-size: 14px;
+
+        >div {
+            clear: left;
+
+            >p { line-height: 19px; }
+        }
+
+        >p { 
+            width: 65px;
+            margin: 95px auto 40px;
+
+            >a {
+                width: 15px;
+                height: 36px;
+                background: url(../img/twitter-t-icon-mobile.png) no-repeat 0 0;
+
+                &:first-child {
+                    background-image: url(../img/facebook-f-icon-mobile.png);
+                    margin-right: 35px;
+                }
+                &:hover { background-position: 0 -36px; }
+            }
+        }
+
     }
 
 
     #home {
-        >#placeholder {
-            display: none;
-        }
+        max-width: 610px;
+        padding: 0 15px;
+        margin: 0 auto;
+
+        >#placeholder { display: none; }
 
         >#intro {
             >h1 {
@@ -25,8 +53,8 @@
         }
 
         #celebrate-mobile {
-            font-size: 20px;
-            line-height: 29px;
+            font-size: 24px;
+            line-height: 23px;
         }
 
         #flyAwayMobile {
@@ -43,18 +71,68 @@
             margin: 0 auto 40px;
         }
 
-        #connectWithEmail {
-            margin: 0 auto;
-            width: 190px;
-            font-size: 16px;
+        #hGalleryLink { margin: 80px auto 30px; }
+
+        #hFbLink {
+            width: 320px;
+            height: 70px;
+            margin: 40px auto 30px;
+            background-image: url(../img/connect-with-facebook-mobile.png);
         }
 
-        #hGalleryLink {
-            width: 308px;
-            height: 48px;
-            background-image: url(../img/view-the-gallery-mobile.png);
+        #connectWithEmail {
+            margin: 0 auto;
+            width: 225px;
+            font-size: 20px;
         }
 
         .sep, #celebrate, #flyAway { display: none; }
     }
+
+    #tyMobile {
+        width: 640px;
+        margin: 0 auto;
+
+        >h1 {
+            width: 512px;
+            height: 99px;
+            background: url(../img/congratulations-heading-mobile.png) no-repeat 0 0;
+            margin: 35px auto 28px;
+
+            >span { display: none; }
+        }
+
+        >p {
+            margin-bottom: 35px;
+            font-size: 24px;
+            line-height: 33px;
+            padding: 0 15px;
+        }
+
+        #tyGalleryLink { margin: 45px auto 75px; }
+    }
+
+    #tyGalleryLink {
+        @include button();
+    }
+
+    #hGalleryLink, #tyGalleryLink {
+        width: 308px;
+        height: 48px;
+        background-image: url(../img/view-the-gallery-mobile.png);
+    }
+
+    #hDesktopLink, #hBuyLink, #tyDesktopLink, #tyBuyLink {
+        @include button();
+
+        width: 320px;
+        height: 70px;
+        margin: 20px auto;
+        background-position: 0 0;
+        background-repeat: no-repeat;
+    }
+
+    #hDesktopLink, #tyDesktopLink { background-image: url(../img/forward-to-desktop-button.png); }
+    #tyDesktopLink { margin-bottom: 100px; }
+    #hBuyLink, #tyBuyLink { background-image: url(../img/buy-on-itunes-button-mobile.png); }
 }

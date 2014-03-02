@@ -69,6 +69,13 @@ define(['jquery', 'backbone', 'views/home', 'libs/json2'], function($, Backbone,
             });
         },
 
+        showThankYouMbl: function() {
+            this.pageLoad();
+            require(['views/thankYouMobile'], function(thankYouMblView) {
+                thankYouMblView.render();
+            });
+        },
+
         showUploadForm: function() {
             this.pageLoad();
             require(['views/uploadForm'], function(uploadFormView) {

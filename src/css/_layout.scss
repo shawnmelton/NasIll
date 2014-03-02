@@ -7,7 +7,6 @@ html {
     background-repeat: no-repeat;
 
     >body {
-        padding: 15px 25px;
         margin: 0 auto;
 
         >#spotify {
@@ -19,7 +18,6 @@ html {
 
         >#terms {
             margin: 25px auto 0;
-            font-size: 9px;
             color: #878787;
 
             a {
@@ -30,23 +28,16 @@ html {
                 &:hover { text-decoration: underline; }
             }
 
-            >a {
-                @include button();
+            >p { 
+                >a {
+                    @include button();
 
-                width: 7px;
-                height: 17px;
-                float: left;
-                margin: 5px 13px 0 0;
-                background: url(../img/twitter-t-icon.png) no-repeat 0 0;
-
-                &:first-child { background-image: url(../img/facebook-f-icon.png); }
-                &:hover { background-position: 0 -17px; }
+                    float: left;
+                }
             }
 
             >div {
                 >p {
-                    line-height: 14px;
-
                     &:first-child { font-weight: bold; }
                 }
             }

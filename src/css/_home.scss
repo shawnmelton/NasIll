@@ -16,18 +16,17 @@
 #hFbLink {
     @include button();
 
-    width: 209px;
-    height: 46px;
-    background: url(../img/fb-login-button.png) no-repeat 0 0;
-    margin: 30px auto 20px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
 }
 #hGalleryLink {
     @include button();
 
-    margin: 30px auto 10px;
     background-position: 0 0;
     background-repeat: no-repeat;
 }
+
+#home { margin: 0 auto; }
 
 #intro {
     >h1 {

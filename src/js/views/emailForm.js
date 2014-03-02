@@ -17,7 +17,11 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'tools/random'],
          */
         goToPhotoEdit: function() {
             var callback = function() {
-                appRouter.showUploadForm();
+                if($(document).width() < 800) { // Mobile version of site.
+                    appRouter.showThankYouMbl();
+                } else {
+                    appRouter.showUploadForm();
+                }
             };
             this.unload(callback);
         },
