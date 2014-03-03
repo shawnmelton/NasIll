@@ -3,7 +3,11 @@
         background-image: url(../img/mobile-bg.jpg);
         text-align: center;
 
-        >body { padding: 15px 0; }
+        >body {
+            padding: 15px 0;
+
+            &.overlay { background: url(../img/black-trans-bg.png) repeat 0 0; }
+        }
     }
 
 
@@ -87,6 +91,60 @@
         }
 
         .sep, #celebrate, #flyAway { display: none; }
+    }
+
+    #eml {
+        >h1 {
+            width: 518px;
+            height: 96px;
+            background: url(../img/enter-your-email-heading-mobile.png) no-repeat 0 0;
+            margin: 35px auto 40px;
+        }
+
+        #emErrorMsg, #eMblDesc {
+            font-size: 22px;
+            line-height: 29px;
+        }
+        #eDeskDesc { display: none; }
+
+        >form {
+            width: 582px;
+            margin: 58px auto 73px;
+
+            li { padding-bottom: 10px; }
+
+            input, label {
+                height: 51px;
+                font-size: 27px;
+            }
+
+            label {
+                width: 140px;
+                line-height: 51px;
+                color: #fff;
+            }
+
+            input { width: 422px; }
+        }
+
+        #emContinueLink {
+            width: 320px;
+            height: 70px;
+            background-image: url(../img/continue-button-mobile.png);
+        }
+
+        #emMblBackLink {
+            @include button();
+
+            color: #fff;
+            text-decoration: underline;
+            font-size: 22px;
+            line-height: 24px;
+            margin-top: 65px;
+            text-align: center;
+
+            &:hover { text-decoration: none; }
+        }
     }
 
     #tyMobile {

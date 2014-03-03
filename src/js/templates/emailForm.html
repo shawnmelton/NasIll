@@ -1,8 +1,9 @@
 <section id="eml">
     <h1><span>Enter your Email</span></h1>
-    <p class="lHeight19">Fill out the form below to begin the experience.</p>
+    <p class="lHeight19" id="eDeskDesc">Fill out the form below to begin the experience.</p>
+    <p id="eMblDesc" class="textCenter textWhite">Fill out the form below to enter the contest.</p>
     <form name="emailForm" method="post" action="" id="emailForm">
-        <div id="emErrorMsg" class="errors">Please make sure that you have properly completed all of the fields below.</div>
+        <div id="emErrorMsg" class="errors textCenter">Please make sure that you have properly completed all of the fields below.</div>
         <ol>
             <li id="firstNameWrapper">
                 <label for="firstName">First Name:</label>
@@ -20,4 +21,5 @@
         <input type="hidden" name="fns" value="acct">
     </form>
     <a id="emContinueLink"><span>Continue</span></a>
+    <a id="emMblBackLink">Cancel</a>
 </section>

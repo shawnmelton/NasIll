@@ -9,6 +9,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'tools/random'],
 
         events: {
             'click #emContinueLink': 'onContinueClick',
+            'click #emMblBackLink': 'onCancelClick',
             'submit #emailForm': 'onContinueClick'
         },
 
@@ -22,6 +23,14 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'tools/random'],
                 } else {
                     appRouter.showUploadForm();
                 }
+            };
+            this.unload(callback);
+        },
+
+        onCancelClick: function(ev) {
+            ev.preventDefault();
+            var callback = function() {
+                appRouter.showHome();
             };
             this.unload(callback);
         },
@@ -71,6 +80,8 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'tools/random'],
         },
 
         render: function(){
+            document.getElementsByTagName('body')[0].className = 'overlay';
+
             if(!this.rendered) {
                 this.rendered = true;
                 this.$el.append(JST['src/js/templates/emailForm.html']());
@@ -99,6 +110,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'tools/random'],
         },
 
         unload: function(callback) {
+            document.getElementsByTagName('body')[0].className = '';
             this.setSection();
             this.section.fadeOut(function() {
                 callback(); 
