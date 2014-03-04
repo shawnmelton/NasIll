@@ -13,6 +13,10 @@ define(['jquery', 'backbone', 'templates/jst', 'views/lightbox'], function($, Ba
             'click #gBackLink': 'onBackClick'
         },
 
+        addClickEvents: function() {
+            
+        },
+
         addImagesToSet: function(imgs) {
             var _this = this;
             _.each(imgs, function(img) {
@@ -20,7 +24,21 @@ define(['jquery', 'backbone', 'templates/jst', 'views/lightbox'], function($, Ba
             });
         },
 
-        loadRow: function() {
+        loadImages: function() {
+            var _this = this;
+            var callback = function() {
+                $('#gArt img').click(function() {
+                    lightBoxViewEl.render($(this).attr('src'), $(this).attr('alt'), _this.imageSet);
+                });
+            };
+
+            this.imageSet = [];
+            this.loadRow();
+            this.loadRow(callback);
+            
+        },
+
+        loadRow: function(callback) {
             var _this = this;
             $.getJSON('/api/getGalleryArt', {
                 start: this.rowStart,
@@ -37,9 +55,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/lightbox'], function($, Ba
 
                 _this.addImagesToSet(r.response.art);
 
-                $('#gArt img').click(function() {
-                    lightBoxViewEl.render($(this).attr('src'), $(this).attr('alt'), _this.imageSet);
-                });
+                if(typeof callback !== 'undefined') {
+                    setTimeout(callback, 100);
+                }
             });
 
             this.rowStart += this.rowLimit;
@@ -70,11 +88,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/lightbox'], function($, Ba
             this.reachedLimit = false;
             this.setArtEl();
             this.artEl.empty();
-            
-            // Load two rows to begin with.
-            this.imageSet = [];
-            this.loadRow();
-            this.loadRow();
+
+            this.loadImages();
         },
 
         setArtEl: function() {

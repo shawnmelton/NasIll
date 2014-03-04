@@ -39,6 +39,8 @@
                     margin-right: 40px;
                     background-image: url(../img/lb-previous-arrow.png);
                 }
+
+                &.inactive { opacity: 0.3; }
             }
         }
     }
