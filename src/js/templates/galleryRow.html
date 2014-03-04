@@ -1,5 +1,5 @@
 <div>
-<% _.each(images, function(image) { %>
-    <img src="<%= image.url %>" alt="Album Cover">
+<% _.each(images, function(image, index) { %>
+    <img src="<%= image.url %>" alt="<%= (baseIdx + index) %>">
 <% }); %>
 </div>

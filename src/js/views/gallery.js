@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'templates/jst'], function($, Backbone, tmplts){
+define(['jquery', 'backbone', 'templates/jst', 'views/lightbox'], function($, Backbone, tmplts, lightBoxViewEl){
     var galleryView = Backbone.View.extend({
         el: "#content",
         artEl: null,
@@ -7,9 +7,17 @@ define(['jquery', 'backbone', 'templates/jst'], function($, Backbone, tmplts){
         rowStart: 0,
         rowLimit: 5,
         reachedLimit: false,
+        imageSet: [],
         
         events: {
             'click #gBackLink': 'onBackClick'
+        },
+
+        addImagesToSet: function(imgs) {
+            var _this = this;
+            _.each(imgs, function(img) {
+                _this.imageSet.push(img.url);
+            });
         },
 
         loadRow: function() {
@@ -23,8 +31,15 @@ define(['jquery', 'backbone', 'templates/jst'], function($, Backbone, tmplts){
                 }
 
                 _this.artEl.append(JST['src/js/templates/galleryRow.html']({
-                    images: r.response.art
+                    images: r.response.art,
+                    baseIdx: _this.imageSet.length
                 }));
+
+                _this.addImagesToSet(r.response.art);
+
+                $('#gArt img').click(function() {
+                    lightBoxViewEl.render($(this).attr('src'), $(this).attr('alt'), _this.imageSet);
+                });
             });
 
             this.rowStart += this.rowLimit;
@@ -56,8 +71,8 @@ define(['jquery', 'backbone', 'templates/jst'], function($, Backbone, tmplts){
             this.setArtEl();
             this.artEl.empty();
             
-            // Load three rows to begin with.
-            this.loadRow();
+            // Load two rows to begin with.
+            this.imageSet = [];
             this.loadRow();
             this.loadRow();
         },

@@ -10,10 +10,6 @@ define(['jquery', 'backbone', 'views/home', 'libs/json2'], function($, Backbone,
          */
         pageLoad: function() {
             window.scrollTo(0,0);
-
-            if(document.getElementById('spotify').style.display !== "block") {
-                document.getElementById('spotify').style.display = "block";
-            }
         },
 
         showConfirmPhoto: function() {
@@ -46,6 +42,16 @@ define(['jquery', 'backbone', 'views/home', 'libs/json2'], function($, Backbone,
 
         showHome: function() {
             homeView.render();
+
+            if(document.getElementsByTagName('html')[0].className === '') {
+                this.showMusic();
+            }
+        },
+
+        showMusic: function() {
+            require(['views/music'], function(musicViewEl) {
+                musicViewEl.render();
+            });
         },
 
         showPhotoEdit: function() {

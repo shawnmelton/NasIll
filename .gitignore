@@ -3,6 +3,8 @@ dist/index.html
 dist/css
 dist/js
 dist/img
+dist/music/*.mp3
+dist/music/*.ogg
 dist/ss/uploads/*
 .sass-cache
 tmp

@@ -1,0 +1,79 @@
+#spotify {
+    width: 452px;
+    margin: 25px auto;
+
+    >section {
+        display: block;
+        height: 70px;
+
+        >p {
+            font-weight: bold;
+            font-size: 10px;
+            color: #fff;
+            margin-bottom: 20px;
+            text-align: center;
+
+            &:first-child { margin-bottom: 10px; }
+        }
+
+        >div {
+            a {
+                @include button();
+                float: left;
+                width: 17px;
+                height: 14px;
+
+                margin-top: 1px;
+                margin-left: 16px;
+                background-repeat: no-repeat;
+                background-image: url(../img/music-controls.png);
+
+                &#mNext { background-position: 0 0; }
+                &#mPause {
+                    margin-right: 0;
+                    background-position: 0 -14px;
+                }
+                &#mPlay {
+                    display: none;
+                    margin-right: 0;
+                    background-position: 0 -28px;
+                }
+                &#mPrev {
+                    margin-left: 0;
+                    background-position: 0 -42px;
+                }
+                &#mVolume {
+                    margin-top: 0;
+                    height: 16px;
+                    background: url(../img/music-controls-volume.png) no-repeat 0 0;
+
+                    &.muted {
+                        background-position: 0 -16px;
+                    }
+                }
+            }
+
+            >p, >div { float: left; }
+            >p {
+                width: 17px;
+                height: 14px;
+                margin-right: 16px;
+            }
+            >div {
+                width: 320px;
+                height: 2px;
+                background: #666;
+                overflow: hidden;
+                margin-top: 7px;
+                margin-left: 16px;
+
+                >span {
+                    display: block;
+                    height: 2px;
+                    background: #992a11;
+                    width: 0;
+                }
+            }
+        }
+    }
+}

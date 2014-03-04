@@ -1,0 +1,53 @@
+#lbOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url(../img/black-trans-bg.png) repeat 0 0;
+    padding: 10% 0 0;
+
+    >div {
+        margin: 0 auto;
+        width: 428px;
+
+        >a {
+            @include button();
+
+            width: 41px;
+            height: 20px;
+            background: url(../img/lb-close-heading.png) no-repeat 0 0;
+            margin: 0 auto 20px;
+
+            >span { display: none; }
+        }
+
+        >div {
+            >a {
+                @include button();
+
+                float: left;
+                width: 15px;
+                height: 20px;
+                margin: 125px 0 0 40px;
+                background-position: 0 0;
+                background-repeat: no-repeat;
+                background-image: url(../img/lb-next-arrow.png);
+
+                &:first-child {
+                    margin-left: 0;
+                    margin-right: 40px;
+                    background-image: url(../img/lb-previous-arrow.png);
+                }
+            }
+        }
+    }
+
+    #lbImgWrapper {
+        float: left;
+        width: 318px;
+        min-height: 200px;
+
+        >img { width: 100%; }
+    }
+}
