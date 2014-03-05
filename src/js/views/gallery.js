@@ -1,4 +1,5 @@
-define(['jquery', 'backbone', 'templates/jst', 'views/lightbox'], function($, Backbone, tmplts, lightBoxViewEl){
+define(['jquery', 'backbone', 'templates/jst', 'views/lightbox', 'tools/random'],
+    function($, Backbone, tmplts, lightBoxViewEl, Random){
     var galleryView = Backbone.View.extend({
         el: "#content",
         artEl: null,
@@ -6,15 +7,14 @@ define(['jquery', 'backbone', 'templates/jst', 'views/lightbox'], function($, Ba
         rendered: false,
         rowStart: 0,
         rowLimit: 5,
+        rowsPerPage: 2,
         reachedLimit: false,
         imageSet: [],
         
         events: {
-            'click #gBackLink': 'onBackClick'
-        },
-
-        addClickEvents: function() {
-            
+            'click #gBackLink': 'onBackClick',
+            'click #gPrev': 'onPreviousClick',
+            'click #gNext': 'onNextClick'
         },
 
         addImagesToSet: function(imgs) {
@@ -33,27 +33,37 @@ define(['jquery', 'backbone', 'templates/jst', 'views/lightbox'], function($, Ba
             };
 
             this.imageSet = [];
-            this.loadRow();
-            this.loadRow(callback);
-            
+            this.artEl.empty();
+
+            for(var i = 1; i <= this.rowsPerPage; i++) {
+                if(i === this.rowsPerPage) {
+                    this.loadRow(callback);
+                } else {
+                    this.loadRow();
+                }
+            }
         },
 
         loadRow: function(callback) {
             var _this = this;
             $.getJSON('/api/getGalleryArt', {
                 start: this.rowStart,
-                limit: this.rowLimit
+                limit: this.rowLimit,
+                r: Random.get()
             }, function(r) {
                 if(r.response.reachedLimit) {
                     _this.reachedLimit = true;
+                    _this.nextBtnEl.className = 'gArrow inactive';
                 }
 
-                _this.artEl.append(JST['src/js/templates/galleryRow.html']({
-                    images: r.response.art,
-                    baseIdx: _this.imageSet.length
-                }));
+                if(r.response.art.length > 0) {
+                    _this.artEl.append(JST['src/js/templates/galleryRow.html']({
+                        images: r.response.art,
+                        baseIdx: _this.imageSet.length
+                    }));
 
-                _this.addImagesToSet(r.response.art);
+                    _this.addImagesToSet(r.response.art);
+                }
 
                 if(typeof callback !== 'undefined') {
                     setTimeout(callback, 100);
@@ -69,6 +79,32 @@ define(['jquery', 'backbone', 'templates/jst', 'views/lightbox'], function($, Ba
                 appRouter.showHome();
             };
             this.unload(callback);
+        },
+
+        onNextClick: function(ev) {
+            ev.preventDefault();
+            this.prevBtnEl.className = 'gArrow';
+
+            if(!this.reachedLimit) {
+                this.loadImages();   
+            } else {
+                this.nextBtnEl.className = 'gArrow inactive';
+            }
+        },
+
+        onPreviousClick: function(ev) {
+            ev.preventDefault();
+            this.nextBtnEl.className = 'gArrow';
+
+            if(this.rowStart > (this.rowsPerPage * this.rowLimit)) {
+                this.rowStart = (this.rowStart - (this.rowsPerPage * 2 * this.rowLimit));
+
+                if(this.rowStart === 0) {
+                    this.prevBtnEl.className = 'gArrow inactive';
+                }
+
+                this.loadImages();
+            }
         },
 
         render: function() {
@@ -87,7 +123,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/lightbox'], function($, Ba
             this.rowStart = 0;
             this.reachedLimit = false;
             this.setArtEl();
-            this.artEl.empty();
+            this.prevBtnEl.className = 'gArrow inactive';
 
             this.loadImages();
         },
@@ -95,6 +131,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/lightbox'], function($, Ba
         setArtEl: function() {
             if(this.artEl === null) {
                 this.artEl = $(document.getElementById('gArt'));
+                this.prevBtnEl = document.getElementById('gPrev');
+                this.nextBtnEl = document.getElementById('gNext');
             }
         },
 

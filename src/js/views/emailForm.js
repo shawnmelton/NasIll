@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'templates/jst', 'models/user', 'tools/random'],
-    function($, Backbone, tmplts, User, Random){
+define(['jquery', 'backbone', 'templates/jst', 'models/user', 'tools/random', 'tools/device'],
+    function($, Backbone, tmplts, User, Random, Device){
     var emailFormView = Backbone.View.extend({
         el: "#content",
         form: null,
@@ -18,7 +18,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'tools/random'],
          */
         goToPhotoEdit: function() {
             var callback = function() {
-                if($(document).width() < 800) { // Mobile version of site.
+                if(Device.isMobile()) { // Mobile version of site.
                     appRouter.showThankYouMbl();
                 } else {
                     appRouter.showUploadForm();

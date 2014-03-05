@@ -1,5 +1,7 @@
 #gallery {
+    position: relative;
     width: 826px;
+    padding: 0 55px;
     margin: 0 auto;
 
     >h1 {
@@ -10,6 +12,28 @@
 
         >span { display: none; }
     }
+
+    >a.gArrow {
+        @include button();
+
+        position: absolute;
+        top: 240px;
+        width: 15px;
+        height: 20px;
+        background-position: 0 0;
+        background-repeat: no-repeat;
+
+        &#gPrev {
+            left: 0;
+            background-image: url(../img/lb-previous-arrow.png);
+        }
+        &#gNext {
+            right: 0;
+            background-image: url(../img/lb-next-arrow.png);
+        }
+
+        &.inactive { opacity: 0.3; }
+    }
 }
 
 #gArt {
@@ -19,6 +43,7 @@
     >div {
         @include clearfix();
 
+        float: left;
         margin-bottom: 12px;
 
         >img {

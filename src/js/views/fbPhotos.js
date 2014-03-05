@@ -34,6 +34,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover
 
         onPhotoClick: function(img) {
             AlbumCover.uploadedPhoto = img.attr('alt');
+            document.getElementById('fbpSelectLink').className = 'active';
         },
 
         onPhotoSelectClick: function() {

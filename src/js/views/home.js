@@ -1,4 +1,5 @@
-define(['jquery', 'backbone', 'templates/jst', 'models/user'], function($, Backbone, tmplts, User){
+define(['jquery', 'backbone', 'templates/jst', 'models/user', 'tools/device'],
+    function($, Backbone, tmplts, User, Device){
     var homeView = Backbone.View.extend({
         el: "#content",
         rendered: false,
@@ -12,7 +13,11 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user'], function($, Backb
 
         goToPhotoGallery: function() {
             var callback = function() {
-                appRouter.showFacebookPhotos();
+                if(Device.isMobile()) { // Mobile version of site.
+                    appRouter.showThankYouMbl();
+                } else {
+                    appRouter.showFacebookPhotos();
+                }
             };
             this.unload(callback);
         },
