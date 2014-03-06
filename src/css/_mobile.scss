@@ -193,4 +193,38 @@
     #hDesktopLink, #tyDesktopLink { background-image: url(../img/forward-to-desktop-button.png); }
     #tyDesktopLink { margin-bottom: 100px; }
     #hBuyLink, #tyBuyLink { background-image: url(../img/buy-on-itunes-button-mobile.png); }
+
+    #gallery {
+        width: 530px;
+
+        >h1 {
+            margin: 35px 0;
+            width: 224px;
+            height: 95px;
+            background: url(../img/gallery-heading-mobile.png) no-repeat 0 0;
+        }
+
+        >a.gArrow {
+            &#gPrev { left: 15px; }
+            &#gNext { right: 15px; }
+        }
+
+        #gBackLink {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            width: 320px;
+            height: 70px;
+            background-image: url(../img/back-home-button-mobile.png);
+        }
+
+        #gArt {
+            >div {
+                >img {
+                    width: 170px;
+                    height: 165px;
+                }
+            }
+        }
+    }
 }

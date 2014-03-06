@@ -26,6 +26,8 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover
                 if(html !== '') {
                     $(document.getElementById('photosContainer')).html(html);
                     $('a.fbPic').click(function() {
+                        $('a.fbPic').removeClass('selected');
+                        $(this).addClass('selected');
                         _this.onPhotoClick($(this).find('img'));
                     });
                 }

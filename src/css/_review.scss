@@ -3,9 +3,11 @@
     margin: 0 auto;
 
     >h1 {
+        @include sprite();
+
+        background-position: -2981px 0;
         width: 157px;
-        height: 51px;
-        background: url(../img/look-ill-heading.png) no-repeat 0 0;
+        height: 50px;
         margin: 35px auto;
 
         >span { display: none; }
@@ -20,16 +22,14 @@
 }
 
 #rBackLink, #rContinueLink {
-    @include button();
+    @include spriteButton();
 
     float: left;
     margin-top: 140px;
-    width: 209px;
-    height: 46px;
 }
 
-#rBackLink { background: url(../img/go-back-button.png) no-repeat 0 0; }
+#rBackLink { background-position: -2280px 0; }
 #rContinueLink {
     margin-left: 28px;
-    background: url(../img/continue-button.png) no-repeat 0 0;
+    background-position: -903px 0;
 }

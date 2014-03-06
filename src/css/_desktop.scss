@@ -1,6 +1,7 @@
 @media screen and (min-width: 800px) {
     html {
-        background-image: url(../img/desktop-bg.jpg);
+        background-color: #ff9f00;
+        background-image: url(../img/desktop-bg.png);
 
         >body {
             padding: 15px 25px;
@@ -42,9 +43,11 @@
             float: right;
 
             >h1 {
-                width: 236px;
-                height: 75px;
-                background-image: url(../img/still-ill-heading.png);
+                @include sprite();
+
+                background-position: -3878px 0;
+                width: 233px;
+                height: 74px;
             }
         }
 
@@ -68,19 +71,21 @@
         #connectWithEmail { margin-left: 115px; }
 
         #hGalleryLink {
-            width: 222px;
-            height: 65px;
+            @include spriteButton();
+
+            background-position: -4322px 0;
+            width: 216px; 
+            height: 61px;
             margin: 30px auto 10px;
-            background-image: url(../img/view-the-gallery.png);
         }
 
         #hDesktopLink, #hBuyLink, #celebrate-mobile { display: none; }
 
         #hFbLink {
-            width: 209px;
-            height: 46px;
+            @include spriteButton();
+
+            background-position: -1436px 0;
             margin: 30px auto 20px;
-            background-image: url(../img/fb-login-button.png);
         }
     }
 
@@ -88,9 +93,11 @@
         width: 414px;
 
         >h1 {
+            @include sprite();
+
+            background-position: -1965px 0;
             width: 314px;
-            height: 59px;
-            background: url(../img/enter-your-email-heading.png) no-repeat 0 0;
+            height: 58px;
             margin: 35px 0 25px 100px;
         }
 
@@ -117,9 +124,38 @@
         }
 
         #emContinueLink {
-            width: 209px;
-            height: 46px;
-            background-image: url(../img/continue-button.png);
+            @include spriteButton();
+
+            background-position: -903px 0;
+        }
+    }
+
+    #gallery {
+        width: 826px;
+
+        >h1 {
+            @include sprite();
+
+            background-position: -2490px 0;
+            width: 417px;
+            height: 75px;
+            margin: 35px auto;
+        }
+
+        #gBackLink {
+            @include spriteButton();
+
+            margin: 28px auto 0;
+            background-position: -2280px 0;
+        }
+
+        #gArt {
+            >div {
+                >img {
+                    width: 157px;
+                    height: 153px;
+                }
+            }
         }
     }
 }

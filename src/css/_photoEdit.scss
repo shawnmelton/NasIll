@@ -3,9 +3,11 @@
     margin: 0 auto;
 
     >h1 {
-        width: 325px;
+        @include sprite();
+
+        background-position: -1113px 0;
+        width: 322px;
         height: 57px;
-        background: url(../img/create-your-cober-heading.png) no-repeat 0 0;
         margin: 35px auto 25px;
 
         >span { display: none; }
@@ -44,17 +46,15 @@
 }
 
 #peBackLink, #peContinueLink {
-    @include button();
+    @include spriteButton();
 
     float: left;
-    width: 209px;
-    height: 46px;
 }
 
-#peBackLink { background: url(../img/go-back-button.png) no-repeat 0 0; }
+#peBackLink { background-position: -2280px 0; }
 #peContinueLink {
     margin-left: 28px;
-    background: url(../img/continue-button.png) no-repeat 0 0;
+    background-position: -903px 0;
 }
 
 

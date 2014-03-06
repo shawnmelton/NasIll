@@ -2,6 +2,7 @@ define(['jquery', 'backbone', 'templates/jst'], function($, Backbone, tmplts){
     var musicViewEl = Backbone.View.extend({
         el: "#spotify",
         section: null,
+        rendered: false,
         audioEl: null,
         playBtnEl: null,
         pauseBtnEl: null,
@@ -98,11 +99,14 @@ define(['jquery', 'backbone', 'templates/jst'], function($, Backbone, tmplts){
         },
 
         render: function() {
-            this.$el.html(JST['src/js/templates/music.html']());
-            this.setAudioEl();
-            this.setButtonEls();
-            this.setEvents();
-            this.loadSong();
+            if(!this.rendered) {
+                this.rendered = true;
+                this.$el.html(JST['src/js/templates/music.html']());
+                this.setAudioEl();
+                this.setButtonEls();
+                this.setEvents();
+                this.loadSong();
+            }
         },
 
         setAudioEl: function() {

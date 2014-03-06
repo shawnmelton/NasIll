@@ -3,9 +3,11 @@
     margin: 0 auto;
 
     >h1 {
+        @include sprite();
+
+        background-position: -3139px 0;
         width: 318px;
-        height: 59px;
-        background: url(../img/pick-your-picture-heading.png) no-repeat 0 0;
+        height: 58px;
         margin: 35px auto 25px;
 
         >span { display: none; }
@@ -22,26 +24,22 @@
         margin: 0 auto;
 
         >a {
-            @include button();
+            @include spriteButton();
 
             float: left;
-            width: 209px;
-            height: 46px;
-            background-position: 0 0;
-            background-repeat: no-repeat;
 
             &#fbpSelectLink {
                 cursor: default;
-                background: url(../img/continue-button-inactive.png) no-repeat 0 0;
+                background-position: -903px -92px;
                 margin-right: 60px;
 
                 &.active {
                     cursor: pointer;
-                    background-image: url(../img/continue-button.png);
+                    background-position: -903px 0px;
                 }
             }
 
-            &#fbpUploadLink { background-image: url(../img/upload-picture-button.png); }
+            &#fbpUploadLink { background-position: -4112px 0; }
         }
     }
 }
@@ -66,14 +64,17 @@
     }
 
     >a {
-        @include button();
+        @include sprite();
 
-        margin: 0 30px 25px 0;
+        margin: 0 22px 17px 0;
         float: left;
+        border: 4px solid transparent;
 
         >img {
             border: 0;
             height: 50px;
         }
+
+        &.selected { border-color: #992a11; }
     }
 }

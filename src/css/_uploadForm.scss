@@ -3,33 +3,36 @@
     margin: 0 auto;
 
     >h1 {
+        @include sprite();
+
+        background-position: -3139px 0;
         width: 318px;
-        height: 59px;
-        background: url(../img/pick-your-picture-heading.png) no-repeat 0 0;
+        height: 58px;
         margin: 35px auto 25px;
 
         >span { display: none; }
     }
 
-    >img {
+    >span {
+        @include sprite();
+
         display: block;
-        margin: 30px auto;
+        background-position: -2908px 0;
         width: 72px;
         height: 54px;
+        margin: 30px auto;
     }
 }
 
 #upContinueLink {
-    @include button();
+    @include spriteButton();
 
     cursor: default;
     margin-left: 88px;
-    width: 209px;
-    height: 46px;
-    background: url(../img/continue-button-inactive.png) no-repeat 0 0;
+    background-position: -903px -92px;
 
     &.active {
         cursor: pointer;
-        background-image: url(../img/continue-button.png);
+        background-position: -903px 0;
     }
 }

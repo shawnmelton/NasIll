@@ -1,12 +1,12 @@
-define(['jquery', 'backbone', 'templates/jst', 'views/lightbox', 'tools/random'],
-    function($, Backbone, tmplts, lightBoxViewEl, Random){
+define(['jquery', 'backbone', 'templates/jst', 'views/lightbox', 'tools/random', 'tools/device'],
+    function($, Backbone, tmplts, lightBoxViewEl, Random, Device){
     var galleryView = Backbone.View.extend({
         el: "#content",
         artEl: null,
         section: null,
         rendered: false,
         rowStart: 0,
-        rowLimit: 5,
+        rowLimit: Device.isMobile() ? 3 : 5,
         rowsPerPage: 2,
         reachedLimit: false,
         imageSet: [],
@@ -63,6 +63,11 @@ define(['jquery', 'backbone', 'templates/jst', 'views/lightbox', 'tools/random']
                     }));
 
                     _this.addImagesToSet(r.response.art);
+                } else if(typeof callback === 'undefined') {
+                    // No results on page
+                    _this.onPreviousClick(null);
+                    _this.reachedLimit = true;
+                    _this.nextBtnEl.className = 'gArrow inactive';
                 }
 
                 if(typeof callback !== 'undefined') {
@@ -82,7 +87,10 @@ define(['jquery', 'backbone', 'templates/jst', 'views/lightbox', 'tools/random']
         },
 
         onNextClick: function(ev) {
-            ev.preventDefault();
+            if(ev !== null) {
+                ev.preventDefault();
+            }
+
             this.prevBtnEl.className = 'gArrow';
 
             if(!this.reachedLimit) {
@@ -93,7 +101,11 @@ define(['jquery', 'backbone', 'templates/jst', 'views/lightbox', 'tools/random']
         },
 
         onPreviousClick: function(ev) {
-            ev.preventDefault();
+            if(ev !== null) {
+                ev.preventDefault();
+            }
+
+            this.reachedLimit = false;
             this.nextBtnEl.className = 'gArrow';
 
             if(this.rowStart > (this.rowsPerPage * this.rowLimit)) {

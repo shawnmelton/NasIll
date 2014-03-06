@@ -3,9 +3,11 @@
     margin: 0 auto;
 
     >h1 {
+        @include sprite();
+
+        background-position: -598px 0;
         width: 304px;
         height: 59px;
-        background: url(../img/congratulations-heading.png) no-repeat 0 0;
         margin: 35px auto 20px;
 
         >span { display: none; }
@@ -21,9 +23,7 @@
             width: 321px;
         }
 
-        >p {
-            font-size: 12px;
-        }
+        >p { font-size: 12px; }
     }
 
     >#sButtons {
@@ -34,20 +34,20 @@
     }
 }
 
-#sFbLink, #sTwLink, #sBuyLink, #sDownloadLink {
-    @include button();
+#sFbLink, #sTwLink, #sDownloadLink {
+    @include spriteButton();
 
-    width: 209px;
-    height: 46px;
     margin-left: 13px;
     margin-bottom: 15px;
 }
 
 #sGalleryLink {
     @include button();
+    @include sprite();
 
-    width: 222px;
-    height: 65px;
+    background-position: -4322px 0;
+    width: 216px;
+    height: 61px;
     margin-bottom: 15px;
 }
 
@@ -67,8 +67,23 @@
     }
 }
 
-#sFbLink { background: url(../img/facebook-share-button.png) no-repeat 0 0; }
-#sTwLink { background: url(../img/twitter-share-button.png) no-repeat 0 0; }
-#sDownloadLink { background: url(../img/download-your-image-button.png) no-repeat 0 0; }
-#sBuyLink { background: url(../img/buy-on-itunes-button.png) no-repeat 0 0; }
-#sGalleryLink {background: url(../img/view-the-gallery.png) no-repeat 0 0; }
+#sFbLink { background-position: -3458px 0; }
+#sTwLink { background-position: -3668px 0; }
+#sDownloadLink { background-position: -1755px 0; }
+#sBuyLink {
+    @include button();
+    @include sprite();
+
+    background-position: -1646px 0;
+    width: 108px;
+    height: 38px;
+}
+
+#sAmazonLink {
+    @include button();
+    @include sprite();
+
+    background-position: -99px 0;
+    width: 108px;
+    height: 50px;
+}

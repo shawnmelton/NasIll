@@ -1,15 +1,9 @@
 #gallery {
     position: relative;
-    width: 826px;
     padding: 0 55px;
     margin: 0 auto;
 
     >h1 {
-        width: 293px;
-        height: 58px;
-        background: url(../img/illmatic-gallery-heading.png) no-repeat 0 0;
-        margin: 35px auto;
-
         >span { display: none; }
     }
 
@@ -49,8 +43,6 @@
         >img {
             display: block;
             cursor: pointer;
-            width: 157px;
-            height: 153px;
             float: left;
             margin-left: 10px;
 
@@ -58,13 +50,3 @@
         }
     }
 }
-
-#gBackLink {
-    @include button();
-
-    margin: 28px auto 0;
-    width: 209px;
-    height: 46px;
-}
-
-#gBackLink { background: url(../img/back-home-button.png) no-repeat 0 0; }

@@ -13,18 +13,6 @@
 
     &:hover { text-decoration: none; }
 }
-#hFbLink {
-    @include button();
-
-    background-repeat: no-repeat;
-    background-position: 0 0;
-}
-#hGalleryLink {
-    @include button();
-
-    background-position: 0 0;
-    background-repeat: no-repeat;
-}
 
 #home { margin: 0 auto; }
 

@@ -3,9 +3,11 @@
     margin: 0 auto;
 
     >h1 {
-        width: 388px;
-        height: 57px;
-        background: url(../img/confirm-your-picture-heading.png) no-repeat 0 0;
+        @include sprite();
+
+        background-position: -208px 0;
+        width: 389px;
+        height: 58px;
         margin: 35px auto 25px;
 
         >span { display: none; }
@@ -21,15 +23,13 @@
 #cpPhotoName { color: #992a11; }
 
 #cpUploadLink, #cpContinueLink {
-    @include button();
+    @include spriteButton();
 
     float: left;
-    width: 209px;
-    height: 46px;
 }
 
-#cpUploadLink { background: url(../img/upload-picture-button.png) no-repeat 0 0; }
+#cpUploadLink { background-position: -4112px 0; }
 #cpContinueLink {
     margin-left: 19px;
-    background: url(../img/continue-button.png) no-repeat 0 0;
+    background-position: -903px 0;
 }

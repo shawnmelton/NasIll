@@ -4,6 +4,11 @@
     clear: both;
 }
 
+@mixin sprite() {
+    background-image: url(../img/desktop-sprite.png);
+    background-repeat: no-repeat;
+}
+
 @mixin button() {
     display: block;
     cursor: pointer;
@@ -11,6 +16,14 @@
     text-decoration: none;
 
     >span { display: none; }
+}
+
+@mixin spriteButton() {
+    @include button();
+    @include sprite();
+
+    width: 209px;
+    height: 46px;
 }
 
 /**
