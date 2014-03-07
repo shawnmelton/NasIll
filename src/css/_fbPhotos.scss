@@ -36,10 +36,16 @@
                 &.active {
                     cursor: pointer;
                     background-position: -903px 0px;
+
+                    &:active { ackground-position: -903px -46px; }
                 }
             }
 
-            &#fbpUploadLink { background-position: -4112px 0; }
+            &#fbpUploadLink {
+                background-position: -4112px 0;
+
+                &:active { background-position: -4112px -46px; }
+            }
         }
     }
 }
@@ -64,7 +70,7 @@
     }
 
     >a {
-        @include sprite();
+        @include button();
 
         margin: 0 22px 17px 0;
         float: left;

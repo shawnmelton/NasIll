@@ -68,6 +68,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover
                         AlbumCover.uploadedPhoto = r.response.photo;
                         AlbumCover.fileName = r.response.fileName;
                         AlbumCover.uploadedPhotoWidth = r.response.width;
+                        AlbumCover.uploadedFromFacebook = false;
 
                         _this.errorMsg.fadeOut();
                         _this.goToPhotoEdit();

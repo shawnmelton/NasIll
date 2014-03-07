@@ -4,7 +4,8 @@ define([], function() {
         uploadedPhoto: '',
         artPhoto: '',
         fileName: '',
-        uploadedPhotoWidth: 0
+        uploadedPhotoWidth: 0,
+        uploadedFromFacebook: false
     };
 
     return new AlbumCover();

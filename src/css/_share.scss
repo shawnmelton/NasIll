@@ -49,6 +49,8 @@
     width: 216px;
     height: 61px;
     margin-bottom: 15px;
+
+    &:active { background-position: -4322px -61px; }
 }
 
 #SInstLink {
@@ -67,9 +69,21 @@
     }
 }
 
-#sFbLink { background-position: -3458px 0; }
-#sTwLink { background-position: -3668px 0; }
-#sDownloadLink { background-position: -1755px 0; }
+#sFbLink {
+    background-position: -3458px 0;
+
+    &:active { background-position: -3458px -46px; }
+}
+#sTwLink {
+    background-position: -3668px 0;
+
+    &:active { background-position: -3668px -46px; }
+}
+#sDownloadLink {
+    background-position: -1755px 0;
+
+    &:active { background-position: -1755px -46px; }
+}
 #sBuyLink {
     @include button();
     @include sprite();

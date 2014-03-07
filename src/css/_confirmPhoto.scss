@@ -28,8 +28,14 @@
     float: left;
 }
 
-#cpUploadLink { background-position: -4112px 0; }
+#cpUploadLink {
+    background-position: -4112px 0;
+    
+    &:active { background-position: -4112px -46px; }
+}
 #cpContinueLink {
     margin-left: 19px;
     background-position: -903px 0;
+
+    &:active { background-position: -903px -46px; }
 }

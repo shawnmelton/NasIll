@@ -6,20 +6,9 @@ class Image {
         $this->resource = imagecreatefromjpeg($file);
     }
 
-    private function crop($newWidth, $newHeight) {
+    public function crop($newWidth, $newHeight, $x, $y) {
         $newImg = imagecreatetruecolor($newWidth, $newHeight);
-
-        $startingX = 0;
-        if(imagesx($this->resource) > $newWidth) {
-            $startingX = floor((imagesx($this->resource) - $newWidth) / 2.5);
-        }
-
-        $startingY = 0;
-        if(imagesy($this->resource) > $newHeight) {
-            $startingY = floor((imagesy($this->resource) - $newHeight) / 2.5);
-        }
-
-        imagecopyresampled($newImg, $this->resource, 0, 0, $startingX, $startingY, $newWidth, $newHeight, ($startingX + $newWidth), ($startingY + $newHeight));
+        imagecopyresampled($newImg, $this->resource, 0, 0, $x, $y, $newWidth, $newHeight, $newWidth, $newHeight);
         $this->resource = $newImg;
 
         /*header('Content-Type: image/jpeg');
@@ -48,23 +37,13 @@ class Image {
         return imagesx($this->resource);
     }
 
-    public function overlayImage($pngFile) {
+    public function overlayImage($png) {
         if($this->resource) {
-            $png = imagecreatefrompng($pngFile);
             imagealphablending($png, false);
             imagesavealpha($png, true);
 
-            $xPos = 0;
-            $yPos = 0;
-            if((imagesx($png) < imagesx($this->resource)) || (imagesy($png) < imagesy($this->resource))) {
-                $this->crop(imagesx($png), imagesy($png));
-            } else {
-                $xPos = ((imagesx($png) - imagesx($this->resource)) / 2);
-                $yPos = ((imagesy($png) - imagesy($this->resource)) / 2);
-            }
-
             $newImg = imagecreatetruecolor(imagesx($png), imagesy($png));
-            imagecopy($newImg, $this->resource, $xPos, $yPos, 0, 0, imagesx($png), imagesy($png));
+            imagecopy($newImg, $this->resource, 0, 0, 0, 0, imagesx($png), imagesy($png));
             $this->resource = $newImg;
 
             imagecopy($this->resource, $png, 0, 0, 0, 0, imagesx($png), imagesy($png));

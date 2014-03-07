@@ -34,5 +34,7 @@
     &.active {
         cursor: pointer;
         background-position: -903px 0;
+
+        &:active { background-position: -903px -46px; }
     }
 }

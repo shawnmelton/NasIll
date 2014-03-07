@@ -1,5 +1,7 @@
 <?php
 class AccountForm extends BaseObject {
+    private $imgUploaded = false;
+
     private function isSubmitted() {
         return (isset($_POST['fns']) && $_POST['fns'] === 'acct');
     }
@@ -8,6 +10,17 @@ class AccountForm extends BaseObject {
         if($this->isSubmitted()) {
             if($this->submissionIsValid()) {
                 $this->save();
+
+                if($this->imgUploaded) { // Send photo upload information back.
+                    $img = new Image(CurrentAlbumCover::get()->getUploadedPhoto());
+
+                    JSON::out(array(
+                        'submission' => 'success',
+                        'photo' => CurrentAlbumCover::get()->getUploadedPhotoUrl(),
+                        'width' => $img->getWidth()
+                    ));
+                }
+
                 JSON::out(array('submission' => 'success'));
             }
 
@@ -25,6 +38,7 @@ class AccountForm extends BaseObject {
         // If a photo is uploaded using Facebook, then download it to our server.
         if(isset($_POST['photo']) && $_POST['photo'] != '') {
             $this->savePhoto();
+            $this->imgUploaded = true;
         }
     }
 

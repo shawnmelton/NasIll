@@ -56,7 +56,10 @@
             width: 490px;
         }
 
-        #celebrate { margin-bottom: 30px; }
+        #celebrate {
+            margin-bottom: 30px;
+            width: 385px;
+        }
 
         #flyAway {
             background: url(../img/nas-fly.png) no-repeat top right;
@@ -77,6 +80,8 @@
             width: 216px; 
             height: 61px;
             margin: 30px auto 10px;
+
+            &:active { background-position: -4322px -61px; }
         }
 
         #hDesktopLink, #hBuyLink, #celebrate-mobile { display: none; }
@@ -86,6 +91,8 @@
 
             background-position: -1436px 0;
             margin: 30px auto 20px;
+
+            &:active { background-position: -1436px -46px; }
         }
     }
 
@@ -127,6 +134,8 @@
             @include spriteButton();
 
             background-position: -903px 0;
+
+            &:active { background-position: -903px -46px; }
         }
     }
 
@@ -147,6 +156,8 @@
 
             margin: 28px auto 0;
             background-position: -2280px 0;
+
+            &:active { background-position: -2280px -46px; }
         }
 
         #gArt {

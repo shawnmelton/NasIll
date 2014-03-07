@@ -8,10 +8,15 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user
         section: null,
         rendered: false,
         originalImgWidth: 0,
+        drag: {},
 
         events: {
             'click #peContinueLink': 'onContinueClick',
             'click #peBackLink': 'onBackClick',
+            'mousedown #peUploadedPhoto': 'onPhotoDragStart',
+            'mousemove #peUploadedPhoto': 'onPhotoDragging',
+            'mouseout #peUploadedPhoto': 'onPhotoDragStop',
+            'mouseup #peUploadedPhoto': 'onPhotoDragStop',
             'submit #photoEditForm': 'onContinueClick'
         },
 
@@ -56,8 +61,10 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user
 
         onBackClick: function() {
             var callback;
-            if(/* Logged in with FB */ false) {
-
+            if(AlbumCover.uploadedFromFacebook) {
+                callback = function() {
+                    appRouter.showFacebookPhotos();
+                };
             } else {
                 callback = function() {
                     appRouter.showConfirmPhoto();
@@ -70,6 +77,11 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user
         onContinueClick: function(ev) {
             ev.preventDefault();
             this.setFormEl();
+
+            if(this.drag.hasBeenApplied) {
+                document.getElementById('cropx').value = this.drag.original.x - this.drag.offset.x;
+                document.getElementById('cropy').value = this.drag.original.y - this.drag.offset.y;
+            }
 
             var _this = this;
             $.post('/api/generateAlbumArt?r='+ Random.get(), this.form.serialize(), function(rText) {
@@ -89,7 +101,50 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user
             });
         },
 
+        onPhotoDragStart: function(ev) {
+            ev.preventDefault();
+            this.drag.inProgress = true;
+            this.drag.hasBeenApplied = true;
+            this.drag.start = {
+                x: ev.clientX,
+                y: ev.clientY
+            };
+        },
+
+        onPhotoDragging: function(ev) {
+            ev.preventDefault();
+
+            if(this.drag.inProgress) {
+                this.image.style.marginLeft = this.drag.offset.x + (ev.clientX - this.drag.start.x) +'px';
+                this.image.style.marginTop = this.drag.offset.y + (ev.clientY - this.drag.start.y) +'px';
+            }
+        },
+
+        onPhotoDragStop: function(ev) {
+            ev.preventDefault();
+
+            if(this.drag.inProgress) {
+                this.drag.inProgress = false;
+
+                this.drag.offset = {
+                    x: this.drag.offset.x + (ev.clientX - this.drag.start.x),
+                    y: this.drag.offset.y + (ev.clientY - this.drag.start.y)
+                };
+
+                this.image.style.marginLeft = this.drag.offset.x +'px';
+                this.image.style.marginTop = this.drag.offset.y +'px';
+            }
+        },
+
         render: function() {
+            this.drag = {
+                inProgress: false,
+                hasBeenApplied: false,
+                start: {},
+                offset: {},
+                original: {}
+            };
+
             if(!this.rendered) {
                 this.rendered = true;
                 this.$el.append(JST['src/js/templates/photoEdit.html']({
@@ -132,12 +187,17 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user
         setImageZoom: function(zoom) {
             var imgWidth = (parseInt(this.originalImgWidth) * zoom);
             this.image.style.width = imgWidth +'px';
-            this.image.style.marginLeft = '-'+ (imgWidth / 2) +'px';
 
-            var _this = this;
-            setTimeout(function() { // Wait for image to download.
-                _this.image.style.marginTop = '-'+ (_this.image.clientHeight / 2) +'px';
-            }, 1000);
+            if(!this.drag.hasBeenApplied) { // Once this image has been dragged, don't center it again.
+                this.drag.original.x = this.drag.offset.x = ((imgWidth / 2) * -1);
+                this.image.style.marginLeft = this.drag.offset.x +'px';
+
+                var _this = this;
+                setTimeout(function() { // Wait for image to download.
+                    _this.drag.original.y = _this.drag.offset.y = ((_this.image.clientHeight / 2) * -1);
+                    _this.image.style.marginTop = _this.drag.offset.y +'px';
+                }, 250);
+            }
         },
 
         setSection: function() {

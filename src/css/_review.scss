@@ -28,8 +28,14 @@
     margin-top: 140px;
 }
 
-#rBackLink { background-position: -2280px 0; }
+#rBackLink {
+    background-position: -2280px 0;
+
+    &:active { background-position: -2280px -46px; }
+}
 #rContinueLink {
     margin-left: 28px;
     background-position: -903px 0;
+
+    &:active { background-position: -903px -46px; }
 }

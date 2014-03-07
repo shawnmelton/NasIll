@@ -5,10 +5,14 @@ class PhotoEditForm extends BaseObject {
     }
 
     private function generateAlbumArt() {
+        $overlayPng = imagecreatefrompng(dirname(dirname(dirname(__FILE__))) .'/img/artOverlayLayer.png');
+
+
         $img = new Image(CurrentAlbumCover::get()->getUploadedPhoto());
         $img->resize($_POST['zoom']);
         $img->rotate(($_POST['angle'] * -1));
-        $img->overlayImage(dirname(dirname(dirname(__FILE__))) .'/img/artOverlayLayer.png');
+        $img->crop(imagesx($overlayPng), imagesy($overlayPng), $_POST['cropx'], $_POST['cropy']);
+        $img->overlayImage($overlayPng);
         return $img->overlayText($_POST['tagText'], 40, array(255, 15, 15));
     }
 
@@ -32,6 +36,8 @@ class PhotoEditForm extends BaseObject {
 
     private function submissionIsValid() {
         return (isset($_POST['tagText']) && $_POST['tagText'] != '' && 
+            isset($_POST['cropx']) && preg_match('/^-?\d+$/', $_POST['cropx']) &&
+            isset($_POST['cropy']) && preg_match('/^-?\d+$/', $_POST['cropy']) &&
             isset($_POST['angle']) && preg_match('/^-?\d+$/', $_POST['angle']) &&
             isset($_POST['zoom']) && preg_match('/^\d+(\.\d+)?$/', $_POST['zoom']));
     }
