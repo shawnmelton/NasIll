@@ -19,15 +19,20 @@
 
                 >p { 
                     float: left;
+                    margin-top: 4px;
 
                     >a {
-                        width: 7px;
-                        height: 17px;
-                        margin: 5px 13px 0 0;
-                        background: url(../img/twitter-t-icon.png) no-repeat 0 0;
+                        width: 21px;
+                        height: 18px;
+                        margin: 3px 13px 0 0;
+                        background: url(../img/twitter-bird-icon.png) no-repeat 0 0;
 
-                        &:first-child { background-image: url(../img/facebook-f-icon.png); }
-                        &:hover { background-position: 0 -17px; }
+                        &:first-child {
+                            width: 11px;
+                            height: 20px;
+                            background-image: url(../img/facebook-f-icon.png);
+                            margin-top: 0;
+                        }
                     }
                 }
             }
@@ -58,19 +63,43 @@
         #celebrate {
             margin-bottom: 30px;
             width: 385px;
+            font-size: 19px;
+            line-height: 23px;
         }
 
         #flyAway {
-            background: url(../img/nas-fly.png) no-repeat top right;
+            position: relative;
+            background-position: 0 0;
             padding-right: 190px;
 
             >strong {
                 display: block;
                 margin-bottom: 8px;
+                font-size: 16px;
+                line-height: 18px;
+            }
+
+            >span {
+                @include sprite();
+
+                display: block;
+                position: absolute;
+                top: 0;
+                right: 44px;
+                width: 98px;
+                height: 136px;
+                background-position: 0 0;
             }
         }
 
-        #connectWithEmail { margin-left: 115px; }
+        #connectWithEmail {
+            margin-left: 135px;
+
+            #hUploadLink {
+                padding-right: 31px;
+                background: url(../img/email-icon.png) no-repeat center right;
+            }
+        }
 
         #hGalleryLink {
             @include spriteButton();
