@@ -1,6 +1,5 @@
 @media screen and (min-width: 800px) {
     html {
-        background-color: #ff9f00;
         background-image: url(../img/desktop-bg.png);
 
         >body {
@@ -166,6 +165,16 @@
                     width: 157px;
                     height: 153px;
                 }
+            }
+        }
+    }
+
+    #lbOverlay {
+        >div {
+            >a {
+                width: 41px;
+                height: 20px;
+                background: url(../img/lb-close-heading.png) no-repeat 0 0;
             }
         }
     }

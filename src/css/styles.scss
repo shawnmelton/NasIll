@@ -26,6 +26,16 @@
     height: 46px;
 }
 
+@mixin mSprite() {
+    background-image: url(../img/mobile-sprite.png);
+    background-repeat: no-repeat;
+}
+
+@mixin mSpriteButton() {
+    @include button();
+    @include mSprite();
+}
+
 /**
  * Pull in all of the partial CSS files and compile them in the appropriate order.
  */

@@ -1,10 +1,10 @@
 @media screen and (max-width: 799px) {
     html {
-        background-image: url(../img/mobile-bg.jpg);
+        background-image: url(../img/mobile-bg.png);
         text-align: center;
 
         >body {
-            padding: 15px 0;
+            padding: 150px 0 15px;
 
             &.overlay { background: url(../img/black-trans-bg.png) repeat 0 0; }
         }
@@ -21,19 +21,24 @@
         }
 
         >p { 
-            width: 65px;
+            width: 122px;
             margin: 95px auto 40px;
 
             >a {
-                width: 15px;
-                height: 36px;
-                background: url(../img/twitter-t-icon-mobile.png) no-repeat 0 0;
+                @include mSprite();
+
+                width: 57px;
+                height: 48px;
+                margin-top: 5px;
+                background-position: -2610px 0;
 
                 &:first-child {
-                    background-image: url(../img/facebook-f-icon-mobile.png);
+                    width: 29px;
+                    height: 53px;
+                    background-position: -1704px 0;
                     margin-right: 35px;
+                    margin-top: 0;
                 }
-                &:hover { background-position: 0 -36px; }
             }
         }
 
@@ -42,52 +47,67 @@
 
     #home {
         max-width: 610px;
-        padding: 0 15px;
+        padding: 0 25px;
         margin: 0 auto;
 
         >#placeholder { display: none; }
 
         >#intro {
             >h1 {
-                width: 258px;
-                height: 81px;
-                background-image: url(../img/still-ill-mobile-heading.png);
-                margin: 35px auto 30px;
+                @include mSprite();
+
+                width: 253px;
+                height: 79px;
+                background-position: -2356px 0;
+                margin: 0 auto 30px;
             }
         }
 
         #celebrate-mobile {
             font-size: 24px;
-            line-height: 23px;
+            line-height: 32px;
         }
 
         #flyAwayMobile {
-            width: 447px;
-            height: 292px;
-            background: url(../img/nas-fly-mobile.png) no-repeat 0 0;
+            width: 317px;
+            padding-top: 271px;
+            background: url(../img/nas-fly-mobile.png) no-repeat top center;
             margin: 30px auto 0;
+
+            >span {
+                @include mSprite();
+
+                display: block;
+                width: 317px;
+                height: 42px;
+                background-position: -3320px 0;
+            }
         }
 
-        #enterToWin {
-            width: 294px;
-            height: 40px;
-            background: url(../img/enter-to-win-heading.png) no-repeat 0 0;
-            margin: 0 auto 40px;
-        }
-
-        #hGalleryLink { margin: 80px auto 30px; }
+        #hGalleryLink { margin: 80px auto 85px; }
 
         #hFbLink {
-            width: 320px;
-            height: 70px;
-            margin: 40px auto 30px;
-            background-image: url(../img/connect-with-facebook-mobile.png);
+            @include mSpriteButton();
+
+            background-position: -1071px 0;
+            width: 396px;
+            height: 86px;
+            margin: 35px auto 30px;
+
+            &:active { background-position: -1071px -86px; }
         }
 
         #connectWithEmail {
             margin: 0 auto;
-            width: 225px;
+            width: 248px;
             font-size: 20px;
+            height: 28px;
+            line-height: 28px;
+
+            >#hUploadLink {
+                padding-right: 54px;
+                background: url(../img/email-icon-mobile.png) no-repeat top right;
+            }
         }
 
         .sep, #celebrate, #flyAway { display: none; }
@@ -98,7 +118,7 @@
             width: 518px;
             height: 96px;
             background: url(../img/enter-your-email-heading-mobile.png) no-repeat 0 0;
-            margin: 35px auto 40px;
+            margin: 0 auto 40px;
         }
 
         #emErrorMsg, #eMblDesc {
@@ -128,9 +148,13 @@
         }
 
         #emContinueLink {
+            @include mSpriteButton();
+
             width: 320px;
             height: 70px;
-            background-image: url(../img/continue-button-mobile.png);
+            background-position: -3000px 0;
+
+            &:active { background-position: -3000px -70px; }
         }
 
         #emMblBackLink {
@@ -152,10 +176,12 @@
         margin: 0 auto;
 
         >h1 {
-            width: 512px;
-            height: 99px;
-            background: url(../img/congratulations-heading-mobile.png) no-repeat 0 0;
-            margin: 35px auto 28px;
+            @include mSprite();
+
+            background-position: -557px 0;
+            width: 513px;
+            height: 100px;
+            margin: 0 auto 28px;
 
             >span { display: none; }
         }
@@ -170,38 +196,48 @@
         #tyGalleryLink { margin: 45px auto 75px; }
     }
 
-    #tyGalleryLink {
-        @include button();
-    }
-
     #hGalleryLink, #tyGalleryLink {
-        width: 308px;
+        @include mSpriteButton();
+
+        background-position: -2668px 0;
+        width: 332px;
         height: 48px;
-        background-image: url(../img/view-the-gallery-mobile.png);
+
+        &:active { background-position: -2668px -48px; }
     }
 
     #hDesktopLink, #hBuyLink, #tyDesktopLink, #tyBuyLink {
-        @include button();
+        @include mSpriteButton();
 
-        width: 320px;
-        height: 70px;
         margin: 20px auto;
-        background-position: 0 0;
-        background-repeat: no-repeat;
     }
 
-    #hDesktopLink, #tyDesktopLink { background-image: url(../img/forward-to-desktop-button.png); }
+    #hDesktopLink, #tyDesktopLink {
+        background-position: -1734px 0;
+        width: 395px;
+        height: 86px;
+
+        &:active { background-position: -1734px -86px; }
+    }
     #tyDesktopLink { margin-bottom: 100px; }
-    #hBuyLink, #tyBuyLink { background-image: url(../img/buy-on-itunes-button-mobile.png); }
+    #hBuyLink, #tyBuyLink {
+        background-position: -1468px 0;
+        width: 235px;
+        height: 84px;
+
+        &:active { background-position: -1468px -84px; }
+    }
 
     #gallery {
         width: 530px;
 
         >h1 {
-            margin: 35px 0;
-            width: 224px;
-            height: 95px;
-            background: url(../img/gallery-heading-mobile.png) no-repeat 0 0;
+            @include mSprite();
+
+            background-position: -2130px 0;
+            width: 225px;
+            height: 96px;
+            margin: 0 0 35px;
         }
 
         >a.gArrow {
@@ -210,12 +246,16 @@
         }
 
         #gBackLink {
+            @include mSpriteButton();
+
             position: absolute;
             top: 10px;
             right: 15px;
             width: 320px;
             height: 70px;
-            background-image: url(../img/back-home-button-mobile.png);
+            background-position: -236px 0;
+
+            &:active { background-position: -236px -70px; }
         }
 
         #gArt {
@@ -223,6 +263,30 @@
                 >img {
                     width: 170px;
                     height: 165px;
+                }
+            }
+        }
+    }
+
+    #lbOverlay {
+        >div {
+            >a {
+                width: 81px;
+                height: 40px;
+                background: url(../img/close-button-mobile.png) no-repeat 0 0;
+            }
+
+            >div {
+                >a {
+                    width: 58px;
+                    height: 38px;
+                    background-image: url(../img/arrow-next-mobile.png);
+
+                    &:first-child {
+                        width: 69px;
+                        height: 29px;
+                        background-image: url(../img/arrow-previous-mobile.png);
+                    }
                 }
             }
         }
