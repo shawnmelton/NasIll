@@ -10,6 +10,14 @@
     <body>
         <div id="fb-root"></div>
         <script>
+            (function() {
+                var e = document.createElement("script");
+                e.type = "text/javascript"; e.async = true;
+                e.src = "http" + (document.location.protocol === "https:" ? "s://ssl" : "://") + "tag.myplay.com/t/a/" + document.location.hostname;
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(e, s);
+            })();
+            
             window.fbAsyncInit = function() {
                 FB.init({
                     appId: '281586151994965',
