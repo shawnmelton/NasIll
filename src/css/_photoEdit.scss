@@ -39,7 +39,47 @@
             margin-bottom: 50px;
 
             >div {
-                margin: 35px 25px;
+                margin: 35px 10px;
+                padding-right: 40px;
+
+                >label {
+                    display: block;
+                    float: left;
+                    width: 70px;
+                    text-align: right;
+                    margin-right: 15px;
+                    height: 27px;
+                    line-height: 27px;
+                }
+
+                >span {
+                    display: block;
+                    float: left;
+                    width: 27px;
+                    height: 27px;
+                    background-repeat: no-repeat;
+                    background-image: url(../img/photo-edit-tools.png);
+
+                    &.first { margin-right: 15px; }
+                    &.last { margin-left: 15px; }
+                }
+
+                >div {
+                    float: left;
+                    width: 215px;
+                    height: 2px;
+                    margin-top: 12px;
+                }
+
+                &#zoomSliderWrapper {
+                    >span.last { background-position: 0px 0px; }
+                    >span.first { background-position: -27px 0px; }
+                }
+
+                &#angleSliderWrapper {
+                    >span.last { background-position: -27px -27px; }
+                    >span.first { background-position: 0px -27px; }
+                }
             }
         }
     }

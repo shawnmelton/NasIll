@@ -2,9 +2,7 @@
     <h1><span>create your cober</span></h1>
     <p class="lHeight19 textCenter" style="margin: 0 auto 35px; width: 500px;">Position your face within the outline by dragging your image within the viewer. Then use the tools below to align your eyes with the "X"s and add your name.</p>
     <div class="right">
-        <div id="peErrorMsg" class="errors">
-            There was an error generating your album art.  Please contact our technical support.
-        </div>
+        <div id="peErrorMsg" class="errors">There was an error generating your album art.  Please contact our technical support.</div>
         <form name="photoEditForm" method="post" action="" id="photoEditForm">
             <div id="peErrorMsg" class="errors">Please make sure that you have proper complete the form field below.</div>
             <div>
@@ -17,8 +15,18 @@
             </div>
         </form>
         <div class="sliders">
-            <div id="zoomSlider"></div>
-            <div id="angleSlider"></div>
+            <div class="clearfix" id="zoomSliderWrapper">
+                <label for="zoomSlider">Size:</label>
+                <span class="first"></span>
+                <div id="zoomSlider"></div>
+                <span class="last"></span>
+            </div>
+            <div class="clearfix" id="angleSliderWrapper">
+                <label for="angleSlider">Rotate:</label>
+                <span class="first"></span>
+                <div id="angleSlider"></div>
+                <span class="last"></span>
+            </div>
         </div>
         <p class="clearfix">
             <a id="peBackLink"><span>go back</span></a>

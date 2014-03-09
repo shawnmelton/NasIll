@@ -1,10 +1,12 @@
 <form name="uploadPhoto" id="upForm" method="post" action="/api/upload" enctype="multipart/form-data">
     <input type="file" name="photo" required="required" id="uploadField" onchange="this.form.submit();">
     <input type="hidden" name="fns" value="upfm">
-    <div src="/img/upload-picture-button.png" onclick="getPhoto();" style="margin-left: 88px; cursor: pointer; border: 0; outline: none; background-position: -4112px 0; width: 209px; height: 46px; background-image: url(../img/desktop-sprite.png);"></div>
+    <div src="/img/upload-picture-button.png" onclick="getPhoto();" style="margin-left: 88px; cursor: pointer; border: 0; outline: none; background-position: -4112px 0; width: 209px; height: 46px; background-image: url(../img/desktop-sprite.png);" id="ssUploadButton"></div>
 </form>
 <script type="text/javascript">
     function getPhoto() {
+        document.getElementById('ssUploadButton').style.backgroundPosition = '-4112px -46px';
+
         document.getElementById('uploadField').click();
     }
 </script>

@@ -6,6 +6,8 @@
             padding: 15px 25px;
             width: 974px;
 
+            >#content { min-height: 500px; }
+
             >#terms {
                 width: 930px;
                 height: 28px;
@@ -61,7 +63,7 @@
         }
 
         #celebrate {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             width: 385px;
             font-size: 19px;
             line-height: 23px;
@@ -71,6 +73,7 @@
             position: relative;
             background-position: 0 0;
             padding-right: 190px;
+            margin: 20px auto 25px;
 
             >strong {
                 display: block;
@@ -118,7 +121,7 @@
             @include spriteButton();
 
             background-position: -1436px 0;
-            margin: 30px auto 20px;
+            margin: 35px auto 20px;
 
             &:active { background-position: -1436px -46px; }
         }

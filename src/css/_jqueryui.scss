@@ -116,9 +116,12 @@
     height: .8em;
 }
 .ui-slider-horizontal .ui-slider-handle {
-    top: -.3em;
+    top: -8px; /* -.3em; */
     margin-left: -.6em;
-    background: #abc;
+    background: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    outline: none;
 }
 .ui-slider-horizontal .ui-slider-range {
     top: 0;
