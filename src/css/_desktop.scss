@@ -186,9 +186,9 @@
             @include spriteButton();
 
             margin: 28px auto 0;
-            background-position: -2280px 0;
+            background-position: -4538px 0;
 
-            &:active { background-position: -2280px -46px; }
+            &:active { background-position: -4538px -46px; }
         }
 
         #gArt {
@@ -206,7 +206,7 @@
             >a {
                 width: 41px;
                 height: 20px;
-                background: url(../img/lb-close-heading.png) no-repeat 0 0;
+                background: url(../img/close-heading.png) no-repeat 0 0;
             }
         }
     }
