@@ -13,10 +13,10 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user
         events: {
             'click #peContinueLink': 'onContinueClick',
             'click #peBackLink': 'onBackClick',
-            'mousedown #peUploadedPhoto': 'onPhotoDragStart',
-            'mousemove #peUploadedPhoto': 'onPhotoDragging',
-            'mouseout #peUploadedPhoto': 'onPhotoDragStop',
-            'mouseup #peUploadedPhoto': 'onPhotoDragStop',
+            'mousedown #pePhotoOverlay': 'onPhotoDragStart',
+            'mousemove #pePhotoOverlay': 'onPhotoDragging',
+            'mouseout #pePhotoOverlay': 'onPhotoDragStop',
+            'mouseup #pePhotoOverlay': 'onPhotoDragStop',
             'submit #photoEditForm': 'onContinueClick'
         },
 

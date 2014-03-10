@@ -119,5 +119,15 @@
             left: 50%;
             top: 50%;
         }
+
+        >span {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 308px;
+            height: 308px;
+            background: url(../img/photo-edit-face-outline.png) no-repeat 0 0;
+        }
     }
 }

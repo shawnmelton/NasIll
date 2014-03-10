@@ -31,6 +31,12 @@
         width: 222px;
 
         >p { margin-bottom: 15px; }
+
+        >div {
+            min-height: 140px;
+            background: url(../img/nas-share.png) no-repeat 0 0;
+            padding-left: 115px;
+        }
     }
 }
 
@@ -48,7 +54,7 @@
     background-position: -4322px 0;
     width: 216px;
     height: 61px;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
 
     &:active { background-position: -4322px -61px; }
 }
@@ -58,8 +64,8 @@
 
     float: left;
     color: #fff;
-    padding-right: 20px;
-    background: url(../img/instagram-white-icon-small.png) no-repeat center right;
+    padding-right: 22px;
+    background: url(../img/instagram-icon.png) no-repeat center right;
     margin-left: 60px;
     min-height: 16px;
     line-height: 16px;
@@ -91,6 +97,7 @@
     background-position: -1646px 0;
     width: 108px;
     height: 38px;
+    margin-bottom: 15px;
 }
 
 #sAmazonLink {
