@@ -13,10 +13,27 @@
         >span { display: none; }
     }
 
-    >p {
+    >p#fbDirections {
         width: 418px;
         text-align: center;
         margin: 0 auto;
+    }
+
+    >#fbBreadcrumb {
+        display: none;
+        font-size: 16px;
+        line-height: 24px;
+        min-height: 24px;
+        padding: 10px 47px;
+
+        >a {
+            text-decoration: underline;
+
+            &:hover { text-decoration: none; }
+            &:active { color: #bbb; }
+        }
+
+        >small, >span { font-size: 20px; }
     }
 
     >div.clearfix {
@@ -53,12 +70,11 @@
 #photosContainer {
     min-height: 200px;
     padding: 25px;
-    margin: 40px 0;
+    margin-bottom: 40px;
 
     >span {
         display: block;
         font-style: italic;
-        font-size: 200%;
         line-height: 200px;
         text-align: center;
     }
@@ -69,18 +85,44 @@
         clear: both;
     }
 
-    >a {
+    >a.fbPic {
         @include button();
 
-        margin: 0 22px 17px 0;
+        margin: 0 0 17px 22px;
         float: left;
         border: 4px solid transparent;
 
         >img {
             border: 0;
-            height: 50px;
+            height: 75px;
         }
 
         &.selected { border-color: #992a11; }
+    }
+
+    >a.fbAlbum {
+        @include button();
+
+        position: relative;
+        margin: 0 0 5px 15px;
+        height: 135px;
+        width: 180px;
+        overflow: hidden;
+        float: left;
+
+        >img { border: 0; }
+        >span {
+            display: block;
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            left: 5px;
+            color: #fff;
+            text-shadow: 0 0 5px #000;
+            font-size: 16px;
+            min-height: 20px;
+            line-height: 20px;
+            text-align: right;
+        }
     }
 }
