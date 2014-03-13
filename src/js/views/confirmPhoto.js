@@ -32,6 +32,9 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover'], function($,
 
                 this.rendered = true;
             } else {
+                document.getElementById('cpPhoto').src = AlbumCover.uploadedPhoto;
+                document.getElementById('cpPhotoName').innerHTML = AlbumCover.fileName;
+
                 this.section.fadeIn();
             }
         },

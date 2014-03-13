@@ -33,6 +33,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover
                 this.rendered = true;
                 this.$el.append(JST['src/js/templates/uploadForm.html']());
             } else {
+                document.getElementById('uploadFrame').src = '/api/upload';
                 this.section.fadeIn();
             }
         },
