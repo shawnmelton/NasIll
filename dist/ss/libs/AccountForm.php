@@ -33,7 +33,10 @@ class AccountForm extends BaseObject {
         $user->setFirstName($_POST['firstName']);
         $user->setLastName($_POST['lastName']);
         $user->setEmail($_POST['email']);
-        $user->save();
+
+        if(!$user->find()) {
+            $user->save();
+        }
 
         // If a photo is uploaded using Facebook, then download it to our server.
         if(isset($_POST['photo']) && $_POST['photo'] != '') {

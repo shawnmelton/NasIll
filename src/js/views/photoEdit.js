@@ -103,6 +103,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user
 
         onPhotoDragStart: function(ev) {
             ev.preventDefault();
+
             this.drag.inProgress = true;
             this.drag.hasBeenApplied = true;
             this.drag.start = {
@@ -137,15 +138,15 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user
         },
 
         render: function() {
-            this.drag = {
-                inProgress: false,
-                hasBeenApplied: false,
-                start: {},
-                offset: {},
-                original: {}
-            };
-
             if(!this.rendered) {
+                this.drag = {
+                    inProgress: false,
+                    hasBeenApplied: false,
+                    start: {},
+                    offset: {},
+                    original: {}
+                };
+
                 this.rendered = true;
                 this.$el.append(JST['src/js/templates/photoEdit.html']({
                     photoUrl: AlbumCover.uploadedPhoto,
@@ -155,8 +156,30 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user
                 this.initSliders();
                 this.setImageEl();
             } else {
-                document.getElementById('peUploadedPhoto').src = AlbumCover.uploadedPhoto;
                 this.section.fadeIn();
+            }
+
+            // Reset the image.
+            if(document.getElementById('peUploadedPhoto').src.indexOf(AlbumCover.uploadedPhoto) === -1) {
+                document.getElementById('peUploadedPhoto').src = AlbumCover.uploadedPhoto;
+
+                this.drag = {
+                    inProgress: false,
+                    hasBeenApplied: false,
+                    start: {},
+                    offset: {},
+                    original: {}
+                };
+
+                $(document.getElementById('zoomSlider')).slider('value', 0);
+                $(document.getElementById('angleSlider')).slider('value', 0);
+
+                this.originalImgWidth = AlbumCover.uploadedPhotoWidth;
+                this.setImageAngle(0);
+                this.setImageZoom(1);
+            } else {
+                //$(document.getElementById('zoomSlider')).slider('value', parseInt(document.getElementById('zoom').value));
+                //$(document.getElementById('angleSlider')).slider('value', parseInt(document.getElementById('angle').value));
             }
         },
 

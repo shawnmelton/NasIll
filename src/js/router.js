@@ -1,4 +1,5 @@
-define(['jquery', 'backbone', 'views/home', 'libs/json2'], function($, Backbone, homeView, jsn2) {
+define(['jquery', 'backbone', 'views/home', 'libs/json2', 'tools/device'],
+    function($, Backbone, homeView, jsn2, Device) {
 
     var AppRouter = Backbone.Router.extend({
         initialize: function() {
@@ -43,7 +44,7 @@ define(['jquery', 'backbone', 'views/home', 'libs/json2'], function($, Backbone,
         showHome: function() {
             homeView.render();
 
-            if(document.getElementsByTagName('html')[0].className === '') {
+            if(document.getElementsByTagName('html')[0].className === '' && !Device.isMobile()) {
                 this.showMusic();
             }
         },

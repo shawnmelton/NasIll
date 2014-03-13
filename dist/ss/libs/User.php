@@ -7,6 +7,17 @@ class User extends BaseObject {
         $this->id = DB::getInsertId();
     }
 
+    public function find() {
+        $result = DB::execute('SELECT user_id, user_checkdin_id FROM users WHERE user_email = (?)', array('s', $this->email));
+        if($obj = $result->fetch_object()) {
+            $this->id = $obj->user_id;
+            $this->checkdinId = $obj->user_checkdin_id;
+            return true;
+        }
+
+        return false;
+    }
+
     public function getEmail() {
         return $this->email;
     }
@@ -26,6 +37,7 @@ class User extends BaseObject {
             $this->firstName = $obj->user_first_name;
             $this->lastName = $obj->user_last_name;
             $this->email = $obj->user_email;
+            $this->checkdinId = $obj->user_checkdin_id;
         }
     }
 
@@ -46,12 +58,17 @@ class User extends BaseObject {
     }
 
     public function save() {
+        if($this->checkdinId === false) {
+           $this->checkdinId = CheckdIn::createUser($this->firstName, $this->lastName, $this->email);
+        }
+
         DB::execute('
             UPDATE users SET
                 user_first_name = (?),
                 user_last_name = (?),
-                user_email = (?)
+                user_email = (?),
+                user_checkdin_id = (?)
             WHERE user_id = (?)
-        ', array('sssi', $this->firstName, $this->lastName, $this->email, $this->id));
+        ', array('ssssi', $this->firstName, $this->lastName, $this->email, $this->checkdinId, $this->id));
     }
 }

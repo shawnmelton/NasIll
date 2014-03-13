@@ -7,21 +7,16 @@ class PhotoEditForm extends BaseObject {
     private function generateAlbumArt() {
         $overlayPng = imagecreatefrompng(dirname(dirname(dirname(__FILE__))) .'/img/artOverlayLayer.png');
 
-
         $img = new Image(CurrentAlbumCover::get()->getUploadedPhoto());
         $img->resize($_POST['zoom']);
         $img->rotate(($_POST['angle'] * -1));
-        $img->crop(imagesx($overlayPng), imagesy($overlayPng), $_POST['cropx'], $_POST['cropy']);
+        $img->crop($_POST['cropx'], $_POST['cropy']);
+        $img->cropFace();
         $img->overlayImage($overlayPng);
         return $img->overlayText($_POST['tagText'], 40, array(255, 15, 15));
     }
 
     public function process() {
-        /*$_POST['zoom'] = 2;
-        $_POST['tagText'] = 'Shawn';
-        $_POST['angle'] = 0;
-        $_POST['fns'] = 'pEdt';*/
-
         if($this->isSubmitted()) {
             if($this->submissionIsValid()) {
                 JSON::out(array(

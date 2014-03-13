@@ -6,14 +6,39 @@ class Image {
         $this->resource = imagecreatefromjpeg($file);
     }
 
-    public function crop($newWidth, $newHeight, $x, $y) {
-        $newImg = imagecreatetruecolor($newWidth, $newHeight);
-        imagecopyresampled($newImg, $this->resource, 0, 0, $x, $y, $newWidth, $newHeight, $newWidth, $newHeight);
+    public function crop($x, $y) {
+        $newImg = imagecreatetruecolor(imagesx($this->resource), imagesy($this->resource));
+        imagecopyresampled($newImg, $this->resource, 0, 0, $x, $y, imagesx($this->resource), imagesy($this->resource), imagesx($this->resource), imagesy($this->resource));
         $this->resource = $newImg;
+    }
 
-        /*header('Content-Type: image/jpeg');
-        imagejpeg($this->resource);
-        exit;*/
+    public function cropFace() {
+        $imgWidth = imagesx($this->resource);
+        $imgHeight = imagesy($this->resource);
+
+        // Create a black image with a transparent ellipse, and merge with destination
+        $mask = imagecreatetruecolor($imgWidth, $imgHeight);
+        $maskTransparent = imagecolorallocate($mask, 255, 0, 255);
+        imagecolortransparent($mask, $maskTransparent);
+        imagefilledellipse($mask, $imgWidth / 2, $imgHeight / 2, 160, 250, $maskTransparent);
+        imagecopymerge($this->resource, $mask, 0, 0, 0, 0, $imgWidth, $imgHeight, 100);
+
+        // Fill each corners of destination image with transparency
+        $dstTransparent = imagecolorallocate($this->resource, 255, 0, 255);
+        imagefill($this->resource, 0, 0, $dstTransparent);
+        imagefill($this->resource, $imgWidth - 1, 0, $dstTransparent);
+        imagefill($this->resource, 0, $imgHeight - 1, $dstTransparent);
+        imagefill($this->resource, $imgWidth - 1, $imgHeight - 1, $dstTransparent);
+        imagecolortransparent($this->resource, $dstTransparent);
+
+        // Overlay on to album
+        $dest = imagecreatefrompng(dirname(dirname(dirname(__FILE__))) .'/img/photo-edit-bg.png');
+        imagealphablending($dest, false);
+        imagesavealpha($dest, true);
+        imagecopymerge($dest, $this->resource, (imagesx($dest) - imagesx($this->resource)) / 2, (imagesy($dest) - imagesy($this->resource)) / 2, 0, 0, imagesx($this->resource), imagesy($this->resource), 100);
+        $this->resource = $dest;
+
+        return $this->resource;
     }
 
     private function getColor($colorArr) {
@@ -35,6 +60,11 @@ class Image {
 
     public function getWidth() {
         return imagesx($this->resource);
+    }
+
+    public function output() {
+        header('Content-Type: image/png');
+        imagepng($this->resource);
     }
 
     public function overlayImage($png) {

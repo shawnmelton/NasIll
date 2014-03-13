@@ -115,9 +115,11 @@
 
     #eml {
         >h1 {
-            width: 518px;
-            height: 96px;
-            background: url(../img/enter-your-email-heading-mobile.png) no-repeat 0 0;
+            @include mSprite();
+
+            width: 530px;
+            height: 97px;
+            background-position: -3637px 0px;
             margin: 0 auto 40px;
         }
 
