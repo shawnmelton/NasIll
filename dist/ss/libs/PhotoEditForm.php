@@ -7,13 +7,13 @@ class PhotoEditForm extends BaseObject {
     private function generateAlbumArt() {
         $img = new Image(CurrentAlbumCover::get()->getUploadedPhoto());
         $img->resize($_POST['zoom']);
-        $img->rotate(($_POST['angle'] * -1));
+        //$img->rotate(($_POST['angle'] * -1));
         $img->crop($_POST['cropx'], $_POST['cropy']);
         $img->cropFace();
         $img->overlayOnAlbum();
         $img->overlayTopLayer();
-        $img->overlayText(strtolower($_POST['tagText']), 135, array(0, 0, 0), 116);
-        if($img->overlayText(strtolower($_POST['tagText']), 135, array(159, 56, 29), 115)) {
+        $img->overlayText(strtolower($_POST['tagText']), array(0, 0, 0));
+        if($img->overlayText(strtolower($_POST['tagText']), array(159, 56, 29))) {
             return $img->store();
         }
 
@@ -34,7 +34,7 @@ class PhotoEditForm extends BaseObject {
     }
 
     private function submissionIsValid() {
-        return (isset($_POST['tagText']) && $_POST['tagText'] != '' && 
+        return (isset($_POST['tagText']) && $_POST['tagText'] != '' && strlen($_POST['tagText']) < 16 && 
             isset($_POST['cropx']) && preg_match('/^-?\d+$/', $_POST['cropx']) &&
             isset($_POST['cropy']) && preg_match('/^-?\d+$/', $_POST['cropy']) &&
             isset($_POST['angle']) && preg_match('/^-?\d+$/', $_POST['angle']) &&

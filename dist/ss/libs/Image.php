@@ -87,13 +87,45 @@ class Image {
         return dirname(dirname(__FILE__)) .'/fonts/Iglesia.ttf';
     }
 
+    private function getFontSize($text) {
+        $fontSize = 135;
+        switch(strlen($text)) {
+            case 5:
+            case 6: return $fontSize - 25;
+
+            case 7:
+            case 8: return $fontSize - 45;
+
+            case 9:
+            case 10: return $fontSize - 55;
+
+            case 11:
+            case 12: return $fontSize - 75;
+
+            case 13:
+            case 14:
+            case 15: return $fontSize - 85;
+        }
+
+        return $fontSize;
+    }
+
     private function getTextXPos($text, $fontSize) {
         $coords = imagettfbbox($fontSize, 0, $this->getFontFile(), $text);
         return (imagesx($this->resource) - $coords[2]) - 10;
     }
 
-    private function getTextYPos($fontSize) {
-        return ((imagesy($this->resource) * .00) + $fontSize);
+    private function getTextYPos($text) {
+        $fontSize = $this->getFontSize($text);
+        $yPos = $fontSize;
+
+        if($fontSize <= 4) {
+            $yPos -= 20;
+        } else if($fontSize <= 6 ) {
+            $yPos -= 10;
+        }
+
+        return $yPos;
     }
 
     public function getWidth() {
@@ -131,10 +163,12 @@ class Image {
         }
     }
 
-    public function overlayText($text, $fontSize, $color, $yPos) {
+    public function overlayText($text, $color) {
         if($this->resource) {
+            $fontSize = $this->getFontSize($text);
+
             imagealphablending($this->resource, true);
-            if(imagettftext($this->resource, $fontSize, 0, $this->getTextXPos($text, $fontSize), $yPos, $this->getColor($color), $this->getFontFile(), $text)) {
+            if(imagettftext($this->resource, $fontSize, 0, $this->getTextXPos($text, $fontSize), $this->getTextYPos($text), $this->getColor($color), $this->getFontFile(), $text)) {
                 imagealphablending($this->resource, false);
                 return true;
             }

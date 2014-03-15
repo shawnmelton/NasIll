@@ -6,7 +6,7 @@
         <form name="photoEditForm" method="post" action="" id="photoEditForm">
             <div id="peErrorMsg" class="errors">Please make sure that you have proper complete the form field below.</div>
             <div>
-                <label for="tagText">Your Name</label>: &nbsp; <input type="text" name="tagText" id="tagText" value="<%= firstName %>"> &nbsp; <small class="textWhite">15 character limit</small>
+                <label for="tagText">Your Name</label>: &nbsp; <input type="text" name="tagText" id="tagText" value="<%= firstName %>" maxlength="15"> &nbsp; <small class="textWhite">15 character limit</small>
                 <input type="hidden" name="zoom" id="zoom" value="0">
                 <input type="hidden" name="angle" id="angle" value="0">
                 <input type="hidden" name="cropx" id="cropx" value="0">

@@ -4,6 +4,8 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user
         el: "#content",
         errorMsg: null,
         form: null,
+        angleEl: null,
+        zoomEl: null,
         image: null,
         section: null,
         rendered: false,
@@ -29,7 +31,6 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user
 
         initSliders: function() {
             var _this = this;
-            var zoomEl = document.getElementById('zoom');
             $(document.getElementById('zoomSlider')).slider({
                 max: 10,
                 min: -10,
@@ -42,18 +43,15 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user
                         value = 1;
                     }
 
-                    zoom.value = value;
                     _this.setImageZoom(value);
                 }
             });
 
-            var angleEl = document.getElementById('angle');
             $(document.getElementById('angleSlider')).slider({
                 max: 180,
                 min: -180,
                 step: 10,
                 slide: function(event, ui) {
-                    angleEl.value = ui.value;
                     _this.setImageAngle(ui.value);
                 }
             });
@@ -162,6 +160,8 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user
             // Reset the image.
             if(document.getElementById('peUploadedPhoto').src.indexOf(AlbumCover.uploadedPhoto) === -1) {
                 document.getElementById('peUploadedPhoto').src = AlbumCover.uploadedPhoto;
+                this.setImageZoom(1);
+                this.setImageAngle(0);
 
                 this.drag = {
                     inProgress: false,
@@ -177,9 +177,6 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user
                 this.originalImgWidth = AlbumCover.uploadedPhotoWidth;
                 this.setImageAngle(0);
                 this.setImageZoom(1);
-            } else {
-                //$(document.getElementById('zoomSlider')).slider('value', parseInt(document.getElementById('zoom').value));
-                //$(document.getElementById('angleSlider')).slider('value', parseInt(document.getElementById('angle').value));
             }
         },
 
@@ -196,6 +193,11 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user
         },
 
         setImageAngle: function(angle) {
+            if(this.angleEl === null) {
+                this.angleEl = document.getElementById('angle');
+            }
+
+            this.angleEl.value = angle;
             $(this.image).rotate(angle);
         },
 
@@ -208,6 +210,12 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user
         },
 
         setImageZoom: function(zoom) {
+            if(this.zoomEl === null) {
+                this.zoomEl = document.getElementById('zoom');
+            }
+
+            this.zoomEl.value = zoom;
+
             var imgWidth = (parseInt(this.originalImgWidth) * zoom);
             this.image.style.width = imgWidth +'px';
 
