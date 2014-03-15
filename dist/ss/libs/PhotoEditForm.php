@@ -5,15 +5,19 @@ class PhotoEditForm extends BaseObject {
     }
 
     private function generateAlbumArt() {
-        $overlayPng = imagecreatefrompng(dirname(dirname(dirname(__FILE__))) .'/img/artOverlayLayer.png');
-
         $img = new Image(CurrentAlbumCover::get()->getUploadedPhoto());
         $img->resize($_POST['zoom']);
         $img->rotate(($_POST['angle'] * -1));
         $img->crop($_POST['cropx'], $_POST['cropy']);
         $img->cropFace();
-        $img->overlayImage($overlayPng);
-        return $img->overlayText($_POST['tagText'], 40, array(255, 15, 15));
+        $img->overlayOnAlbum();
+        $img->overlayTopLayer();
+        $img->overlayText(strtolower($_POST['tagText']), 135, array(0, 0, 0), 116);
+        if($img->overlayText(strtolower($_POST['tagText']), 135, array(159, 56, 29), 115)) {
+            return $img->store();
+        }
+
+        return false;
     }
 
     public function process() {

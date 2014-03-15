@@ -44,8 +44,8 @@ define(['jquery', 'backbone', 'views/home', 'libs/json2', 'tools/device'],
         showHome: function() {
             homeView.render();
 
-            if(document.getElementsByTagName('html')[0].className === '' && !Device.isMobile()) {
-                //this.showMusic();
+            if(!Device.isMobile() && (typeof lteie8 === 'undefined' || !lteie8)) {
+                this.showMusic();
             }
         },
 

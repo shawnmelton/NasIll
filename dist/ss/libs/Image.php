@@ -1,44 +1,82 @@
 <?php
 class Image {
     private $resource;
+    private $width;
+    private $height;
 
     public function __construct($file) {
         $this->resource = imagecreatefromjpeg($file);
+        $this->setDimensions();
     }
 
     public function crop($x, $y) {
-        $newImg = imagecreatetruecolor(imagesx($this->resource), imagesy($this->resource));
-        imagecopyresampled($newImg, $this->resource, 0, 0, $x, $y, imagesx($this->resource), imagesy($this->resource), imagesx($this->resource), imagesy($this->resource));
+        $newImg = imagecreatetruecolor($this->width, $this->height);
+        imagecopyresampled($newImg, $this->resource, 0, 0, $x, $y, $this->width, $this->height, $this->width, $this->height);
         $this->resource = $newImg;
     }
 
     public function cropFace() {
-        $imgWidth = imagesx($this->resource);
-        $imgHeight = imagesy($this->resource);
+        $faceWidth = 160;
+        $faceHeight = 250;
 
         // Create a black image with a transparent ellipse, and merge with destination
-        $mask = imagecreatetruecolor($imgWidth, $imgHeight);
+        $mask = imagecreatetruecolor($this->width, $this->height);
         $maskTransparent = imagecolorallocate($mask, 255, 0, 255);
         imagecolortransparent($mask, $maskTransparent);
-        imagefilledellipse($mask, $imgWidth / 2, $imgHeight / 2, 160, 250, $maskTransparent);
-        imagecopymerge($this->resource, $mask, 0, 0, 0, 0, $imgWidth, $imgHeight, 100);
+        imagefilledellipse($mask, $this->width / 2, $this->height / 2, $faceWidth, $faceHeight, $maskTransparent);
+        imagecopymerge($this->resource, $mask, 0, 0, 0, 0, $this->width, $this->height, 100);
 
         // Fill each corners of destination image with transparency
         $dstTransparent = imagecolorallocate($this->resource, 255, 0, 255);
         imagefill($this->resource, 0, 0, $dstTransparent);
-        imagefill($this->resource, $imgWidth - 1, 0, $dstTransparent);
-        imagefill($this->resource, 0, $imgHeight - 1, $dstTransparent);
-        imagefill($this->resource, $imgWidth - 1, $imgHeight - 1, $dstTransparent);
+        imagefill($this->resource, $this->width - 1, 0, $dstTransparent);
+        imagefill($this->resource, 0, $this->height - 1, $dstTransparent);
+        imagefill($this->resource, $this->width - 1, $this->height - 1, $dstTransparent);
         imagecolortransparent($this->resource, $dstTransparent);
 
-        // Overlay on to album
-        $dest = imagecreatefrompng(dirname(dirname(dirname(__FILE__))) .'/img/photo-edit-bg.png');
-        imagealphablending($dest, false);
-        imagesavealpha($dest, true);
-        imagecopymerge($dest, $this->resource, (imagesx($dest) - imagesx($this->resource)) / 2, (imagesy($dest) - imagesy($this->resource)) / 2, 0, 0, imagesx($this->resource), imagesy($this->resource), 100);
-        $this->resource = $dest;
+        // Crop image to just the ellipse
+        $mask = imagecreatetruecolor($faceWidth, $faceHeight);
+        $maskTransparent = imagecolorallocate($mask, 255, 0, 255);
+        imagecolortransparent($mask, $maskTransparent);
+        imagecopy($mask, $this->resource, 0, 0, ($this->width - $faceWidth) / 2, ($this->height - $faceHeight) / 2, $faceWidth, $faceHeight);
+        $this->resource = $mask;
 
-        return $this->resource;
+        // Resize ellipse to fill album cover
+        $newFaceWidth = 340;
+        $newFaceHeight = 475;
+
+        $newImg = imagecreatetruecolor($newFaceWidth, $newFaceHeight);
+        imagealphablending($newImg, false);
+        imagesavealpha($newImg, true);
+        $transparent = imagecolorallocatealpha($newImg, 0, 0, 0, 127);
+        imagefilledrectangle($newImg, 0, 0, $newFaceWidth, $newFaceHeight, $transparent);
+        imagecolortransparent($newImg, $transparent);
+        imagecopyresampled($newImg, $this->resource, 0, 0, 0, 0, $newFaceWidth, $newFaceHeight, imagesx($this->resource), imagesy($this->resource));
+        $this->resource = $newImg;
+
+        $this->setDimensions();
+
+        // Create a black image with a transparent ellipse, and merge with destination
+        $mask = imagecreatetruecolor($this->width, $this->height);
+        $maskTransparent = imagecolorallocate($mask, 255, 0, 255);
+        imagecolortransparent($mask, $maskTransparent);
+        imagefilledellipse($mask, $this->width / 2, $this->height / 2, $newFaceWidth, $newFaceHeight, $maskTransparent);
+        imagecopymerge($this->resource, $mask, 0, 0, 0, 0, $this->width, $this->height, 100);
+
+        // Fill each corners of destination image with transparency
+        $dstTransparent = imagecolorallocate($this->resource, 255, 0, 255);
+        imagefill($this->resource, 0, 0, $dstTransparent);
+        imagefill($this->resource, $this->width - 1, 0, $dstTransparent);
+        imagefill($this->resource, 0, $this->height - 1, $dstTransparent);
+        imagefill($this->resource, $this->width - 1, $this->height - 1, $dstTransparent);
+        imagecolortransparent($this->resource, $dstTransparent);
+
+        // Crop image to just the ellipse
+        $mask = imagecreatetruecolor($newFaceWidth, $newFaceHeight);
+        $maskTransparent = imagecolorallocate($mask, 255, 0, 255);
+        imagecolortransparent($mask, $maskTransparent);
+        imagecopy($mask, $this->resource, 0, 0, ($this->width - $newFaceWidth) / 2, ($this->height - $newFaceHeight) / 2, $newFaceWidth, $newFaceHeight);
+        $this->resource = $mask;
     }
 
     private function getColor($colorArr) {
@@ -46,16 +84,16 @@ class Image {
     }
 
     private function getFontFile() {
-        return dirname(dirname(__FILE__)) .'/fonts/OpenSans-Regular.ttf';
+        return dirname(dirname(__FILE__)) .'/fonts/Iglesia.ttf';
     }
 
     private function getTextXPos($text, $fontSize) {
         $coords = imagettfbbox($fontSize, 0, $this->getFontFile(), $text);
-        return ((imagesx($this->resource) * .97) - $coords[2]);
+        return (imagesx($this->resource) - $coords[2]) - 10;
     }
 
     private function getTextYPos($fontSize) {
-        return ((imagesy($this->resource) * .03) + $fontSize);
+        return ((imagesy($this->resource) * .00) + $fontSize);
     }
 
     public function getWidth() {
@@ -67,23 +105,38 @@ class Image {
         imagepng($this->resource);
     }
 
-    public function overlayImage($png) {
+    public function overlayOnAlbum() {
+        // Overlay on to album
+        $dest = imagecreatefrompng(dirname(dirname(dirname(__FILE__))) .'/img/photo-edit-bg.png');
+        imagealphablending($dest, false);
+        imagesavealpha($dest, true);
+        imagecopymerge($dest, $this->resource, 80, 10, 0, 0, $this->width, $this->height, 50);
+        $this->resource = $dest;
+    }
+
+    public function overlayTopLayer() {
         if($this->resource) {
+            $png = imagecreatefrompng(dirname(dirname(dirname(__FILE__))) .'/img/artOverlayLayer.png');
+            $pngWidth = imagesx($png);
+            $pngHeight = imagesy($png);
+
             imagealphablending($png, false);
             imagesavealpha($png, true);
 
-            $newImg = imagecreatetruecolor(imagesx($png), imagesy($png));
-            imagecopy($newImg, $this->resource, 0, 0, 0, 0, imagesx($png), imagesy($png));
+            $newImg = imagecreatetruecolor($pngWidth, $pngHeight);
+            imagecopy($newImg, $this->resource, 0, 0, 0, 0, $pngWidth, $pngHeight);
             $this->resource = $newImg;
 
-            imagecopy($this->resource, $png, 0, 0, 0, 0, imagesx($png), imagesy($png));
+            imagecopy($this->resource, $png, 0, 0, 0, 0, $pngWidth, $pngHeight);
         }
     }
 
-    public function overlayText($text, $fontSize, $color) {
+    public function overlayText($text, $fontSize, $color, $yPos) {
         if($this->resource) {
-            if(imagettftext($this->resource, $fontSize, 0, $this->getTextXPos($text, $fontSize), $this->getTextYPos($fontSize), $this->getColor($color), $this->getFontFile(), $text)) {
-                return ($this->store() !== false);
+            imagealphablending($this->resource, true);
+            if(imagettftext($this->resource, $fontSize, 0, $this->getTextXPos($text, $fontSize), $yPos, $this->getColor($color), $this->getFontFile(), $text)) {
+                imagealphablending($this->resource, false);
+                return true;
             }
         }
 
@@ -95,10 +148,10 @@ class Image {
             return false;
         }
 
-        $newWidth = (imagesx($this->resource) * $zoom);
-        $newHeight = (imagesy($this->resource) * $zoom);
+        $newWidth = ($this->width * $zoom);
+        $newHeight = ($this->height * $zoom);
         $newImg = imagecreatetruecolor($newWidth, $newHeight);
-        imagecopyresampled($newImg, $this->resource, 0, 0, 0, 0, $newWidth, $newHeight, imagesx($this->resource), imagesy($this->resource));
+        imagecopyresampled($newImg, $this->resource, 0, 0, 0, 0, $newWidth, $newHeight, $this->width, $this->height);
         $this->resource = $newImg;
     }
 
@@ -108,7 +161,12 @@ class Image {
         }
     }
 
-    private function store() {
+    private function setDimensions() {
+        $this->height = imagesy($this->resource);
+        $this->width = imagesx($this->resource);
+    }
+
+    public function store() {
         $directory = dirname(dirname(__FILE__)) .'/uploads/'. date('m/d/G');
         if(!is_dir($directory)) {
             mkdir($directory, 0777, true);

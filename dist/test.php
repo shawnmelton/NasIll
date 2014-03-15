@@ -7,30 +7,31 @@ require_once 'ss/config.php';
 // Demo = 308 x 308
 // Actual = 500 x 489
 
-// My face
+// Brae's face
 $zoom = 1;
 $cropX = 48;
 $cropY = -84;
 
-/*$zoom *= 1.35;
-$cropX *= 1.12;
-$cropY *= .55;*/
+// My face big
+$zoom = 2;
+$cropX = 265;
+$cropY = -121;
 
-$diffX = 500 - 308;
-$diffY = 489 - 308;
+//$cropX = 100;
+//$cropY = 0;
 
-//$cropX -= $diffX;
-//$cropY -= $diffY;
+$text = 'Todd';
 
-$overlayPng = imagecreatefrompng('/Users/shawn.melton/Projects/NasIll/dist//img/artOverlayLayer.png');
+
 $img = new Image('/Users/shawn.melton/Projects/NasIll/dist/ss/uploads/03/12/12/1394641552-5712.jpg');
-//$img = new Image('/Users/shawn.melton/Projects/NasIll/dist/img/photo-edit-face-outline.png');
 
-//$img->resize($zoom);
+$img->resize($zoom);
 $img->crop($cropX, $cropY);
 $img->cropFace();
-//$img->overlayImage($overlayPng);
+$img->overlayOnAlbum();
+$img->overlayTopLayer();
+$img->overlayText(strtolower($text), 136, array(0, 0, 0), 116);
+$img->overlayText(strtolower($text), 135, array(159, 56, 29), 115);
 
-//$img->cropFace();
 $img->output();
 
