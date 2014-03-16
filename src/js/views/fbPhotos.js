@@ -61,6 +61,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover
             } else {
                 AlbumCover.uploadedPhoto = '';
                 document.getElementById('fbpSelectLink').className = '';
+                $('a.fbPic').removeClass('selected');
                 this.section.fadeIn();
             }
         },
