@@ -58,8 +58,8 @@ class User extends BaseObject {
     }
 
     public function save() {
-        if($this->checkdinId === false) {
-           $this->checkdinId = CheckdIn::createUser($this->firstName, $this->lastName, $this->email);
+        if($this->checkdinId === '') {
+            $this->checkdinId = CheckdIn::createUser($this->firstName, $this->lastName, $this->email);
         }
 
         DB::execute('
