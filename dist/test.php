@@ -13,8 +13,8 @@ $cropY = -121;
 
 $text = 'Shawn';
 
-$img = new Image('/Users/shawn.melton/Projects/NasIll/dist/ss/uploads/03/12/12/1394641552-5712.jpg');
-
+// $img = new Image('/Users/shawn.melton/Projects/NasIll/dist/ss/uploads/03/12/12/1394641552-5712.jpg');
+$img = new Image('/Users/shawn.melton/Pictures/shawn-small.jpg');
 $img->resize($zoom);
 $img->crop($cropX, $cropY);
 $img->cropFace();
