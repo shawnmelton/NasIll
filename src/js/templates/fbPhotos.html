@@ -2,10 +2,14 @@
     <h1><span>pick your picture</span></h1>
     <p id="fbDirections" class="lHeight19" style="margin-bottom: 40px;">Click any of the thumbnails below to select your image, or choose "upload picture" to use one not currently on Facebook. For best results, use a straight on head and shoulder shot.</p>
     <p id="fbBreadcrumb"><a>Albums</a> &nbsp; <small>&raquo;</small> &nbsp; <span id="fbCurrentAlbum"></span></p>
-    <div id="photosContainer">
-        <span>Loading ...</span>
+    <div class="clearfix" id="fbPhotosWrapper">
+        <a id="fbpPrev"><span>Previous</span></a>
+        <div id="photosContainer">
+            <span>Loading ...</span>
+        </div>
+        <a id="fbpNext"><span>Next</span></a>
     </div>
-    <div class="clearfix">
+    <div class="clearfix" id="fbpButtons">
         <a id="fbpSelectLink"><span>Continue</span></a>
         <a id="fbpUploadLink"><span>Upload Picture</span></a>
     </div>

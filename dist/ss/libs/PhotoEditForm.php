@@ -9,10 +9,9 @@ class PhotoEditForm extends BaseObject {
         $img->resize($_POST['zoom']);
         //$img->rotate(($_POST['angle'] * -1));
         $img->crop($_POST['cropx'], $_POST['cropy']);
-        $img->cropFace();
+        $img->cropFace2();
         $img->overlayOnAlbum();
         $img->overlayTopLayer();
-        $img->overlayText(strtolower($_POST['tagText']), array(0, 0, 0));
         if($img->overlayText(strtolower($_POST['tagText']), array(159, 56, 29))) {
             return $img->store();
         }

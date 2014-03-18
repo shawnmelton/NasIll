@@ -39,7 +39,10 @@
                     background-image: url(../img/arrow-previous.png);
                 }
 
-                &.inactive { opacity: 0.3; }
+                &.inactive {
+                    filter: alpha(opacity=30);
+                    opacity: 0.3;
+                }
             }
         }
     }

@@ -15,6 +15,33 @@ class Image {
         $this->resource = $newImg;
     }
 
+    public function cropFace2() {
+        $faceWidth = 308;
+        $faceHeight = 308;
+
+        // Crop the image around the face.
+        $mask = imagecreatetruecolor($faceWidth, $faceHeight);
+        $maskTransparent = imagecolorallocatealpha($mask, 0, 0, 0, 127);
+        imagecolortransparent($mask, $maskTransparent);
+        imagefilledrectangle($mask, 0, 0, $faceWidth, $faceHeight, $maskTransparent);
+        imagecopyresampled($mask, $this->resource, 0, 0, ($this->width - $faceWidth) / 2, ($this->height - $faceHeight) / 2, $faceWidth, $faceHeight, $faceWidth, $faceHeight);
+        $this->resource = $mask;
+
+        $this->setDimensions();
+
+        // Resize to fill album
+        $albumWidth = 340;
+        $albumHeight = 475;
+        $mask = imagecreatetruecolor($albumWidth, $albumHeight);
+        $maskTransparent = imagecolorallocatealpha($mask, 0, 0, 0, 127);
+        imagecolortransparent($mask, $maskTransparent);
+        imagefilledrectangle($mask, 0, 0, $albumWidth, $albumHeight, $maskTransparent);
+        imagecopyresized($mask, $this->resource, 0, 0, 0, 0, $albumWidth, $albumHeight, $this->width, $this->height);
+        $this->resource = $mask;
+
+        $this->setDimensions();
+    }
+
     public function cropFace() {
         $faceWidth = 160;
         $faceHeight = 250;
@@ -138,11 +165,26 @@ class Image {
     }
 
     public function overlayOnAlbum() {
-        // Overlay on to album
         $dest = imagecreatefrompng(dirname(dirname(dirname(__FILE__))) .'/img/photo-edit-bg.png');
+        $destWidth = imagesx($dest);
+        $destHeight = imagesy($dest);
+
+        $mask = imagecreatetruecolor($destWidth, $destHeight);
+        $maskTransparent = imagecolorallocatealpha($mask, 0, 0, 0, 127);
+        imagecolortransparent($mask, $maskTransparent);
+        imagefilledrectangle($mask, 0, 0, $destWidth, $destHeight, $maskTransparent);
+        imagecopymerge($mask, $this->resource, 80, 10, 0, 0, $this->width, $this->height, 50);
+        //imagecopyresampled($mask, $this->resource, 0, 0, ($this->width - $faceWidth) / 2, ($this->height - $faceHeight) / 2, $faceWidth, $faceHeight, $faceWidth, $faceHeight);
+        $this->resource = $mask;
+
+        $this->setDimensions();
+
+        // Overlay on to album
         imagealphablending($dest, false);
         imagesavealpha($dest, true);
-        imagecopymerge($dest, $this->resource, 80, 10, 0, 0, $this->width, $this->height, 50);
+        //$maskTransparent = imagecolorallocatealpha($dest, 0, 0, 0, 127);
+        //imagecolortransparent($dest, $maskTransparent);
+        imagecopy($dest, $this->resource, 0, 0, 0, 0, $this->width, $this->height);
         $this->resource = $dest;
     }
 
@@ -168,7 +210,26 @@ class Image {
             $fontSize = $this->getFontSize($text);
 
             imagealphablending($this->resource, true);
-            if(imagettftext($this->resource, $fontSize, 0, $this->getTextXPos($text, $fontSize), $this->getTextYPos($text), $this->getColor($color), $this->getFontFile(), $text)) {
+
+            $x = $this->getTextXPos($text, $fontSize);
+            $y = $this->getTextYPos($text);
+            $fontFile = $this->getFontFile();
+            $clr = $this->getColor(array(0,0,0));
+
+            imagettftext($this->resource, $fontSize, 0, $x + 1, $y, $clr, $fontFile, $text);
+            imagettftext($this->resource, $fontSize, 0, $x + 2, $y, $clr, $fontFile, $text);
+            imagettftext($this->resource, $fontSize, 0, $x + 3, $y, $clr, $fontFile, $text);
+            imagettftext($this->resource, $fontSize, 0, $x - 1, $y, $clr, $fontFile, $text);
+            imagettftext($this->resource, $fontSize, 0, $x - 2, $y, $clr, $fontFile, $text);
+            imagettftext($this->resource, $fontSize, 0, $x - 3, $y, $clr, $fontFile, $text);
+            imagettftext($this->resource, $fontSize, 0, $x, $y + 1, $clr, $fontFile, $text);
+            imagettftext($this->resource, $fontSize, 0, $x, $y + 2, $clr, $fontFile, $text);
+            imagettftext($this->resource, $fontSize, 0, $x, $y + 3, $clr, $fontFile, $text);
+            imagettftext($this->resource, $fontSize, 0, $x, $y - 1, $clr, $fontFile, $text);
+            imagettftext($this->resource, $fontSize, 0, $x, $y - 2, $clr, $fontFile, $text);
+            imagettftext($this->resource, $fontSize, 0, $x, $y - 3, $clr, $fontFile, $text);
+
+            if(imagettftext($this->resource, $fontSize, 0, $x, $y, $this->getColor($color), $fontFile, $text)) {
                 imagealphablending($this->resource, false);
                 return true;
             }

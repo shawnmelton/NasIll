@@ -6,11 +6,22 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover
         section: null,
         breadcrumb: null,
         photoContainer: null,
-        albumHTML: '',
+        previousLink: null,
+        nextLink: null,
+        currentAlbumId: null,
+        currentAlbumName: null,
         albums: [],
+        albumStart: 0,
+        albumLimit: 6,
+        photoStart: 0,
+        photoLimit: 8,
+        photosLength: 0,
+        viewingAlbums: true,
         events: {
             'click #fbpSelectLink': 'onPhotoSelectClick',
-            'click #fbpUploadLink': 'onUploadClick'
+            'click #fbpUploadLink': 'onUploadClick',
+            'click #fbpPrev': 'onPreviousClick',
+            'click #fbpNext': 'onNextClick'
         },
 
         hideBreadcrumb: function() {
@@ -28,6 +39,30 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover
             });
         },
 
+        onNextClick: function(ev) {
+            ev.preventDefault();
+
+            if(this.nextLink.className !== 'inactive') {
+                this.previousLink.className = '';
+
+                if(this.viewingAlbums) {
+                    this.albumStart += this.albumLimit;
+                    this.showAlbums();
+
+                    if((this.albumStart + this.albumLimit) >= this.albums.length) {
+                        this.nextLink.className = 'inactive';
+                    }
+                } else {
+                    this.photoStart += this.photoLimit;
+                    this.showAlbumPhotos();
+
+                    if((this.photoStart + this.photoLimit) >= this.photosLength) {
+                        this.nextLink.className = 'inactive';
+                    }
+                }
+            }
+        },
+
         onPhotoClick: function(img) {
             AlbumCover.uploadedPhoto = img.attr('alt');
             document.getElementById('fbpSelectLink').className = 'active';
@@ -39,6 +74,30 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover
             }
 
             this.save();
+        },
+
+        onPreviousClick: function(ev) {
+            ev.preventDefault();
+
+            if(this.previousLink.className !== 'inactive') {
+                this.nextLink.className = '';
+
+                if(this.viewingAlbums) {
+                    this.albumStart -= this.albumLimit;
+                    this.showAlbums();
+
+                    if(this.albumStart <= 0) {
+                        this.previousLink.className = 'inactive';
+                    }
+                } else {
+                    this.photoStart -= this.photoLimit;
+                    this.showAlbumPhotos();
+
+                    if(this.photoStart <= 0) {
+                        this.previousLink.className = 'inactive';
+                    }
+                }
+            }
         },
 
         onUploadClick: function() {
@@ -55,6 +114,9 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover
 
                 this.breadcrumb = document.getElementById('fbBreadcrumb');
                 this.photoContainer = $(document.getElementById('photosContainer'));
+                this.nextLink = document.getElementById('fbpNext');
+                this.previousLink = document.getElementById('fbpPrev');
+                this.previousLink.className = 'inactive';
 
                 this.setBreadcrumbEvents();
                 this.loadPhotos();
@@ -106,35 +168,56 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover
         showAlbums: function() {
             this.photoContainer.html('<span>Loading ...</span>');
             this.hideBreadcrumb();
+            this.viewingAlbums = true;
 
-            var _this = this;
-            if(this.albumHTML === '') {
-                _.each(this.albums, function(album) {
-                    _this.albumHTML += '<a class="fbAlbum" rel="'+ album.id +'"><img src="'+ album.picture.data.url +'" alt="'+ album.name +'"><span>'+ album.name +'</span></a>';
-                });
-            }
+            this.previousLink.className = (this.albumStart <= 0) ? 'inactive' : '';
+            this.nextLink.className = ((this.albumStart + this.albumLimit) >= this.albums.length) ? 'inactive' : '';
 
-            if(this.albumHTML !== '') {
-                this.photoContainer.html(this.albumHTML);
+            var _this = this,
+                albumHTML = '';
+            _.each(this.albums, function(album, index) {
+                if(index >= _this.albumStart && index < (_this.albumStart + _this.albumLimit)) {
+                    albumHTML += '<a class="fbAlbum" rel="'+ album.id +'"><img src="'+ album.picture.data.url +'" alt="'+ album.name +'"><span>'+ album.name +'</span></a>';
+                }
+            });
+
+            if(albumHTML !== '') {
+                this.photoContainer.html(albumHTML);
                 $('a.fbAlbum').click(function() {
-                    _this.showAlbumPhotos($(this).attr('rel'), $(this).find('span').html());
+                    _this.currentAlbumName = $(this).find('span').html();
+                    _this.currentAlbumId = $(this).attr('rel');
+                    _this.photoStart = 0;
+                    _this.showAlbumPhotos();
                 });
             }
         },
 
-        showAlbumPhotos: function(albumId, albumName) {
+        showAlbumPhotos: function() {
             this.photoContainer.html('<span>Loading ...</span>');
-            this.showBreadcrumb(albumName);
+            this.showBreadcrumb(this.currentAlbumName);
+            this.viewingAlbums = false;
+
+            if(this.photoStart === 0) {
+                this.nextLink.className = '';
+                this.previousLink.className = 'inactive';
+            }
 
             var html = '',
                 _this = this;
-            FB.api('/'+ albumId +'/photos', {
+            FB.api('/'+ this.currentAlbumId +'/photos', {
                 fields: 'picture, source, width',
                 limit: 100
             }, function(r) {
-                _.each(r.data, function(photo) {
-                    html += '<a class="fbPic"><img src="'+ photo.picture +'" alt="'+ photo.source +'" fullwidth="'+ photo.width +'"></a>';
+                _this.photosLength = r.data.length;
+                _.each(r.data, function(photo, index) {
+                    if(index >= _this.photoStart && index < (_this.photoStart + _this.photoLimit)) {
+                        html += '<a class="fbPic"><img src="'+ photo.picture +'" alt="'+ photo.source +'" fullwidth="'+ photo.width +'"></a>';
+                    }
                 });
+
+                if(_this.photosLength <= _this.photoLimit) {
+                    _this.nextLink.className = 'inactive';
+                }
 
                 if(html !== '') {
                     _this.photoContainer.html(html);
