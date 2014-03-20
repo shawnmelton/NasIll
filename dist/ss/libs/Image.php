@@ -10,9 +10,13 @@ class Image {
     }
 
     public function crop($x, $y) {
-        $newImg = imagecreatetruecolor($this->width, $this->height);
-        imagecopyresampled($newImg, $this->resource, 0, 0, $x, $y, $this->width, $this->height, $this->width, $this->height);
-        $this->resource = $newImg;
+        $mask = imagecreatetruecolor($this->width, $this->height);
+        imagealphablending($mask, false);
+        imagesavealpha($mask, true);
+        $maskTransparent = imagecolorallocatealpha($mask, 0, 0, 0, 127);
+        imagecolortransparent($mask, $maskTransparent);
+        imagecopyresampled($mask, $this->resource, 0, 0, $x, $y, $this->width, $this->height, $this->width, $this->height);
+        $this->resource = $mask;
     }
 
     public function cropFace2() {
@@ -21,6 +25,8 @@ class Image {
 
         // Crop the image around the face.
         $mask = imagecreatetruecolor($faceWidth, $faceHeight);
+        imagealphablending($mask, false);
+        imagesavealpha($mask, true);
         $maskTransparent = imagecolorallocatealpha($mask, 0, 0, 0, 127);
         imagecolortransparent($mask, $maskTransparent);
         imagefilledrectangle($mask, 0, 0, $faceWidth, $faceHeight, $maskTransparent);
@@ -29,10 +35,18 @@ class Image {
 
         $this->setDimensions();
 
+        // Fill each corners of destination image with transparency
+        $dstTransparent = imagecolorallocate($this->resource, 255, 0, 255);
+        imagefill($this->resource, 0, 0, $dstTransparent);
+        imagecolortransparent($this->resource, $dstTransparent);
+
+
         // Resize to fill album
-        $albumWidth = 340;
+        $albumWidth = 500;
         $albumHeight = 475;
         $mask = imagecreatetruecolor($albumWidth, $albumHeight);
+        imagealphablending($mask, false);
+        imagesavealpha($mask, true);
         $maskTransparent = imagecolorallocatealpha($mask, 0, 0, 0, 127);
         imagecolortransparent($mask, $maskTransparent);
         imagefilledrectangle($mask, 0, 0, $albumWidth, $albumHeight, $maskTransparent);
@@ -42,7 +56,7 @@ class Image {
         $this->setDimensions();
     }
 
-    public function cropFace() {
+    /*public function cropFace() {
         $faceWidth = 160;
         $faceHeight = 250;
 
@@ -104,7 +118,7 @@ class Image {
         imagecolortransparent($mask, $maskTransparent);
         imagecopy($mask, $this->resource, 0, 0, ($this->width - $newFaceWidth) / 2, ($this->height - $newFaceHeight) / 2, $newFaceWidth, $newFaceHeight);
         $this->resource = $mask;
-    }
+    }*/
 
     private function getColor($colorArr) {
         return imagecolorallocate($this->resource, $colorArr[0], $colorArr[1], $colorArr[2]);
@@ -168,24 +182,11 @@ class Image {
         $dest = imagecreatefrompng(dirname(dirname(dirname(__FILE__))) .'/img/photo-edit-bg.png');
         $destWidth = imagesx($dest);
         $destHeight = imagesy($dest);
-
-        $mask = imagecreatetruecolor($destWidth, $destHeight);
-        $maskTransparent = imagecolorallocatealpha($mask, 0, 0, 0, 127);
-        imagecolortransparent($mask, $maskTransparent);
-        imagefilledrectangle($mask, 0, 0, $destWidth, $destHeight, $maskTransparent);
-        imagecopymerge($mask, $this->resource, 80, 10, 0, 0, $this->width, $this->height, 50);
-        //imagecopyresampled($mask, $this->resource, 0, 0, ($this->width - $faceWidth) / 2, ($this->height - $faceHeight) / 2, $faceWidth, $faceHeight, $faceWidth, $faceHeight);
-        $this->resource = $mask;
-
-        $this->setDimensions();
-
-        // Overlay on to album
         imagealphablending($dest, false);
         imagesavealpha($dest, true);
-        //$maskTransparent = imagecolorallocatealpha($dest, 0, 0, 0, 127);
-        //imagecolortransparent($dest, $maskTransparent);
-        imagecopy($dest, $this->resource, 0, 0, 0, 0, $this->width, $this->height);
+        imagecopymerge($dest, $this->resource, 0, 10, 0, 0, $this->width, $this->height, 50);
         $this->resource = $dest;
+        $this->setDimensions();
     }
 
     public function overlayTopLayer() {

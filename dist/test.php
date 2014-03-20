@@ -19,8 +19,8 @@ $img->resize($zoom);
 $img->crop($cropX, $cropY);
 $img->cropFace2();
 $img->overlayOnAlbum();
-//$img->overlayTopLayer();
-//$img->overlayText(strtolower($text), array(159, 56, 29));
+$img->overlayTopLayer();
+$img->overlayText(strtolower($text), array(159, 56, 29));
 
 $img->output();
 
