@@ -91,10 +91,9 @@ define(['jquery', 'backbone', 'templates/jst', 'views/lightbox', 'tools/random',
                 ev.preventDefault();
             }
 
-            this.prevBtnEl.className = 'gArrow';
-
             if(!this.reachedLimit) {
-                this.loadImages();   
+                this.loadImages();
+                this.prevBtnEl.className = 'gArrow';
             } else {
                 this.nextBtnEl.className = 'gArrow inactive';
             }
@@ -105,9 +104,6 @@ define(['jquery', 'backbone', 'templates/jst', 'views/lightbox', 'tools/random',
                 ev.preventDefault();
             }
 
-            this.reachedLimit = false;
-            this.nextBtnEl.className = 'gArrow';
-
             if(this.rowStart > (this.rowsPerPage * this.rowLimit)) {
                 this.rowStart = (this.rowStart - (this.rowsPerPage * 2 * this.rowLimit));
 
@@ -115,6 +111,8 @@ define(['jquery', 'backbone', 'templates/jst', 'views/lightbox', 'tools/random',
                     this.prevBtnEl.className = 'gArrow inactive';
                 }
 
+                this.reachedLimit = false;
+                this.nextBtnEl.className = 'gArrow';
                 this.loadImages();
             }
         },

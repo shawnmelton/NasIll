@@ -184,7 +184,7 @@ class Image {
         $destHeight = imagesy($dest);
         imagealphablending($dest, false);
         imagesavealpha($dest, true);
-        imagecopymerge($dest, $this->resource, 0, 10, 0, 0, $this->width, $this->height, 50);
+        imagecopymerge($dest, $this->resource, 0, 10, 0, 0, $this->width, $this->height, 60);
         $this->resource = $dest;
         $this->setDimensions();
     }
