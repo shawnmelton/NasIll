@@ -13,8 +13,8 @@ $cropY = -121;
 
 // Tori and Shawn pic
 $zoom = 2;
-$cropX = -76;
-$cropY = -31;
+$cropX = 46;
+$cropY = 117;
 
 $text = 'Tori';
 
@@ -22,11 +22,12 @@ $text = 'Tori';
 $img = new Image('/Users/shawn.melton/Pictures/shawn-and-tori.jpg');
 //$img = new Image('/Users/shawn.melton/Pictures/shawn-small.jpg');
 $img->resize($zoom);
+$img->rotate(180);
 $img->crop($cropX, $cropY);
-//$img->cropFace2();
-//$img->overlayOnAlbum();
-//$img->overlayTopLayer();
-//$img->overlayText(strtolower($text), array(159, 56, 29));
+$img->cropFace2();
+$img->overlayOnAlbum();
+$img->overlayTopLayer();
+$img->overlayText(strtolower($text), array(159, 56, 29));
 
 $img->output();
 
