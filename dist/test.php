@@ -22,10 +22,12 @@ $text = 'Tori';
 $img = new Image('/Users/shawn.melton/Pictures/shawn-and-tori.jpg');
 //$img = new Image('/Users/shawn.melton/Pictures/shawn-small.jpg');
 $img->resize($zoom);
-$img->rotate(180);
+//$img->rotate(180);
 $img->crop($cropX, $cropY);
 $img->cropFace2();
+
 $img->overlayOnAlbum();
+$img->overlayOrangeHue();
 $img->overlayTopLayer();
 $img->overlayText(strtolower($text), array(159, 56, 29));
 

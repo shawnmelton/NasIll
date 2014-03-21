@@ -11,6 +11,7 @@ class PhotoEditForm extends BaseObject {
         $img->crop($_POST['cropx'], $_POST['cropy']);
         $img->cropFace2();
         $img->overlayOnAlbum();
+        $img->overlayOrangeHue();
         $img->overlayTopLayer();
         if($img->overlayText(strtolower($_POST['tagText']), array(159, 56, 29))) {
             return $img->store();

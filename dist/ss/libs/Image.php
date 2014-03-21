@@ -184,9 +184,17 @@ class Image {
         $destHeight = imagesy($dest);
         imagealphablending($dest, false);
         imagesavealpha($dest, true);
-        imagecopymerge($dest, $this->resource, 0, 10, 0, 0, $this->width, $this->height, 60);
+        imagecopymerge($dest, $this->resource, 0, 10, 0, 0, $this->width, $this->height, 70);
         $this->resource = $dest;
         $this->setDimensions();
+    }
+
+    public function overlayOrangeHue() {
+        $img = imagecreatetruecolor($this->width, $this->height);
+        $orange = imagecolorallocate($img, 255, 84, 0);
+        imagefill($img, 0, 0, $orange);
+
+        imagecopymerge($this->resource, $img, 0, 0, 0, 0, $this->width, $this->height, 20);
     }
 
     public function overlayTopLayer() {
