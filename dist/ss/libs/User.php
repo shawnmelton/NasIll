@@ -8,11 +8,13 @@ class User extends BaseObject {
     }
 
     public function find() {
-        $result = DB::execute('SELECT user_id, user_checkdin_id FROM users WHERE user_email = (?)', array('s', $this->email));
-        if($obj = $result->fetch_object()) {
-            $this->id = $obj->user_id;
-            $this->checkdinId = $obj->user_checkdin_id;
-            return true;
+        if($this->email != '') {
+            $result = DB::execute('SELECT user_id, user_checkdin_id FROM users WHERE user_email = (?)', array('s', $this->email));
+            if(is_array($result)) {
+                $this->id = $result['user_id'];
+                $this->checkdinId = $result['user_checkdin_id'];
+                return true;
+            }
         }
 
         return false;
@@ -33,11 +35,11 @@ class User extends BaseObject {
 
     public function load() {
         $result = DB::execute('SELECT * FROM users WHERE user_id = (?)', array('i', $this->id));
-        if($obj = $result->fetch_object()) {
-            $this->firstName = $obj->user_first_name;
-            $this->lastName = $obj->user_last_name;
-            $this->email = $obj->user_email;
-            $this->checkdinId = $obj->user_checkdin_id;
+        if(is_array($result)) {
+            $this->firstName = $result['user_first_name'];
+            $this->lastName = $result['user_last_name'];
+            $this->email = $result['user_email'];
+            $this->checkdinId = $result['user_checkdin_id'];
         }
     }
 

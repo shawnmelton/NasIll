@@ -7,17 +7,21 @@ class AlbumCovers {
     public function getArt($start, $limit) {
         $art = array();
 
-        $res = DB::execute('
+        $stmt = DB::get()->prepare('
             SELECT cover_art_photo
             FROM album_covers
             WHERE cover_art_photo <> ""
             ORDER BY cover_date_added DESC
             LIMIT ?, ?
-        ', array('ii', $start, $limit));
+        ');
 
-        while($obj = $res->fetch_object()) {
+        $stmt->bind_param('ii', $start, $limit);
+        $stmt->execute();
+        $stmt->bind_result($photo);
+        
+        while($stmt->fetch()) {
             $art[] = array(
-                'url' => $this->convertFileToUrl($obj->cover_art_photo)
+                'url' => $this->convertFileToUrl($photo)
             );
         }
 

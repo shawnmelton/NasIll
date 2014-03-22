@@ -47,11 +47,11 @@ class AlbumCover extends BaseObject {
 
     public function load() {
         $result = DB::execute('SELECT * FROM album_covers WHERE cover_id = (?)', array('i', $this->id));
-        if($obj = $result->fetch_object()) {
-            $this->uploadedPhoto = $obj->cover_uploaded_photo;
-            $this->artPhoto = $obj->cover_art_photo;
-            $this->fileName = $obj->cover_uploaded_file_name;
-            $this->userId = $obj->user_id;
+        if(is_array($result)) {
+            $this->uploadedPhoto = $result['cover_uploaded_photo'];
+            $this->artPhoto = $result['cover_art_photo'];
+            $this->fileName = $result['cover_uploaded_file_name'];
+            $this->userId = $result['user_id'];
         }
     }
 

@@ -3,7 +3,7 @@
         background-image: url(../img/desktop-bg.png);
 
         >body {
-            padding: 15px 25px;
+            padding: 0px 25px 15px;
             width: 974px;
 
             >#content { min-height: 500px; }
@@ -58,8 +58,9 @@
         }
 
         >#placeholder {
-            height: 300px;
-            width: 490px;
+            height: 598px;
+            width: 517px;
+            background: url(../img/home-albums.png) no-repeat 0 0;
         }
 
         #celebrate {
@@ -165,6 +166,7 @@
             @include spriteButton();
 
             background-position: -903px 0;
+            margin-left: 150px;
 
             &:active { background-position: -903px -46px; }
         }

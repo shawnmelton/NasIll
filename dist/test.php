@@ -2,7 +2,7 @@
 require_once 'ss/config.php';
 
 // Brae's face
-$zoom = 1;
+/*$zoom = 1;
 $cropX = 48;
 $cropY = -84;
 
@@ -31,5 +31,11 @@ $img->overlayOrangeHue();
 $img->overlayTopLayer();
 $img->overlayText(strtolower($text), array(159, 56, 29));
 
-$img->output();
+$img->output();*/
+
+$albums = new AlbumCovers();
+print_r($albums->getArt(0, 20));
+
+$user = CurrentUser::get();
+var_dump($user->find());
 

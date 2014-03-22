@@ -7,7 +7,7 @@ class PhotoEditForm extends BaseObject {
     private function generateAlbumArt() {
         $img = new Image(CurrentAlbumCover::get()->getUploadedPhoto());
         $img->resize($_POST['zoom']);
-        //$img->rotate(($_POST['angle'] * -1));
+        $img->rotate(($_POST['angle'] * -1));
         $img->crop($_POST['cropx'], $_POST['cropy']);
         $img->cropFace2();
         $img->overlayOnAlbum();

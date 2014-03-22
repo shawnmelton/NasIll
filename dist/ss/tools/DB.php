@@ -8,6 +8,19 @@ class DB {
         }
     }
 
+    public static function bindFetchParams($stmt, &$results) {
+        $md = $stmt->result_metadata();
+        $params = array();
+
+        if(is_object($md)) {
+            while($field = $md->fetch_field()) {
+                $params[] = &$results[$field->name];
+            }
+
+            call_user_func_array(array($stmt, 'bind_result'), $params);
+        }
+    }
+
     public static function execute($sql, $params) {
         if(!self::isConnected()) {
             self::connect();
@@ -16,9 +29,19 @@ class DB {
         $stmt = self::$instance->prepare($sql);
 
         call_user_func_array(array($stmt, 'bind_param'),
-            self::referenceParams($params));
+        self::referenceParams($params));
+        self::bindFetchParams($stmt, $result);
         $stmt->execute();
-        return $stmt->get_result();
+        $stmt->fetch();
+        return $result;
+    }
+
+    public static function get() {
+        if(!self::isConnected()) {
+            self::connect();
+        }
+        
+        return self::$instance;
     }
 
     public static function getInsertId() {
