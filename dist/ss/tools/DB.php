@@ -21,18 +21,30 @@ class DB {
         }
     }
 
-    public static function execute($sql, $params) {
+    public static function execute($sql, $params, $return=true) {
         if(!self::isConnected()) {
             self::connect();
         }
 
+        $result = false;
         $stmt = self::$instance->prepare($sql);
 
-        call_user_func_array(array($stmt, 'bind_param'),
-        self::referenceParams($params));
-        self::bindFetchParams($stmt, $result);
+        call_user_func_array(array($stmt, 'bind_param'), self::referenceParams($params));
         $stmt->execute();
-        $stmt->fetch();
+
+        if($return) {
+            $stmt->store_result();
+            self::bindFetchParams($stmt, $result);
+            $stmt->fetch();
+        }
+
+        if($stmt->errno !== 0) {
+            echo $stmt->error;
+            exit;
+        }
+
+        $stmt->close();
+
         return $result;
     }
 
@@ -40,7 +52,7 @@ class DB {
         if(!self::isConnected()) {
             self::connect();
         }
-        
+
         return self::$instance;
     }
 

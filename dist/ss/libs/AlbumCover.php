@@ -9,7 +9,7 @@ class AlbumCover extends BaseObject {
     public function create($userId) {
         $this->userId = $userId;
         DB::execute('INSERT INTO album_covers SET user_id = (?), cover_date_added = NOW()',
-            array('i', $this->userId));
+            array('i', $this->userId), false);
         $this->id = DB::getInsertId();
     }
 
@@ -62,7 +62,7 @@ class AlbumCover extends BaseObject {
                 cover_art_photo = (?),
                 cover_uploaded_file_name = (?)
             WHERE cover_id = (?)
-        ', array('sssi', $this->uploadedPhoto, $this->artPhoto, $this->fileName, $this->id));
+        ', array('sssi', $this->uploadedPhoto, $this->artPhoto, $this->fileName, $this->id), false);
     }
 
     public function setArtPhoto($photo) {

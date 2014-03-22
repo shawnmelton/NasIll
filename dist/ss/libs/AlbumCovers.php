@@ -17,6 +17,7 @@ class AlbumCovers {
 
         $stmt->bind_param('ii', $start, $limit);
         $stmt->execute();
+        $stmt->store_result();
         $stmt->bind_result($photo);
         
         while($stmt->fetch()) {
@@ -24,6 +25,9 @@ class AlbumCovers {
                 'url' => $this->convertFileToUrl($photo)
             );
         }
+
+        unset($photo);
+        $stmt->close();
 
         return $art;
     }

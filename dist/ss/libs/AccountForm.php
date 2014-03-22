@@ -1,6 +1,7 @@
 <?php
 class AccountForm extends BaseObject {
     private $imgUploaded = false;
+    private $newUser = false;
 
     private function isSubmitted() {
         return (isset($_POST['fns']) && $_POST['fns'] === 'acct');
@@ -16,6 +17,7 @@ class AccountForm extends BaseObject {
 
                     JSON::out(array(
                         'submission' => 'success',
+                        'userFound' => ($this->newUser === false),
                         'photo' => CurrentAlbumCover::get()->getUploadedPhotoUrl(),
                         'width' => $img->getWidth()
                     ));
@@ -36,6 +38,7 @@ class AccountForm extends BaseObject {
 
         if(!$user->find()) {
             $user->save();
+            $this->newUser = true;
         }
 
         // If a photo is uploaded using Facebook, then download it to our server.

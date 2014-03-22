@@ -8,16 +8,19 @@ class User extends BaseObject {
     }
 
     public function find() {
+        $return = false;
         if($this->email != '') {
             $result = DB::execute('SELECT user_id, user_checkdin_id FROM users WHERE user_email = (?)', array('s', $this->email));
-            if(is_array($result)) {
+            if(is_array($result) && $result['user_id'] !== '' && $result['user_id'] !== null) {
                 $this->id = $result['user_id'];
                 $this->checkdinId = $result['user_checkdin_id'];
-                return true;
+                $return = true;
             }
+
+            unset($result);
         }
 
-        return false;
+        return $return;
     }
 
     public function getEmail() {
@@ -40,7 +43,11 @@ class User extends BaseObject {
             $this->lastName = $result['user_last_name'];
             $this->email = $result['user_email'];
             $this->checkdinId = $result['user_checkdin_id'];
+        } else {
+           $this->create(); 
         }
+
+        unset($result);
     }
 
     public function setEmail($email) {
@@ -60,7 +67,7 @@ class User extends BaseObject {
     }
 
     public function save() {
-        if($this->checkdinId === '') {
+        if($this->checkdinId == '') {
             $this->checkdinId = CheckdIn::createUser($this->firstName, $this->lastName, $this->email);
         }
 
@@ -71,6 +78,6 @@ class User extends BaseObject {
                 user_email = (?),
                 user_checkdin_id = (?)
             WHERE user_id = (?)
-        ', array('ssssi', $this->firstName, $this->lastName, $this->email, $this->checkdinId, $this->id));
+        ', array('ssssi', $this->firstName, $this->lastName, $this->email, $this->checkdinId, $this->id), false);
     }
 }
