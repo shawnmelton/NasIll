@@ -160,8 +160,6 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user
             // Reset the image.
             if(document.getElementById('peUploadedPhoto').src.indexOf(AlbumCover.uploadedPhoto) === -1) {
                 document.getElementById('peUploadedPhoto').src = AlbumCover.uploadedPhoto;
-                this.setImageZoom(1);
-                this.setImageAngle(0);
 
                 this.drag = {
                     inProgress: false,
@@ -175,6 +173,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user
                 $(document.getElementById('angleSlider')).slider('value', 0);
 
                 this.originalImgWidth = AlbumCover.uploadedPhotoWidth;
+                this.originalImgHeight = AlbumCover.uploadedPhotoHeight;
                 this.setImageAngle(0);
                 this.setImageZoom(1);
             }
@@ -205,6 +204,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user
             if(this.image === null) {
                 this.image = document.getElementById('peUploadedPhoto');
                 this.originalImgWidth = AlbumCover.uploadedPhotoWidth;
+                this.originalImgHeight = AlbumCover.uploadedPhotoHeight;
                 this.setImageZoom(1);
             }
         },
@@ -217,17 +217,18 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user
             this.zoomEl.value = zoom;
 
             var imgWidth = (parseInt(this.originalImgWidth) * zoom);
+            var imgHeight = (parseInt(this.originalImgHeight) * zoom);
             this.image.style.width = imgWidth +'px';
+            this.image.style.height = imgHeight +'px';
 
             if(!this.drag.hasBeenApplied) { // Once this image has been dragged, don't center it again.
                 this.drag.original.x = this.drag.offset.x = ((imgWidth / 2) * -1);
                 this.image.style.marginLeft = this.drag.offset.x +'px';
 
-                var _this = this;
-                setTimeout(function() { // Wait for image to download.
-                    _this.drag.original.y = _this.drag.offset.y = ((_this.image.clientHeight / 2) * -1);
-                    _this.image.style.marginTop = _this.drag.offset.y +'px';
-                }, 250);
+                this.drag.original.y = this.drag.offset.y = ((imgHeight / 2) * -1);
+                this.image.style.marginTop = this.drag.offset.y +'px';
+
+                this.drag.hasBeenApplied = true;
             }
         },
 

@@ -38,6 +38,7 @@ class API {
             'submission' => 'success',
             'photo' => CurrentAlbumCover::get()->getUploadedPhotoUrl(),
             'width' => $img->getWidth(),
+            'height' => $img->getHeight(),
             'fileName' => CurrentAlbumCover::get()->getFileName()
         ));
     }

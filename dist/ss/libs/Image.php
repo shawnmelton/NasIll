@@ -169,6 +169,10 @@ class Image {
         return $yPos;
     }
 
+    public function getHeight() {
+        return imagesy($this->resource);
+    }
+
     public function getWidth() {
         return imagesx($this->resource);
     }

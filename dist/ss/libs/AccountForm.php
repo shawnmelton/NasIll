@@ -19,7 +19,8 @@ class AccountForm extends BaseObject {
                         'submission' => 'success',
                         'userFound' => ($this->newUser === false),
                         'photo' => CurrentAlbumCover::get()->getUploadedPhotoUrl(),
-                        'width' => $img->getWidth()
+                        'width' => $img->getWidth(),
+                        'height' => $img->getHeight()
                     ));
                 }
 

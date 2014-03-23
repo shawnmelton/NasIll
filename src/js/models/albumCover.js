@@ -5,6 +5,7 @@ define([], function() {
         artPhoto: '',
         fileName: '',
         uploadedPhotoWidth: 0,
+        uploadedPhotoHeight: 0,
         uploadedFromFacebook: false
     };
 

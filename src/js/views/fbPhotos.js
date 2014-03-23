@@ -141,6 +141,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'models/albumCover
                 if(r.response && r.response.submission && r.response.submission === 'success') {
                     AlbumCover.uploadedPhoto = r.response.photo;
                     AlbumCover.uploadedPhotoWidth = r.response.width;
+                    AlbumCover.uploadedPhotoHeight = r.response.height;
                     AlbumCover.uploadedFromFacebook = true;
 
                     var callback = function() {
