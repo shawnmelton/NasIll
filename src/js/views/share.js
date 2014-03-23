@@ -20,7 +20,8 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover'], function($,
                 this.rendered = true;
                 this.$el.append(JST['src/js/templates/share.html']({
                     photoUrl: AlbumCover.artPhoto,
-                    shareMsg: encodeURIComponent("Check out my personal 20th Anniversary Nas illmatic album cover!")
+                    shareMsg: encodeURIComponent("Check out my personal 20th Anniversary Nas illmatic album cover!"),
+                    shareUrl: encodeURIComponent(location.href)
                 }));
             } else {
                 document.getElementById('sAlbumArt').src = AlbumCover.artPhoto;
