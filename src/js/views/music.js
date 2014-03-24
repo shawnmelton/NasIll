@@ -39,7 +39,7 @@ define(['jquery', 'backbone', 'templates/jst'], function($, Backbone, tmplts){
                 song: ((this.currentSong < 10) ? '0'+ this.currentSong : this.currentSong)
             }));
 
-            this.audioEl.autoplay = true;
+            this.audioEl.autoplay = false;
             this.audioEl.load();
         },
 

@@ -25,7 +25,8 @@
 }
 
 #upContinueLink {
-    @include spriteButton();
+    display: none;
+    /*@include spriteButton();
 
     cursor: default;
     margin-left: 88px;
@@ -36,5 +37,5 @@
         background-position: -903px 0;
 
         &:active { background-position: -903px -46px; }
-    }
+    }*/
 }

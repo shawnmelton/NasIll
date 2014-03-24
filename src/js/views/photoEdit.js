@@ -32,18 +32,12 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user
         initSliders: function() {
             var _this = this;
             $(document.getElementById('zoomSlider')).slider({
-                max: 10,
-                min: -10,
-                step: 1,
+                max: 3,
+                min: 0.2,
+                step: 0.1,
+                value: 1,
                 slide: function(event, ui) {
-                    var value = ui.value;
-                    if(ui.value < 0) { 
-                        value = (1 / (ui.value * -1));
-                    } else if(ui.value === 0) {
-                        value = 1;
-                    }
-
-                    _this.setImageZoom(value);
+                    _this.setImageZoom(ui.value);
                 }
             });
 
@@ -51,6 +45,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user
                 max: 180,
                 min: -180,
                 step: 10,
+                value: 0,
                 slide: function(event, ui) {
                     _this.setImageAngle(ui.value);
                 }
@@ -169,7 +164,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover', 'models/user
                     original: {}
                 };
 
-                $(document.getElementById('zoomSlider')).slider('value', 0);
+                $(document.getElementById('zoomSlider')).slider('value', 1);
                 $(document.getElementById('angleSlider')).slider('value', 0);
 
                 this.originalImgWidth = AlbumCover.uploadedPhotoWidth;
