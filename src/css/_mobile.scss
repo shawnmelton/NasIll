@@ -4,7 +4,7 @@
         text-align: center;
 
         >body {
-            padding: 150px 0 15px;
+            padding: 75px 0 8px;
 
             &.overlay { background: url(../img/black-trans-bg.png) repeat 0 0; }
         }
@@ -12,31 +12,31 @@
 
 
     #terms {
-        font-size: 14px;
+        font-size: 7px;
 
         >div {
             clear: left;
 
-            >p { line-height: 19px; }
+            >p { line-height: 9px; }
         }
 
         >p { 
-            width: 122px;
-            margin: 95px auto 40px;
+            width: 61px;
+            margin: 48px auto 20px;
 
             >a {
                 @include mSprite();
 
-                width: 57px;
-                height: 48px;
-                margin-top: 5px;
-                background-position: -2610px 0;
+                width: 28px;
+                height: 24px;
+                margin-top: 2px;
+                background-position: -1305px 0;
 
                 &:first-child {
-                    width: 29px;
-                    height: 53px;
-                    background-position: -1704px 0;
-                    margin-right: 35px;
+                    width: 14px;
+                    height: 26px;
+                    background-position: -852px 0;
+                    margin-right: 17px;
                     margin-top: 0;
                 }
             }
@@ -46,8 +46,8 @@
 
 
     #home {
-        max-width: 610px;
-        padding: 0 25px;
+        max-width: 305px;
+        padding: 0 12px;
         margin: 0 auto;
 
         >#placeholder { display: none; }
@@ -56,56 +56,56 @@
             >h1 {
                 @include mSprite();
 
-                width: 253px;
-                height: 79px;
-                background-position: -2356px 0;
-                margin: 0 auto 30px;
+                width: 126px;
+                height: 39px;
+                background-position: -1178px 0;
+                margin: 0 auto 15px;
             }
         }
 
         #celebrate-mobile {
-            font-size: 24px;
-            line-height: 32px;
+            font-size: 12px;
+            line-height: 16px;
         }
 
         #flyAwayMobile {
-            width: 317px;
-            padding-top: 271px;
+            width: 158px;
+            padding-top: 135px;
             background: url(../img/nas-fly-mobile.png) no-repeat top center;
-            margin: 30px auto 0;
+            margin: 15px auto 0;
 
             >span {
                 @include mSprite();
 
                 display: block;
-                width: 317px;
-                height: 42px;
-                background-position: -3320px 0;
+                width: 158px;
+                height: 21px;
+                background-position: -1660px 0;
             }
         }
 
-        #hGalleryLink { margin: 80px auto 85px; }
+        #hGalleryLink { margin: 40px auto 42px; }
 
         #hFbLink {
             @include mSpriteButton();
 
-            background-position: -1071px 0;
-            width: 396px;
-            height: 86px;
-            margin: 35px auto 30px;
+            background-position: -535px 0;
+            width: 198px;
+            height: 43px;
+            margin: 17px auto 15px;
 
-            &:active { background-position: -1071px -86px; }
+            &:active { background-position: -535px -43px; }
         }
 
         #connectWithEmail {
             margin: 0 auto;
-            width: 248px;
-            font-size: 20px;
-            height: 28px;
-            line-height: 28px;
+            width: 124px;
+            font-size: 10px;
+            height: 14px;
+            line-height: 14px;
 
             >#hUploadLink {
-                padding-right: 54px;
+                padding-right: 27px;
                 background: url(../img/email-icon-mobile.png) no-repeat top right;
             }
         }
@@ -117,46 +117,46 @@
         >h1 {
             @include mSprite();
 
-            width: 530px;
-            height: 97px;
-            background-position: -3637px 0px;
-            margin: 0 auto 40px;
+            width: 265px;
+            height: 50px;
+            background-position: -1819px 0px;
+            margin: 0 auto 20px;
         }
 
         #emErrorMsg, #eMblDesc {
-            font-size: 22px;
-            line-height: 29px;
+            font-size: 11px;
+            line-height: 14px;
         }
         #eDeskDesc { display: none; }
 
         >form {
-            width: 582px;
-            margin: 58px auto 73px;
+            width: 291px;
+            margin: 29px auto 36px;
 
-            li { padding-bottom: 10px; }
+            li { padding-bottom: 5px; }
 
             input, label {
-                height: 51px;
-                font-size: 27px;
+                height: 25px;
+                font-size: 13px;
             }
 
             label {
-                width: 140px;
-                line-height: 51px;
+                width: 70px;
+                line-height: 25px;
                 color: #fff;
             }
 
-            input { width: 422px; }
+            input { width: 200px; }
         }
 
         #emContinueLink {
             @include mSpriteButton();
 
-            width: 320px;
-            height: 70px;
-            background-position: -3000px 0;
+            width: 160px;
+            height: 35px;
+            background-position: -1500px 0;
 
-            &:active { background-position: -3000px -70px; }
+            &:active { background-position: -1500px -35px; }
         }
 
         #emMblBackLink {
@@ -164,9 +164,9 @@
 
             color: #fff;
             text-decoration: underline;
-            font-size: 22px;
-            line-height: 24px;
-            margin-top: 65px;
+            font-size: 11px;
+            line-height: 12px;
+            margin-top: 32px;
             text-align: center;
 
             &:hover { text-decoration: none; }
@@ -174,97 +174,97 @@
     }
 
     #tyMobile {
-        width: 640px;
+        width: 320px;
         margin: 0 auto;
 
         >h1 {
             @include mSprite();
 
-            background-position: -557px 0;
-            width: 513px;
-            height: 100px;
-            margin: 0 auto 28px;
+            background-position: -276px 0;
+            width: 256px;
+            height: 50px;
+            margin: 0 auto 14px;
 
             >span { display: none; }
         }
 
         >p {
-            margin-bottom: 35px;
-            font-size: 24px;
-            line-height: 33px;
-            padding: 0 15px;
+            margin-bottom: 17px;
+            font-size: 12px;
+            line-height: 16px;
+            padding: 0 7px;
         }
 
-        #tyGalleryLink { margin: 45px auto 75px; }
+        #tyGalleryLink { margin: 22px auto 37px; }
     }
 
     #hGalleryLink, #tyGalleryLink {
         @include mSpriteButton();
 
-        background-position: -2668px 0;
-        width: 332px;
-        height: 48px;
+        background-position: -1334px 0;
+        width: 166px;
+        height: 24px;
 
-        &:active { background-position: -2668px -48px; }
+        &:active { background-position: -1334px -24px; }
     }
 
     #hDesktopLink, #hBuyLink, #tyDesktopLink, #tyBuyLink {
         @include mSpriteButton();
 
-        margin: 20px auto;
+        margin: 10px auto;
     }
 
     #hDesktopLink, #tyDesktopLink {
-        background-position: -1734px 0;
-        width: 395px;
-        height: 86px;
+        background-position: -867px 0;
+        width: 197px;
+        height: 43px;
 
-        &:active { background-position: -1734px -86px; }
+        &:active { background-position: -867px -43px; }
     }
-    #tyDesktopLink { margin-bottom: 100px; }
+    #tyDesktopLink { margin-bottom: 50px; }
     #hBuyLink, #tyBuyLink {
-        background-position: -1468px 0;
-        width: 235px;
-        height: 84px;
+        background-position: -734px 0;
+        width: 117px;
+        height: 42px;
 
-        &:active { background-position: -1468px -84px; }
+        &:active { background-position: -734px -42px; }
     }
 
     #gallery {
-        width: 530px;
+        width: 265px;
 
         >h1 {
             @include mSprite();
 
-            background-position: -2130px 0;
-            width: 225px;
-            height: 96px;
-            margin: 0 0 35px;
+            background-position: -1065px 0;
+            width: 112px;
+            height: 48px;
+            margin: 0 0 17px;
         }
 
         >a.gArrow {
-            &#gPrev { left: 15px; }
-            &#gNext { right: 15px; }
+            &#gPrev { left: 7px; }
+            &#gNext { right: 7px; }
         }
 
         #gBackLink {
             @include mSpriteButton();
 
             position: absolute;
-            top: 10px;
-            right: 15px;
-            width: 320px;
-            height: 70px;
-            background-position: -236px 0;
+            top: 5px;
+            right: 7px;
+            width: 160px;
+            height: 35px;
+            background-position: -118px 0;
 
-            &:active { background-position: -236px -70px; }
+            &:active { background-position: -118px -35px; }
         }
 
         #gArt {
             >div {
                 >img {
-                    width: 170px;
-                    height: 165px;
+                    width: 85px;
+                    height: 82px;
                 }
             }
         }
@@ -273,20 +273,20 @@
     #lbOverlay {
         >div {
             >a {
-                width: 81px;
-                height: 40px;
+                width: 40px;
+                height: 20px;
                 background: url(../img/close-button-mobile.png) no-repeat 0 0;
             }
 
             >div {
                 >a {
-                    width: 58px;
-                    height: 38px;
+                    width: 29px;
+                    height: 19px;
                     background-image: url(../img/arrow-next-mobile.png);
 
                     &:first-child {
-                        width: 69px;
-                        height: 29px;
+                        width: 34px;
+                        height: 14px;
                         background-image: url(../img/arrow-previous-mobile.png);
                     }
                 }

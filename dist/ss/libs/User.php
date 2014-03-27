@@ -44,7 +44,7 @@ class User extends BaseObject {
             $this->email = $result['user_email'];
             $this->checkdinId = $result['user_checkdin_id'];
         } else {
-           $this->create(); 
+            $this->create(); 
         }
 
         unset($result);
