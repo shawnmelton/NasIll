@@ -47,21 +47,21 @@
 
             &#fbpSelectLink {
                 cursor: default;
-                background-position: -903px -92px;
+                background-position: -4747px -92px;
                 margin-right: 60px;
 
                 &.active {
                     cursor: pointer;
-                    background-position: -903px 0px;
+                    background-position: -4747px 0px;
 
-                    &:active { ackground-position: -903px -46px; }
+                    &:active { ackground-position: -4747px -46px; }
                 }
             }
 
             &#fbpUploadLink {
-                background-position: -4112px 0;
+                background-position: -4956px 0;
 
-                &:active { background-position: -4112px -46px; }
+                &:active { background-position: -4956px -46px; }
             }
         }
     }

@@ -1,9 +1,10 @@
 @media screen and (max-width: 799px) {
     html {
-        background-image: url(../img/mobile-bg.png);
+        background: #ff9f00 url(../img/mobile-bg-repeat.png) repeat-x 0 0;
         text-align: center;
 
         >body {
+            background: url(../img/mobile-bg.png) no-repeat 0 0;
             padding: 75px 0 8px;
 
             &.overlay {
@@ -32,7 +33,7 @@
 
         >p { 
             width: 61px;
-            margin: 48px auto 20px;
+            margin: 30px auto 20px;
 
             >a {
                 @include mSprite();
@@ -109,8 +110,8 @@
 
         #connectWithEmail {
             margin: 0 auto;
-            width: 130px;
-            font-size: 10px;
+            width: 132px;
+            font-size: 11px;
             height: 14px;
             line-height: 14px;
 
@@ -238,6 +239,21 @@
         height: 42px;
 
         &:active { background-position: -734px -42px; }
+    }
+
+    #hAlbumLinks {
+        margin: 0 auto;
+        width: 246px;
+    }
+
+    #hBuyLink, #hAmazonLink { float: left; }
+    #hAmazonLink {
+        @include button();
+
+        height: 43px;
+        width: 118px;
+        margin: 10px 0 0 10px;
+        background: url(../img/amazon-mobile.png) no-repeat 0 0;
     }
 
     #gallery {

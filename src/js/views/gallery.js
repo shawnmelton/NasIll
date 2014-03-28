@@ -7,7 +7,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/lightbox', 'tools/random',
         rendered: false,
         rowStart: 0,
         rowLimit: Device.isMobile() ? 3 : 5,
-        rowsPerPage: 2,
+        rowsPerPage: 3,
         reachedLimit: false,
         imageSet: [],
         

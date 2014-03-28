@@ -116,7 +116,7 @@
             &:active { background-position: -4322px -61px; }
         }
 
-        #hDesktopLink, #hBuyLink, #celebrate-mobile { display: none; }
+        #hDesktopLink, #hBuyLink, #celebrate-mobile, #hAmazonLink { display: none; }
 
         #hFbLink {
             @include spriteButton();
