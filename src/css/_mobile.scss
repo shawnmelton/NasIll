@@ -6,7 +6,17 @@
         >body {
             padding: 75px 0 8px;
 
-            &.overlay { background: url(../img/black-trans-bg.png) repeat 0 0; }
+            &.overlay {
+                >.overlayBG {
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: url(../img/black-trans-bg.png) repeat 0 0;
+                }
+            }
         }
     }
 
@@ -99,7 +109,7 @@
 
         #connectWithEmail {
             margin: 0 auto;
-            width: 124px;
+            width: 130px;
             font-size: 10px;
             height: 14px;
             line-height: 14px;
@@ -180,7 +190,7 @@
         >h1 {
             @include mSprite();
 
-            background-position: -276px 0;
+            background-position: -279px 0;
             width: 256px;
             height: 50px;
             margin: 0 auto 14px;
@@ -243,6 +253,8 @@
         }
 
         >a.gArrow {
+            top: 140px;
+
             &#gPrev { left: 7px; }
             &#gNext { right: 7px; }
         }
@@ -263,15 +275,21 @@
         #gArt {
             >div {
                 >img {
-                    width: 85px;
-                    height: 82px;
+                    width: 81px;
+                    height: 78px;
                 }
             }
         }
     }
 
     #lbOverlay {
+        width: 310px;
+        margin: 0 auto;
+        background: none !important;
+
         >div {
+            width: auto;
+
             >a {
                 width: 40px;
                 height: 20px;
@@ -280,6 +298,7 @@
 
             >div {
                 >a {
+                    margin-top: 70px;
                     width: 29px;
                     height: 19px;
                     background-image: url(../img/arrow-next-mobile.png);
@@ -291,6 +310,8 @@
                     }
                 }
             }
+
+            #lbImgWrapper { width: 165px; }
         }
     }
 }

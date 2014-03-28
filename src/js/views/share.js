@@ -20,7 +20,8 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover'], function($,
                 this.rendered = true;
                 this.$el.append(JST['src/js/templates/share.html']({
                     photoUrl: AlbumCover.artPhoto,
-                    shareMsg: encodeURIComponent("Check out my personal 20th Anniversary Nas illmatic album cover!"),
+                    fbShareMsg: encodeURIComponent("Nas changed the face of rap music back in '94 when he released Illmatic. Now it's your turn. Make your IllmaticXX cover at http://illmaticXX.nasirjones.com/ #IllmaticXX"),
+                    twShareMsg: encodeURIComponent("Nas changed the face of rap music back in '94 when he released Illmatic. Now it's your turn. http://illmaticXX.nasirjones.com/ #IllmaticXX"),
                     shareUrl: encodeURIComponent(location.href)
                 }));
             } else {

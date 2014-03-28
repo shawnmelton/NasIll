@@ -42,6 +42,9 @@ define(['jquery', 'backbone', 'templates/jst'], function($, Backbone, tmplts){
         },
 
         onCloseClick: function(ev) {
+            document.getElementsByTagName('body')[0].className = '';
+            $('.overlayBG').remove();
+
             if(ev !== null) {
                 ev.preventDefault();
             }
@@ -93,6 +96,8 @@ define(['jquery', 'backbone', 'templates/jst'], function($, Backbone, tmplts){
             this.currentImg = imgPlace;
             this.imgSet = imgSet;
 
+            document.getElementsByTagName('body')[0].className = 'overlay';
+
             if(this.rendered === false) {
                 this.$el.append(JST['src/js/templates/lightbox.html']());
                 this.rendered = true;
@@ -100,7 +105,8 @@ define(['jquery', 'backbone', 'templates/jst'], function($, Backbone, tmplts){
             } else {
                 this.overlayEl.fadeIn();
             }
-            
+
+            this.overlayEl.before('<div class="overlayBG"></div>');
             this.reset();
             this.loadImage(imgUrl);
         },

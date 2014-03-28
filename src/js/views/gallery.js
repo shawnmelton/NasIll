@@ -71,7 +71,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/lightbox', 'tools/random',
                 }
 
                 if(typeof callback !== 'undefined') {
-                    setTimeout(callback, 100);
+                    setTimeout(callback, 300);
                 }
             });
 
