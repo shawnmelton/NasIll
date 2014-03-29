@@ -1,4 +1,5 @@
-define(['jquery', 'backbone', 'templates/jst'], function($, Backbone, tmplts){
+define(['jquery', 'backbone', 'templates/jst', 'models/user', 'tools/device'],
+    function($, Backbone, tmplts, User, Device){
     var lightBoxViewEl = Backbone.View.extend({
         el: 'body',
         rendered: false,
@@ -99,7 +100,9 @@ define(['jquery', 'backbone', 'templates/jst'], function($, Backbone, tmplts){
             document.getElementsByTagName('body')[0].className = 'overlay';
 
             if(this.rendered === false) {
-                this.$el.append(JST['src/js/templates/lightbox.html']());
+                this.$el.append(JST['src/js/templates/lightbox.html']({
+                    dLink: ((User.isAdmin && !Device.isMobile()) ? '<a id="lbD"></a>' : '')
+                }));
                 this.rendered = true;
                 this.setOverlayEl();
             } else {

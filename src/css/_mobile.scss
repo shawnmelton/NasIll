@@ -8,6 +8,11 @@
             padding: 75px 0 8px;
 
             &.overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                overflow: hidden;
+
                 >.overlayBG {
                     display: block;
                     position: absolute;
@@ -110,7 +115,7 @@
 
         #connectWithEmail {
             margin: 0 auto;
-            width: 132px;
+            width: 135px;
             font-size: 11px;
             height: 14px;
             line-height: 14px;
@@ -299,8 +304,11 @@
     }
 
     #lbOverlay {
+        position: absolute;
+        top: 5%;
+        left: 50%;
         width: 310px;
-        margin: 0 auto;
+        margin-left: -155px;
         background: none !important;
 
         >div {

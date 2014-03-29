@@ -5,7 +5,18 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover'], function($,
         rendered: false,
 
         events: {
-            'click #sGalleryLink': 'onGalleryClick'
+            'click #sGalleryLink': 'onGalleryClick',
+            'click #sFbLink': 'onFBShareClick'
+        },
+
+        onFBShareClick: function(ev) {
+            ev.preventDefault();
+
+            FB.ui({
+                method: 'feed',
+                link: location.href,
+                caption: "Nas changed the face of rap music back in '94 when he released Illmatic. Now it's your turn. Make your IllmaticXX cover at http://illmaticXX.nasirjones.com/ #IllmaticXX"
+            }, function(response){});
         },
 
         onGalleryClick: function() {
@@ -20,9 +31,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover'], function($,
                 this.rendered = true;
                 this.$el.append(JST['src/js/templates/share.html']({
                     photoUrl: AlbumCover.artPhoto,
-                    fbShareMsg: encodeURIComponent("Nas changed the face of rap music back in '94 when he released Illmatic. Now it's your turn. Make your IllmaticXX cover at http://illmaticXX.nasirjones.com/ #IllmaticXX"),
-                    twShareMsg: encodeURIComponent("Nas changed the face of rap music back in '94 when he released Illmatic. Now it's your turn. http://illmaticXX.nasirjones.com/ #IllmaticXX"),
-                    shareUrl: encodeURIComponent(location.href)
+                    twShareMsg: encodeURIComponent("Nas changed the face of rap music back in '94 when he released Illmatic. Now it's your turn. http://illmaticXX.nasirjones.com/ #IllmaticXX")
                 }));
             } else {
                 document.getElementById('sAlbumArt').src = AlbumCover.artPhoto;

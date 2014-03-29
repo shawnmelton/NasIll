@@ -1,16 +1,23 @@
 <?php
 class ImageDownload {
-    private static function getFileName() {
+    private static function getFileName($url) {
         $directory = dirname(dirname(__FILE__)) .'/uploads/'. date('m/d/G');
         if(!is_dir($directory)) {
             mkdir($directory, 0777, true);
         }
 
-        return $directory .'/'. time() .'-'. rand(0, 10000) .'.jpg';
+        $fileExt = '.png';
+        if(preg_match('/jpeg$|jpg$/i', $url)) {
+            $fileExt = '.jpg';
+        } else if(preg_match('/gif$/i', $url)) {
+            $fileExt = '.gif';
+        }
+
+        return $directory .'/'. time() .'-'. rand(0, 10000) . $fileExt;
     }
 
     public static function fromUrl($url) {
-        $newFileName = self::getFileName();
+        $newFileName = self::getFileName($url);
         $file = fopen($url, 'rb');
         if($file) {
             $newFile = fopen($newFileName, 'wb');

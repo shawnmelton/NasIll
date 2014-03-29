@@ -69,7 +69,9 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'tools/device'],
         render: function() {
             if(!this.rendered) {
                 this.rendered = true;
-                this.$el.append(JST['src/js/templates/home.html']());
+                this.$el.append(JST['src/js/templates/home.html']({
+                    forwardToDesktopLink: 'mailto:?subject='+ encodeURIComponent('Reminder to check out Nas\' Illmatic Cover Generator on Desktop!') +'&body='+ encodeURIComponent('Visit '+ location.href +' and celebrate the 20th anniversary edition of Nas\' Illmatic by making your own version of the classic cover art.')
+                }));
             } else {
                 this.section.fadeIn();
             }

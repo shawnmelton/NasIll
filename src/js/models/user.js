@@ -3,7 +3,8 @@ define([], function() {
     User.prototype = {
         firstName: '',
         lastName: '',
-        email: ''
+        email: '',
+        isAdmin: true
     };
 
     return new User();
