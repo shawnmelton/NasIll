@@ -25,4 +25,15 @@ class CurrentUser {
             self::init();
         }
     }
+
+    public static function update($userId) {
+        if($_SESSION['_User'] != $userId) {
+            DB::get()->query('DELETE FROM users WHERE user_email = "" AND user_id = '. intval($_SESSION['_User']));
+            $_SESSION['_User'] = $userId;
+            self::$account->setId($_SESSION['_User']);
+            self::$account->load();
+
+            CurrentAlbumCover::update();
+        }
+    }
 }

@@ -21,13 +21,32 @@ class API {
         $form->process();
     }
 
+    public function getCurrentUser() {
+        $info = CurrentUser::get()->getInfo();
+
+        unset($info['id']);
+        unset($info['checkdinId']);
+
+        JSON::out(array(
+            'user' => $info
+        ));
+    }
+
     public function getGalleryArt() {
         if(isset($_GET['start']) && preg_match('/^\d+$/', $_GET['start']) && isset($_GET['limit']) && preg_match('/^\d+$/', $_GET['limit'])) {
             $albumCovers = new AlbumCovers();
             $results = $albumCovers->getArt($_GET['start'], $_GET['limit']);
+            $reachedLimit = false;
+
+            if(count($results) == ($_GET['limit'] + 1)) { // Pop the last element because it belongs in the next result set.
+                array_pop($results);
+            } else {
+                $reachedLimit = true;
+            }
+
             JSON::out(array(
                 'art' => $results,
-                'reachedLimit' => (count($results) < $_GET['limit'])
+                'reachedLimit' => $reachedLimit
             ));
         }
     }
@@ -41,6 +60,16 @@ class API {
             'height' => $img->getHeight(),
             'fileName' => CurrentAlbumCover::get()->getFileName()
         ));
+    }
+
+    public function imageD() {
+        if(isset($_GET['id']) && preg_match('/^\d+$/', $_GET['id']) && CurrentUser::get()->isAdmin()) {
+            AlbumCover::delete($_GET['id']);
+
+            JSON::out(array(
+                'submission' => 'success'
+            ));
+        }
     }
 
     public function request($action) {

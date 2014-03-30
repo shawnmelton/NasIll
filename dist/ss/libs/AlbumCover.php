@@ -13,6 +13,14 @@ class AlbumCover extends BaseObject {
         $this->id = DB::getInsertId();
     }
 
+    public static function delete($coverId) {
+        $emptyStr = '';
+        $id = intval($coverId);
+        $stmt = DB::get()->prepare('UPDATE album_covers SET cover_art_photo = ? WHERE cover_id = ?');
+        $stmt->bind_param('si', $emptyStr, $id);
+        $stmt->execute();
+    }
+
     public function getArtPhoto() {
         return $this->artPhoto;
     }

@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS users (
     user_last_name VARCHAR(255) NOT NULL DEFAULT "",
     user_email VARCHAR(255) NOT NULL DEFAULT "",
     user_checkdin_id VARCHAR(255) NOT NULL DEFAULT "",
+    user_is_admin TINYINT UNSIGNED NOT NULL DEFAULT 0,
     user_date_added DATETIME NOT NULL DEFAULT 0,
     PRIMARY KEY(user_id)
 ) ENGINE=InnoDB;

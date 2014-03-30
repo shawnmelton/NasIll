@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'templates/jst', 'views/lightbox', 'tools/random', 'tools/device'],
-    function($, Backbone, tmplts, lightBoxViewEl, Random, Device){
+define(['jquery', 'backbone', 'templates/jst', 'views/lightbox', 'tools/random', 'tools/device', 'models/user'],
+    function($, Backbone, tmplts, lightBoxViewEl, Random, Device, User){
     var galleryView = Backbone.View.extend({
         el: "#content",
         artEl: null,
@@ -7,7 +7,7 @@ define(['jquery', 'backbone', 'templates/jst', 'views/lightbox', 'tools/random',
         rendered: false,
         rowStart: 0,
         rowLimit: Device.isMobile() ? 3 : 5,
-        rowsPerPage: 3,
+        rowsPerPage: Device.isMobile() ? 3 : 2,
         reachedLimit: false,
         imageSet: [],
         
@@ -20,7 +20,10 @@ define(['jquery', 'backbone', 'templates/jst', 'views/lightbox', 'tools/random',
         addImagesToSet: function(imgs) {
             var _this = this;
             _.each(imgs, function(img) {
-                _this.imageSet.push(img.url);
+                _this.imageSet.push({
+                    url: img.url,
+                    id: img.id
+                });
             });
         },
 
@@ -34,21 +37,14 @@ define(['jquery', 'backbone', 'templates/jst', 'views/lightbox', 'tools/random',
 
             this.imageSet = [];
             this.artEl.empty();
-
-            for(var i = 1; i <= this.rowsPerPage; i++) {
-                if(i === this.rowsPerPage) {
-                    this.loadRow(callback);
-                } else {
-                    this.loadRow();
-                }
-            }
+            this.loadRows(callback);
         },
 
-        loadRow: function(callback) {
+        loadRows: function(callback) {
             var _this = this;
             $.getJSON('/api/getGalleryArt', {
                 start: this.rowStart,
-                limit: this.rowLimit,
+                limit: (this.rowLimit * this.rowsPerPage),
                 r: Random.get()
             }, function(r) {
                 if(r.response.reachedLimit) {
@@ -57,25 +53,38 @@ define(['jquery', 'backbone', 'templates/jst', 'views/lightbox', 'tools/random',
                 }
 
                 if(r.response.art.length > 0) {
-                    _this.artEl.append(JST['src/js/templates/galleryRow.html']({
-                        images: r.response.art,
-                        baseIdx: _this.imageSet.length
-                    }));
+                    for(var i = 0; i < _this.rowsPerPage; i++) {
+                        var slice = r.response.art.slice((i * _this.rowLimit), (i * _this.rowLimit) + _this.rowLimit);
+                        if(slice.length > 0) {
+                            _this.artEl.append(JST['src/js/templates/galleryRow.html']({
+                                images: slice,
+                                baseIdx: (i * _this.rowLimit)
+                            }));
+                        }
+                    }
 
-                    _this.addImagesToSet(r.response.art);
-                } else if(typeof callback === 'undefined') {
-                    // No results on page
+                    _this.imageSet = r.response.art;
+                } else {
                     _this.onPreviousClick(null);
                     _this.reachedLimit = true;
                     _this.nextBtnEl.className = 'gArrow inactive';
                 }
 
-                if(typeof callback !== 'undefined') {
-                    setTimeout(callback, 500);
-                }
+                callback();
             });
 
-            this.rowStart += this.rowLimit;
+            this.rowStart += (this.rowLimit * this.rowsPerPage);
+        },
+
+        loadUser: function() {
+            $.getJSON('/api/getCurrentUser', function(r) {
+                if(r.response && 'user' in r.response && 'firstName' in r.response.user) {
+                    User.firstName = r.response.user.firstName;
+                    User.lastName = r.response.user.lastName;
+                    User.email = r.response.user.email;
+                    User.isAdmin = r.response.user.isAdmin;
+                }
+            });
         },
 
         onBackClick: function() {
@@ -117,8 +126,17 @@ define(['jquery', 'backbone', 'templates/jst', 'views/lightbox', 'tools/random',
             }
         },
 
+        reloadView: function() {
+            var _this = this;
+            this.unload(function() {
+                _this.render();
+            });
+        },
+
         render: function() {
             if(!this.rendered) {
+                this.loadUser();
+
                 this.rendered = true;
                 this.$el.append(JST['src/js/templates/gallery.html']());
 

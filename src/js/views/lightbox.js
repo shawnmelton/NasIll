@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'templates/jst', 'models/user', 'tools/device'],
-    function($, Backbone, tmplts, User, Device){
+define(['jquery', 'backbone', 'templates/jst', 'models/user', 'tools/device', 'tools/random'],
+    function($, Backbone, tmplts, User, Device, Random){
     var lightBoxViewEl = Backbone.View.extend({
         el: 'body',
         rendered: false,
@@ -68,7 +68,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'tools/device'],
 
             if(this.currentImg < (this.imgSet.length - 1)) {
                 this.currentImg++;
-                this.loadImage(this.imgSet[this.currentImg]);
+                this.loadImage(this.imgSet[this.currentImg].url);
             } 
 
             if(this.currentImg === (this.imgSet.length - 1)) {
@@ -85,7 +85,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'tools/device'],
 
             if(this.currentImg > 0) {
                 this.currentImg--;
-                this.loadImage(this.imgSet[this.currentImg]);
+                this.loadImage(this.imgSet[this.currentImg].url);
             } 
 
             if(this.currentImg === 0) {
@@ -105,6 +105,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'tools/device'],
                 }));
                 this.rendered = true;
                 this.setOverlayEl();
+                this.setDEvent();
             } else {
                 this.overlayEl.fadeIn();
             }
@@ -128,6 +129,26 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'tools/device'],
 
             this.opened = true;
             this.addEvents();
+        },
+
+        setDEvent: function() {
+            if(User.isAdmin && !Device.isMobile()) {
+                var _this = this;
+                $(document.getElementById('lbD')).click(function(ev) {
+                    ev.preventDefault();
+
+                    var cRes = confirm('Are you sure you would like to remove this art from the gallery?  Click "OK" to proceed.');
+                    if(cRes) {
+                        $.getJSON('/api/imageD', {
+                            id: _this.imgSet[_this.currentImg].id,
+                            r: Random.get()
+                        }, function(r) {
+                            _this.onCloseClick(null);
+                            appRouter.reloadGallery();
+                        });
+                    }
+                });
+            }
         },
 
         setOverlayEl: function() {

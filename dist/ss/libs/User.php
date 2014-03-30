@@ -14,7 +14,7 @@ class User extends BaseObject {
             if(is_array($result) && $result['user_id'] !== '' && $result['user_id'] !== null) {
                 $this->id = $result['user_id'];
                 $this->checkdinId = $result['user_checkdin_id'];
-                $return = true;
+                $return = $this->id;
             }
 
             unset($result);
@@ -36,6 +36,10 @@ class User extends BaseObject {
         return $this->_settings;
     }
 
+    public function isAdmin() {
+        return ($this->isAdmin === 1);
+    }
+
     public function load() {
         $result = DB::execute('SELECT * FROM users WHERE user_id = (?)', array('i', $this->id));
         if(is_array($result)) {
@@ -43,6 +47,7 @@ class User extends BaseObject {
             $this->lastName = $result['user_last_name'];
             $this->email = $result['user_email'];
             $this->checkdinId = $result['user_checkdin_id'];
+            $this->isAdmin = $result['user_is_admin'];
         } else {
             $this->create(); 
         }

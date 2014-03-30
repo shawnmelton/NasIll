@@ -4,7 +4,7 @@ define([], function() {
         firstName: '',
         lastName: '',
         email: '',
-        isAdmin: true
+        isAdmin: false
     };
 
     return new User();

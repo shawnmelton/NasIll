@@ -37,9 +37,12 @@ class AccountForm extends BaseObject {
         $user->setLastName($_POST['lastName']);
         $user->setEmail($_POST['email']);
 
-        if(!$user->find()) {
+        $lookupId = $user->find();
+        if($lookupId === false) {
             $user->save();
             $this->newUser = true;
+        } else {
+            CurrentUser::update($lookupId);
         }
 
         // If a photo is uploaded using Facebook, then download it to our server.

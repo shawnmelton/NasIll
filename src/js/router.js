@@ -6,6 +6,12 @@ define(['jquery', 'backbone', 'views/home', 'libs/json2', 'tools/device'],
             this.route(/^.*$/, 'showHome');
         },
 
+        reloadGallery: function() {
+            require(['views/gallery'], function(galleryView) {
+                galleryView.reloadView();
+            });
+        },
+
         /**
          * Clean up the current page when its requested.
          */

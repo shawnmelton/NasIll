@@ -8,25 +8,28 @@ class AlbumCovers {
         $art = array();
 
         $stmt = DB::get()->prepare('
-            SELECT cover_art_photo
+            SELECT cover_art_photo, cover_id
             FROM album_covers
             WHERE cover_art_photo <> ""
             ORDER BY cover_date_added DESC
             LIMIT ?, ?
         ');
 
-        $stmt->bind_param('ii', $start, $limit);
+        $limitPlus = $limit + 1;
+        $stmt->bind_param('ii', $start, $limitPlus);
         $stmt->execute();
         $stmt->store_result();
-        $stmt->bind_result($photo);
-        
+        $stmt->bind_result($photoUrl, $photoId);
+
         while($stmt->fetch()) {
             $art[] = array(
-                'url' => $this->convertFileToUrl($photo)
+                'url' => $this->convertFileToUrl($photoUrl),
+                'id' => $photoId
             );
         }
 
-        unset($photo);
+        unset($photoUrl);
+        unset($photoId);
         $stmt->close();
 
         return $art;

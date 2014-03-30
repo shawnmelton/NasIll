@@ -25,4 +25,10 @@ class CurrentAlbumCover {
             self::init();
         }
     }
+
+    public static function update() {
+        self::$album = new AlbumCover();
+        self::$album->create(CurrentUser::get()->getId());
+        $_SESSION['_Album'] = self::$album->getId();
+    }
 }
