@@ -34,7 +34,7 @@
 
 #gArt {
     height: 318px;
-    overflow: auto;
+    overflow: hidden;
 
     >div {
         @include clearfix();

@@ -1,7 +1,7 @@
 <?php
 class CheckdIn {
     public static function createUser($fName, $lName, $email) {
-        $ch = curl_init('https://staging.checkd.in/api/v1/users.json');
+        $ch = curl_init('https://app.checkd.in/api/v1/users.json');
 
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -11,12 +11,13 @@ class CheckdIn {
             'email' => $email,
             'first_name' => $fName,
             'last_name' => $lName,
+            'campaign_id' => 276,
             'client_secret' => CHECKDIN_SECRET,
             'client_id' => CHECKDIN_ID
         ));
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch, CURLOPT_USERPWD, 'staging:cKGdyvb4gQD9YJg3cACV');
+        //curl_setopt($ch, CURLOPT_USERPWD, 'staging:cKGdyvb4gQD9YJg3cACV');
 
         $response = curl_exec($ch);
         $obj = json_decode($response);

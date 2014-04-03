@@ -6,9 +6,9 @@ class ImageDownload {
             mkdir($directory, 0777, true);
         }
 
-        $fileExt = '.png';
-        if(preg_match('/jpeg$|jpg$/i', $url)) {
-            $fileExt = '.jpg';
+        $fileExt = '.jpg';
+        if(preg_match('/png$/i', $url)) {
+            $fileExt = '.png';
         } else if(preg_match('/gif$/i', $url)) {
             $fileExt = '.gif';
         }

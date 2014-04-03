@@ -9,12 +9,23 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover'], function($,
             'click #sFbLink': 'onFBShareClick'
         },
 
+        stripTrailingSlash: function(str) {
+            if(str.substr(-1) == '/') {
+                return str.substr(0, str.length - 1);
+            }
+
+            return str;
+        },
+
         onFBShareClick: function(ev) {
             ev.preventDefault();
 
+            var siteUrl = this.stripTrailingSlash(location.href);
+
             FB.ui({
                 method: 'feed',
-                link: location.href,
+                link: siteUrl,
+                picture: siteUrl + AlbumCover.artPhoto,
                 caption: "Nas changed the face of rap music back in '94 when he released Illmatic. Now it's your turn. Make your IllmaticXX cover at http://illmaticXX.nasirjones.com/ #IllmaticXX"
             }, function(response){});
         },

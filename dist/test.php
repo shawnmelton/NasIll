@@ -1,6 +1,10 @@
 <?php
 require_once 'ss/config.php';
 
+$out = CheckdIn::createUser('John', 'Doe', 'john.doe@test.com');
+var_dump($out);
+exit;
+
 // Brae's face
 $zoom = 1;
 $cropX = 48;

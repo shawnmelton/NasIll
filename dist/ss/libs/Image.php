@@ -5,12 +5,12 @@ class Image {
     private $height;
 
     public function __construct($file) {
-        if(preg_match('/jpeg$|jpg$/i', $file)) {
-            $this->resource = imagecreatefromjpeg($file);
+        if(preg_match('/png$/i', $file)) {
+            $this->resource = imagecreatefrompng($file);
         } else if(preg_match('/gif$/i', $file)) {
             $this->resource = imagecreatefromgif($file);
         } else {
-            $this->resource = imagecreatefrompng($file);
+            $this->resource = imagecreatefromjpeg($file);
         }
         
         $this->setDimensions();
