@@ -97,7 +97,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'tools/device', 't
             this.currentImg = imgPlace;
             this.imgSet = imgSet;
 
-            document.getElementsByTagName('body')[0].className = 'overlay';
+            document.getElementsByTagName('body')[0].className = 'overlay mOverlay';
 
             if(this.rendered === false) {
                 this.$el.append(JST['src/js/templates/lightbox.html']({

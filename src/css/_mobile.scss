@@ -7,7 +7,7 @@
             background: url(../img/mobile-bg.png) no-repeat 0 0;
             padding: 75px 0 8px;
 
-            &.overlay {
+            &.mOverlay {
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -96,7 +96,7 @@
                 display: block;
                 width: 158px;
                 height: 21px;
-                background-position: -1660px 0;
+                background-position: -1661px 0;
             }
         }
 
@@ -262,7 +262,8 @@
     }
 
     #gallery {
-        width: 265px;
+        width: 210px;
+        padding: 0 55px;
 
         >h1 {
             @include mSprite();
@@ -276,28 +277,28 @@
         >a.gArrow {
             top: 140px;
 
-            &#gPrev { left: 7px; }
-            &#gNext { right: 7px; }
+            &#gPrev { left: 2px; }
+            &#gNext { right: 2px; }
         }
 
         #gBackLink {
-            @include mSpriteButton();
+            @include button();
 
+            background: url(../img/mBackHome.png) no-repeat 0 0;
             position: absolute;
             top: 5px;
-            right: 7px;
-            width: 160px;
+            right: 2px;
+            width: 120px;
             height: 35px;
-            background-position: -118px 0;
 
-            &:active { background-position: -118px -35px; }
+            &:active { background-position: 0px -35px; }
         }
 
         #gArt {
             >div {
                 >img {
-                    width: 81px;
-                    height: 78px;
+                    width: 63px;
+                    height: 60px;
                 }
             }
         }
@@ -326,8 +327,11 @@
                     width: 29px;
                     height: 19px;
                     background-image: url(../img/arrow-next-mobile.png);
+                    margin-left: 20px;
 
                     &:first-child {
+                        margin-left: 0;
+                        margin-right: 20px;
                         width: 34px;
                         height: 14px;
                         background-image: url(../img/arrow-previous-mobile.png);
@@ -335,7 +339,7 @@
                 }
             }
 
-            #lbImgWrapper { width: 165px; }
+            #lbImgWrapper { width: 205px; }
         }
     }
 }

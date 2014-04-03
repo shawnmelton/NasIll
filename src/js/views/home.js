@@ -70,7 +70,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/user', 'tools/device'],
             if(!this.rendered) {
                 this.rendered = true;
                 this.$el.append(JST['src/js/templates/home.html']({
-                    forwardToDesktopLink: 'mailto:?subject='+ encodeURIComponent('Reminder to check out Nas\' Illmatic Cover Generator on Desktop!') +'&body='+ encodeURIComponent('Visit '+ location.href +' and celebrate the 20th anniversary edition of Nas\' Illmatic by making your own version of the classic cover art.')
+                    forwardToDesktopLink: 'mailto:?subject='+ encodeURIComponent('Nas Illmatic') +'&body='+ encodeURIComponent('Nas changed the face of rap music back in \'94 when he released Illmatic. Now it\'s your turn. Make your IllmaticXX cover at http://illmaticXX.nasirjones.com/ #IllmaticXX')
                 }));
             } else {
                 this.section.fadeIn();
