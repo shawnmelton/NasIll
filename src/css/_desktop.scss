@@ -16,7 +16,10 @@
                 >div {
                     float: left;
 
-                    >p { line-height: 14px; }
+                    >p {
+                        line-height: 28px;
+                        min-height: 28px;
+                    }
                 }
 
                 >p { 
@@ -97,6 +100,7 @@
         }
 
         #connectWithEmail {
+            display: none;
             margin-left: 135px;
 
             #hUploadLink {

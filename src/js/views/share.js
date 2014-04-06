@@ -26,7 +26,8 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover'], function($,
                 method: 'feed',
                 link: siteUrl,
                 picture: siteUrl + AlbumCover.artPhoto,
-                caption: "Nas changed the face of rap music back in '94 when he released Illmatic. Now it's your turn. Make your IllmaticXX cover at http://illmaticXX.nasirjones.com/ #IllmaticXX"
+                name: 'Nas Illmatic - Still Ill',
+                description: "Nas changed the face of rap music back in '94 when he released Illmatic. Now it's your turn. Make your IllmaticXX cover at http://illmaticXX.nasirjones.com/ #IllmaticXX"
             }, function(response){});
         },
 
@@ -42,7 +43,7 @@ define(['jquery', 'backbone', 'templates/jst', 'models/albumCover'], function($,
                 this.rendered = true;
                 this.$el.append(JST['src/js/templates/share.html']({
                     photoUrl: AlbumCover.artPhoto,
-                    twShareMsg: encodeURIComponent("Nas changed the face of rap music back in '94 when he released Illmatic. Now it's your turn. http://illmaticXX.nasirjones.com/ #IllmaticXX")
+                    twShareMsg: encodeURIComponent("Nas - still ill. #IllmaticXX http://illmaticXX.nasirjones.com http://illmaticXX.nasirjones.com"+ AlbumCover.artPhoto)
                 }));
             } else {
                 document.getElementById('sAlbumArt').src = AlbumCover.artPhoto;
