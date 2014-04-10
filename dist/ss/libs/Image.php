@@ -63,70 +63,6 @@ class Image {
         $this->setDimensions();
     }
 
-    /*public function cropFace() {
-        $faceWidth = 160;
-        $faceHeight = 250;
-
-        // Create a black image with a transparent ellipse, and merge with destination
-        $mask = imagecreatetruecolor($this->width, $this->height);
-        $maskTransparent = imagecolorallocate($mask, 255, 0, 255);
-        imagecolortransparent($mask, $maskTransparent);
-        imagefilledellipse($mask, $this->width / 2, $this->height / 2, $faceWidth, $faceHeight, $maskTransparent);
-        imagecopymerge($this->resource, $mask, 0, 0, 0, 0, $this->width, $this->height, 100);
-
-        // Fill each corners of destination image with transparency
-        $dstTransparent = imagecolorallocate($this->resource, 255, 0, 255);
-        imagefill($this->resource, 0, 0, $dstTransparent);
-        imagefill($this->resource, $this->width - 1, 0, $dstTransparent);
-        imagefill($this->resource, 0, $this->height - 1, $dstTransparent);
-        imagefill($this->resource, $this->width - 1, $this->height - 1, $dstTransparent);
-        imagecolortransparent($this->resource, $dstTransparent);
-
-        // Crop image to just the ellipse
-        $mask = imagecreatetruecolor($faceWidth, $faceHeight);
-        $maskTransparent = imagecolorallocate($mask, 255, 0, 255);
-        imagecolortransparent($mask, $maskTransparent);
-        imagecopy($mask, $this->resource, 0, 0, ($this->width - $faceWidth) / 2, ($this->height - $faceHeight) / 2, $faceWidth, $faceHeight);
-        $this->resource = $mask;
-
-        // Resize ellipse to fill album cover
-        $newFaceWidth = 340;
-        $newFaceHeight = 475;
-
-        $newImg = imagecreatetruecolor($newFaceWidth, $newFaceHeight);
-        imagealphablending($newImg, false);
-        imagesavealpha($newImg, true);
-        $transparent = imagecolorallocatealpha($newImg, 0, 0, 0, 127);
-        imagefilledrectangle($newImg, 0, 0, $newFaceWidth, $newFaceHeight, $transparent);
-        imagecolortransparent($newImg, $transparent);
-        imagecopyresampled($newImg, $this->resource, 0, 0, 0, 0, $newFaceWidth, $newFaceHeight, imagesx($this->resource), imagesy($this->resource));
-        $this->resource = $newImg;
-
-        $this->setDimensions();
-
-        // Create a black image with a transparent ellipse, and merge with destination
-        $mask = imagecreatetruecolor($this->width, $this->height);
-        $maskTransparent = imagecolorallocate($mask, 255, 0, 255);
-        imagecolortransparent($mask, $maskTransparent);
-        imagefilledellipse($mask, $this->width / 2, $this->height / 2, $newFaceWidth, $newFaceHeight, $maskTransparent);
-        imagecopymerge($this->resource, $mask, 0, 0, 0, 0, $this->width, $this->height, 100);
-
-        // Fill each corners of destination image with transparency
-        $dstTransparent = imagecolorallocate($this->resource, 255, 0, 255);
-        imagefill($this->resource, 0, 0, $dstTransparent);
-        imagefill($this->resource, $this->width - 1, 0, $dstTransparent);
-        imagefill($this->resource, 0, $this->height - 1, $dstTransparent);
-        imagefill($this->resource, $this->width - 1, $this->height - 1, $dstTransparent);
-        imagecolortransparent($this->resource, $dstTransparent);
-
-        // Crop image to just the ellipse
-        $mask = imagecreatetruecolor($newFaceWidth, $newFaceHeight);
-        $maskTransparent = imagecolorallocate($mask, 255, 0, 255);
-        imagecolortransparent($mask, $maskTransparent);
-        imagecopy($mask, $this->resource, 0, 0, ($this->width - $newFaceWidth) / 2, ($this->height - $newFaceHeight) / 2, $newFaceWidth, $newFaceHeight);
-        $this->resource = $mask;
-    }*/
-
     private function getColor($colorArr) {
         return imagecolorallocate($this->resource, $colorArr[0], $colorArr[1], $colorArr[2]);
     }
@@ -287,15 +223,34 @@ class Image {
             mkdir($directory, 0777, true);
         }
 
-        $fileName = $directory .'/art-'. time() .'-'. rand(0, 10000) .'.jpg';
+        $file = 'art-'. time() .'-'. rand(0, 10000) .'.jpg';
+        $fileName = $directory .'/'. $file;
         if(imagejpeg($this->resource, $fileName)) {
             CurrentAlbumCover::get()->setArtPhoto($fileName);
             CurrentAlbumCover::get()->save();
-            imagedestroy($this->resource);
 
+            $this->storeFBShareImg($file);
+
+            imagedestroy($this->resource);
             return true;
         }
 
         return false;
+    }
+
+    public function storeFBShareImg($file) {
+        $jpg = imagecreatefromjpeg(dirname(dirname(dirname(__FILE__))) .'/img/facebookShareLayer.jpg');
+        imagecopymerge($jpg, $this->resource, 0, 0, 0, 0, imagesx($this->resource), imagesy($this->resource), 100);
+
+        $directory = dirname(dirname(__FILE__)) .'/uploads/'. date('m/d/G');
+        if(!is_dir($directory)) {
+            mkdir($directory, 0777, true);
+        }
+
+        $file = 'fb-'. $file;
+        $fileName = $directory .'/'. $file;
+        if(imagejpeg($jpg, $fileName)) {
+            imagedestroy($jpg);
+        }
     }
 }

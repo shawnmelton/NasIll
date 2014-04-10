@@ -1,10 +1,6 @@
 <?php
 require_once 'ss/config.php';
 
-$out = CheckdIn::createUser('John', 'Doe', 'john.doe@test.com');
-var_dump($out);
-exit;
-
 // Brae's face
 $zoom = 1;
 $cropX = 48;
@@ -45,11 +41,7 @@ $img->overlayOrangeHue();
 $img->overlayTopLayer();
 $img->overlayText(strtolower($text), array(159, 56, 29));
 
+$img->storeFBShareImg(); exit;
+
 $img->output();
-
-$albums = new AlbumCovers();
-print_r($albums->getArt(0, 20));
-
-$user = CurrentUser::get();
-var_dump($user->find());
 
