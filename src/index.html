@@ -8,19 +8,19 @@
         <!--[if lt IE 9]><script src="/js/html5.js"></script>
         <script src="/js/mediaqueries.js"></script>
         <script type="text/javascript">window.lteie8 = true;</script><![endif]-->
-        <script type="text/javascript" src="/js/app.js"></script>
+        <script type="text/javascript">
+            var lazyLoad = function() {
+                var scriptTag = document.createElement('script'); 
+                scriptTag.src = "/js/app.js";
+                scriptTag.type = 'text/javascript';
+                scriptTag.async = true;
+                document.getElementsByTagName('head')[0].appendChild(scriptTag);
+            }
+        </script>
     </head>
-    <body>
+    <body onload="lazyLoad();">
         <div id="fb-root"></div>
         <script>
-            (function() {
-                var e = document.createElement("script");
-                e.type = "text/javascript"; e.async = true;
-                e.src = "http" + (document.location.protocol === "https:" ? "s://ssl" : "://") + "tag.myplay.com/t/a/" + document.location.hostname;
-                var s = document.getElementsByTagName("script")[0];
-                s.parentNode.insertBefore(e, s);
-            })();
-            
             window.fbAsyncInit = function() {
                 FB.init({
                     appId: /*'170660236421100',*/ '281586151994965',
@@ -34,12 +34,12 @@
                 if (d.getElementById(id)) {return;}
                 js = d.createElement(s); js.id = id;
                 js.src = "//connect.facebook.net/en_US/all.js";
+                js.async = true;
                 fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));
         </script>
         <div id="content"></div>
         <div id="spotify"></div>
-        <iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/28885261%3Fsecret_token%3Ds-krTDz&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_artwork=true"></iframe>
         <div id="terms" class="clearfix textDarkGrey">
             <p class="clearfix">
                 <a target="_blank" href="https://www.facebook.com/Nas"><span>Facebook</span></a>
@@ -49,31 +49,5 @@
                 <p><a target="_blank" href="/docs/official-rules.pdf">Official Rules</a>, <a target="_blank" href="http://www.sonymusic.com/privacy-policy/">Privacy Policy</a>, and <a href="mailto:support+nas@checkd.in">Help</a></p>
             </div>
         </div>
-        <script type="text/javascript">
-            /* <![CDATA[ */
-            var google_conversion_id = 1003394736;
-            var google_conversion_label = "QmHsCOjuhggQsK263gM";
-            var google_custom_params = window.google_tag_params;
-            var google_remarketing_only = true;
-            /* ]]> */
-        </script>
-        <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
-        <noscript>
-            <div style="display:inline;">
-                <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/1003394736/?value=0&label=QmHsCOjuhggQsK263gM&guid=ON&script=0"/>
-            </div>
-        </noscript>
-        <script type="text/javascript">
-            var clicky_site_ids = clicky_site_ids || [];
-            clicky_site_ids.push(100722915);
-            (function() {
-              var s = document.createElement('script');
-              s.type = 'text/javascript';
-              s.async = true;
-              s.src = '//static.getclicky.com/js';
-              ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
-            })();
-        </script>
-        <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100722915ns.gif" /></p></noscript>
     </body>
 </html>

@@ -1,8 +1,8 @@
 html {
     font-family: arial;
     font-size: 14px;
-    background-color: #ff9f00;
-    color: #fff;
+    background-color: #000;
+    color: #333;
     background-position: top center;
     background-repeat: no-repeat;
 
@@ -13,9 +13,10 @@ html {
 
         >#terms {
             margin: 25px auto 0;
+            color: #777;
 
             a {
-                color: #333;
+                color: #777;
                 text-decoration: none;
                 font-weight: bold;
 
